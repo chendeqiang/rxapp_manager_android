@@ -5,4 +5,7 @@ package com.it.rxapp_manager_android.utils
  */
 object Constants {
     const val permissionMain: Int = 1
+    const val TITLE = "title"
+    const val URL = "url"
+    const val RX_VERSION = "rx_version"
 }

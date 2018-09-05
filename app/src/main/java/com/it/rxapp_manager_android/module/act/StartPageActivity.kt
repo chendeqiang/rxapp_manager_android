@@ -1,4 +1,4 @@
-package com.it.rxapp_manager_android
+package com.it.rxapp_manager_android.module.act
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -6,13 +6,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import com.it.rxapp_manager_android.MyApplication
+import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.utils.Constants
 import com.it.rxapp_manager_android.utils.LogUtils
 
 /**
  * Created by deqiangchen on 2018/8/1 15:45
  */
-class StartPageActivity:BaseActivity() {
+class StartPageActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.d("classname", this::class.java.name)
@@ -30,7 +32,7 @@ class StartPageActivity:BaseActivity() {
                 return
             }
         }
-        MainActivity.startMainActivity(this)
+        LoginActivity.startLoginActivity(this)
         finish()
     }
 
@@ -47,14 +49,14 @@ class StartPageActivity:BaseActivity() {
         if (list.isNotEmpty()) {
             ActivityCompat.requestPermissions(this, list.toArray(Array<String>(list.size, { i -> i.toString() })), Constants.permissionMain)
         } else {
-            if(MyApplication.isMainActivityLive){
+            if (MyApplication.isMainActivityLive) {
                 finish()
                 return
             }
             Handler().postDelayed(Runnable {
-                MainActivity.startMainActivity(this)
+                LoginActivity.startLoginActivity(this)
                 finish()
-            },5000)
+            }, 5000)
         }
     }
 }

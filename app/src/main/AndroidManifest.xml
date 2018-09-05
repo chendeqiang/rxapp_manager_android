@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -25,7 +27,7 @@
             android:value="5b5fe0578f4a9d01980000e7"/>
 
         <activity
-            android:name=".StartPageActivity"
+            android:name=".module.act.StartPageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -36,9 +38,29 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".module.act.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.act.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.act.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.act.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".module.base.download.UpdateVersionActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/translucent"/>
     </application>
 
 </manifest>

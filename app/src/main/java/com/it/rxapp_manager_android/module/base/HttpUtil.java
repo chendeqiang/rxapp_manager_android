@@ -1,4 +1,4 @@
-package com.it.rxapp_manager_android.module;
+package com.it.rxapp_manager_android.module.base;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

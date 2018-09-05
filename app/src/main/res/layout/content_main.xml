@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context="com.it.rxapp_manager_android.module.act.MainActivity"
+                tools:showIn="@layout/app_bar_main">
+
+    <RelativeLayout
+        android:id="@+id/rl_notice"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@drawable/tv_boder"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:src="@drawable/ic_notice"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/item_margin"
+            android:layout_marginRight="@dimen/default_height"
+            android:text="公告"
+            android:textColor="@color/text_color_black_gray"
+            android:textSize="@dimen/text_size_16"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/default_margin40"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:src="@drawable/ic_home_bg"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/default_height"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginRight="@dimen/default_margin"
+        android:background="@color/colorButtonBg"
+        android:text="@string/enter"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_18"
+        android:visibility="gone"/>
+
+</RelativeLayout>

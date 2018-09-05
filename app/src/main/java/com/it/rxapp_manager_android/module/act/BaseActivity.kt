@@ -1,11 +1,13 @@
-package com.it.rxapp_manager_android
+package com.it.rxapp_manager_android.module.act
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.WindowManager
-import com.it.rxapp_manager_android.module.HttpUtil
+import com.it.rxapp_manager_android.MyApplication
+import com.it.rxapp_manager_android.R
+import com.it.rxapp_manager_android.module.base.HttpUtil
 import com.umeng.analytics.MobclickAgent
 
 /**

@@ -2,10 +2,10 @@ package com.it.rxapp_manager_android;
 
 import android.app.Application;
 
-import com.it.rxapp_manager_android.module.AppComponent;
-import com.it.rxapp_manager_android.module.AppModule;
-import com.it.rxapp_manager_android.module.ComponentHolder;
-import com.it.rxapp_manager_android.module.DaggerAppComponent;
+import com.it.rxapp_manager_android.module.base.AppComponent;
+import com.it.rxapp_manager_android.module.base.AppModule;
+import com.it.rxapp_manager_android.module.base.ComponentHolder;
+import com.it.rxapp_manager_android.module.base.DaggerAppComponent;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.umeng.analytics.MobclickAgent;
