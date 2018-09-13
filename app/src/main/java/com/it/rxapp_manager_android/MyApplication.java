@@ -2,6 +2,8 @@ package com.it.rxapp_manager_android;
 
 import android.app.Application;
 
+import com.baidu.mapapi.CoordType;
+import com.baidu.mapapi.SDKInitializer;
 import com.it.rxapp_manager_android.module.base.AppComponent;
 import com.it.rxapp_manager_android.module.base.AppModule;
 import com.it.rxapp_manager_android.module.base.ComponentHolder;
@@ -31,13 +33,16 @@ public class MyApplication extends Application {
     }
 
     @Subscribe
-    public void startApp(Object o){
+    public void startApp(Object o) {
         //umeng
         MobclickAgent.setDebugMode(false);
         MobclickAgent.setCatchUncaughtExceptions(true);
         MobclickAgent.enableEncrypt(true);//6.0.0版本及以后
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
 
+        //baidu
+        SDKInitializer.initialize(getApplicationContext());
+        SDKInitializer.setCoordType(CoordType.GCJ02);
         bus.unregister(this);
     }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/line_color"
+              android:orientation="vertical"
+              android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tv_bill_month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="2018-08"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_size_18"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="总收入：￥"/>
+
+        <TextView
+            android:id="@+id/tv_bill_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12800"/>
+
+    </LinearLayout>
+
+</LinearLayout>

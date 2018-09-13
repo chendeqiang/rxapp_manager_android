@@ -8,4 +8,6 @@ object Constants {
     const val TITLE = "title"
     const val URL = "url"
     const val RX_VERSION = "rx_version"
+    const val USER_NO = "user_no"
+    const val ORDER_NO = "order_no"
 }

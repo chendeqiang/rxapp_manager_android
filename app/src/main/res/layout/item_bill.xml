@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_driver_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张三"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_18"/>
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_driver_name"
+            android:text="（经济）"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_18"/>
+
+        <TextView
+            android:id="@+id/tv_driver_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/default_margin"
+            android:text="1800.00"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_18"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_driver_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收入￥ 2000"
+            android:textSize="@dimen/text_size_16"/>
+
+        <TextView
+            android:id="@+id/tv_driver_punish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin40"
+            android:text="处罚￥ 200"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+</LinearLayout>

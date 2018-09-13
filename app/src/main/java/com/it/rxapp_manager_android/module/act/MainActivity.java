@@ -100,14 +100,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_drivers://司机管理
+                DriversActivity.startDriversActivity(this, userNo);
                 break;
             case R.id.ll_orders://订单管理
+                OrdersActivity.startOrdersActivity(this, userNo);
                 break;
             case R.id.ll_car://车辆管理
+                CarsActivity.startCarsActivity(this, userNo);
                 break;
             case R.id.ll_valuation://计价管理
+                SearchRouteActivity.startSearchRouteActivity(this);
                 break;
-            case R.id.ll_count://统计管理
+            case R.id.ll_count://统计账单
+                BillActivity.startBillActivity(this, userNo);
                 break;
             case R.id.ll_rule://服务规范
                 WebViewActivity.startWebViewActivity(this, "服务规范", "http://www.mxingo.com/mxnet/app/serviceSpec.html");
