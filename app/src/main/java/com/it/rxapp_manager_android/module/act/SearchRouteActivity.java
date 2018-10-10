@@ -10,10 +10,13 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.MapView;
 import com.it.rxapp_manager_android.R;
+import com.it.rxapp_manager_android.modle.OrderEntity;
+import com.it.rxapp_manager_android.modle.OrderInfoEntity;
 import com.it.rxapp_manager_android.module.base.ComponentHolder;
 import com.it.rxapp_manager_android.module.base.MyPresenter;
 import com.it.rxapp_manager_android.utils.Constants;
 import com.it.rxapp_manager_android.widget.MyProgress;
+import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -36,16 +39,13 @@ public class SearchRouteActivity extends BaseActivity {
     MapView mMapViewSearch;
     private MyProgress progress;
     private RoutePlanSearchUtil searchUtil;
+    private String orderNo;
+    private OrderEntity order;
 
 
-//    public static void startSearchRouteActivity(Context context, String orderNo, String userNo) {
-//        context.startActivity(new Intent(context, SearchRouteActivity.class)
-//                .putExtra(Constants.ORDER_NO, orderNo)
-//                .putExtra(Constants.USER_NO, userNo));
-//    }
-
-    public static void startSearchRouteActivity(Context context) {
-        context.startActivity(new Intent(context, SearchRouteActivity.class));
+    public static void startSearchRouteActivity(Context context, String orderNo) {
+        context.startActivity(new Intent(context, SearchRouteActivity.class)
+                .putExtra(Constants.ORDER_NO, orderNo));
     }
 
     @Override
@@ -60,9 +60,26 @@ public class SearchRouteActivity extends BaseActivity {
 
         presenter.register(this);
         progress = new MyProgress(this);
+        orderNo = getIntent().getStringExtra(Constants.ORDER_NO);
         setToolbar(mToolbar);
         mTvToolbarTitle.setText("路线详情");
-        routePlan(30.248061, 120.451534, 30.281307, 120.170892);
+        progress.show();
+//        presenter.qryOrder(orderNo);
+    }
+
+    @Subscribe
+    public void loadData(Object object) {
+        if (object.getClass() == OrderInfoEntity.class) {
+            route((OrderInfoEntity) object);
+            progress.dismiss();
+        }
+    }
+
+    private void route(OrderInfoEntity object) {
+        if (object.rspCode.equals("00")) {
+            order = object.order;
+            routePlan(order.startLat, order.startLon, order.endLat, order.endLon);
+        }
     }
 
 

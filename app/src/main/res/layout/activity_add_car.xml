@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <include layout="@layout/action_bar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_car_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin40"
+            android:text="车牌号码:"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+
+        <EditText
+            android:id="@+id/et_car_no"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:background="@drawable/btn_gray_box"
+            android:hint="请输入车牌"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_car_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_car_no"
+        android:layout_marginLeft="@dimen/default_margin40"
+        android:layout_marginTop="@dimen/default_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="车辆类型:"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+
+        <TextView
+            android:id="@+id/tv_car_type"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:background="@drawable/btn_gray_box"
+            android:padding="8dp"
+            android:text="请选择车型"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_car_type"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/default_margin40"
+        android:background="@drawable/btn_gold_round"
+        android:text="保存"/>
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DCDCDC"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/selector_key"
+        android:keyTextColor="#000"
+        android:keyTextSize="18sp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:shadowColor="#FFFFFF"
+        android:shadowRadius="0.0"
+        android:visibility="gone"/>
+
+</RelativeLayout>

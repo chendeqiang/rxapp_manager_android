@@ -1,5 +1,6 @@
 package com.it.rxapp_manager_android.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -8,9 +9,20 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.it.rxapp_manager_android.modle.SearchCarEntity;
+import com.it.rxapp_manager_android.widget.ShowToast;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import cn.qqtheme.framework.util.ConvertUtils;
 
 
 /**
@@ -243,7 +255,7 @@ public class TextUtil {
 
     public static String getFormatString(long timeInminutes) {
         Date date = new Date(timeInminutes);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd号 HH:mm");//小写的mm表示的是分钟
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd号 HH:mm");//小写的mm表示的是分钟
         return sdf.format(date);
     }
 
@@ -305,6 +317,33 @@ public class TextUtil {
                 break;
         }
         return week;
+    }
+
+    public static List<SearchCarEntity> getCar(Activity activity) {
+        Type type = new TypeToken<List<SearchCarEntity>>() {
+        }.getType();
+        try {
+            return new Gson().fromJson(ConvertUtils.toString(activity.getAssets().open("car.json")), type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<SearchCarEntity>();
+    }
+
+    /**
+     * 验证车牌号
+     */
+    public boolean is_Car_number_NO(EditText editText) {
+        String car_number = editText.getText().toString().trim();
+        String car_num_Regex = "^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z][A-Z][警京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼]?[A-Z0-9]{4}[A-Z0-9挂学警港澳]$";
+        if (TextUtils.isEmpty(car_number)) {
+            return false;
+        } else if (car_number.matches(car_num_Regex)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

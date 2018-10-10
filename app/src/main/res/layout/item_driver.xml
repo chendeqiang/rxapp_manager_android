@@ -5,8 +5,9 @@
                 android:padding="@dimen/item_margin2">
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:id="@+id/iv_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_driver"/>
 
@@ -14,23 +15,33 @@
         android:id="@+id/ll_driver_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:orientation="vertical">
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/default_margin10"
+        android:layout_toRightOf="@+id/iv_driver"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tv_driver_name"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:lines="1"
             android:text="张三"
             android:textColor="@color/text_color_black"
-            android:textSize="@dimen/text_size_20"/>
+            android:textSize="@dimen/text_size_16"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin10"
+            android:background="@color/line_color"/>
 
         <TextView
             android:id="@+id/tv_driver_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin10"
             android:text="12345678912"
-            android:textSize="@dimen/text_size_18"/>
+            android:textSize="@dimen/text_size_14"/>
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/ll_driver_name"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_car"
@@ -61,7 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/default_margin"
         android:text="上线"
-        android:textSize="@dimen/text_size_16"/>
+        android:textSize="@dimen/text_size_14"/>
 
 </RelativeLayout>

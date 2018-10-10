@@ -18,7 +18,6 @@ public class UserInfoPreferences {
     private final String DEVTOKEN = "devToken";//cid
     private final String DRIVERNN = "driverNo";
     private final String LECHTOKEN = "token";
-    private final String CAR_TEAM = "car_team";
 
 
     public static UserInfoPreferences getInstance() {
@@ -75,16 +74,6 @@ public class UserInfoPreferences {
     public void setToken(String lechtoken) {
         SharedPreferences.Editor edit = sharedPreference.edit();
         edit.putString(LECHTOKEN, lechtoken + "");
-        edit.apply();
-    }
-
-    public String getCarTeam() {
-        return sharedPreference.getString(CAR_TEAM, "");
-    }
-
-    public void setCarTeam(String carTeam) {
-        SharedPreferences.Editor edit = sharedPreference.edit();
-        edit.putString(CAR_TEAM, carTeam + "");
         edit.apply();
     }
 

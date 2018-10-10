@@ -21,11 +21,11 @@
                 android:id="@+id/civ_head"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginTop="@dimen/item_margin"
+                android:layout_marginTop="@dimen/item_margin2"
                 android:src="@drawable/ic_default_head"/>
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin"
@@ -38,11 +38,41 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16"/>
+                android:textSize="@dimen/text_size_16"
+                android:visibility="gone"/>
         </LinearLayout>
 
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_orders"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_item_height"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/ic_height"
+            android:layout_height="@dimen/ic_height"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:src="@drawable/ic_order"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:drawableRight="@drawable/ic_gree_arrow"
+            android:paddingRight="@dimen/default_margin"
+            android:text="车队订单"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"/>
 
     <LinearLayout
         android:id="@+id/ll_drivers"
@@ -67,70 +97,6 @@
             android:textSize="@dimen/text_size_16"/>
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line_color"/>
-
-    <LinearLayout
-        android:id="@+id/ll_orders"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/nav_item_height"
-        android:gravity="center_vertical">
-
-        <ImageView
-            android:layout_width="@dimen/ic_height"
-            android:layout_height="@dimen/ic_height"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:src="@drawable/ic_order"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin"
-            android:text="车队订单"
-            android:textColor="@color/text_color_black"
-            android:textSize="@dimen/text_size_16"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/default_margin"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="待服务"
-                    android:textColor="@color/text_color_gray"
-                    android:textSize="@dimen/text_size_15"/>
-
-                <TextView
-                    android:id="@+id/tv_recv_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/item_margin"
-                    android:layout_marginRight="@dimen/item_margin"
-                    android:text="0"
-                    android:textColor="@color/text_color_red"
-                    android:textSize="@dimen/text_size_15"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_gree_arrow"
-                    android:textColor="@color/text_color_black"/>
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -156,6 +122,34 @@
             android:drawableRight="@drawable/ic_gree_arrow"
             android:paddingRight="@dimen/default_margin"
             android:text="车辆管理"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"/>
+
+    <LinearLayout
+        android:id="@+id/ll_driver_car"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_item_height"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/ic_height"
+            android:layout_height="@dimen/ic_height"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:src="@drawable/ic_car_1"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:drawableRight="@drawable/ic_gree_arrow"
+            android:paddingRight="@dimen/default_margin"
+            android:text="司机车辆关系"
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_16"/>
     </LinearLayout>
@@ -272,6 +266,73 @@
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_16"/>
     </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"/>
+
+
+    <LinearLayout
+        android:id="@+id/ll_change_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_item_height"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/ic_height"
+            android:layout_height="@dimen/ic_height"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:src="@drawable/ic_check_version"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:drawableRight="@drawable/ic_gree_arrow"
+            android:paddingRight="@dimen/default_margin"
+            android:text="密码修改"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_check_version"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_item_height"
+        android:visibility="gone">
+
+
+        <ImageView
+            android:id="@+id/img_check_version"
+            android:layout_width="@dimen/ic_height"
+            android:layout_height="@dimen/ic_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:src="@drawable/ic_check_version"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_toRightOf="@+id/img_check_version"
+            android:text="版本更新"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+
+        <TextView
+            android:id="@+id/tv_check_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/default_margin"
+            android:text="v_1.0.0"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_16"/>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

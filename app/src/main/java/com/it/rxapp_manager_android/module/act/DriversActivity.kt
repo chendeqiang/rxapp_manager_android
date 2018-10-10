@@ -3,27 +3,39 @@ package com.it.rxapp_manager_android.module.act
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
+import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ListView
 import com.it.rxapp_manager_android.R
+import com.it.rxapp_manager_android.dialog.MessageDialog
+import com.it.rxapp_manager_android.modle.CommEntity
+import com.it.rxapp_manager_android.modle.ListDriverEntity
+import com.it.rxapp_manager_android.module.adapter.DriverAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
 import com.it.rxapp_manager_android.widget.MyProgress
+import com.it.rxapp_manager_android.widget.OrderFooterView
+import com.it.rxapp_manager_android.widget.ShowToast
+import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
 /**
  * Created by deqiangchen on 2018/9/6 14:00
  */
-class DriversActivity : BaseActivity() {
+class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdapter.onItemChangeListener {
 
     private lateinit var ivBack: ImageView
     private lateinit var ivAdd: ImageView
     private lateinit var lvDrivers: ListView
     private lateinit var srlRefresh: SwipeRefreshLayout
+    private lateinit var footerView: OrderFooterView
     private lateinit var llEmpty: LinearLayout
+    private lateinit var adapter: DriverAdapter
+
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
@@ -62,6 +74,99 @@ class DriversActivity : BaseActivity() {
         ivAdd = findViewById(R.id.iv_add_driver) as ImageView
         ivAdd.setOnClickListener {
             //跳转至添加司机界面
+            CreateDriverActivity.startCreateDriverActivity(this, userNo)
         }
+        adapter = DriverAdapter(this, arrayListOf())
+        lvDrivers.adapter = adapter
+        footerView = OrderFooterView(this)
+        lvDrivers.addFooterView(footerView)
+        adapter.setOnItemChangeClickListener(this)
+        lvDrivers.setOnScrollListener(this)
+        srlRefresh.setOnRefreshListener {
+            pageIndex = 0
+            adapter.clear()
+            progress.show()
+            presenter.listDriver(userNo, pageIndex, pageCount)
+        }
+        srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
+    }
+
+    override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+        if (totalItemCount == 0)
+            return
+        if (firstVisibleItem + visibleItemCount == totalItemCount) {
+            val lastItemView = lvDrivers.getChildAt(lvDrivers.childCount - 1)
+            if (lvDrivers.bottom == lastItemView.bottom) {
+                if (footerView.refresh) {
+                    pageIndex += pageCount
+                    presenter.listDriver(userNo, pageIndex, pageCount)
+                }
+            }
+        }
+    }
+
+    override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
+    }
+
+    @Subscribe
+    fun loadData(any: Any) {
+        if (any::class == ListDriverEntity::class) {
+            var data = any as ListDriverEntity
+            if (data.rspCode.equals("00")) {
+                adapter.addAll(data.drivers)
+                footerView.refresh = data.drivers.size >= pageCount
+            }
+            srlRefresh.isRefreshing = false
+        } else if (any::class == CommEntity::class) {
+            var data = any as CommEntity
+            if (data.rspCode.equals("00")) {
+                ShowToast.showBottom(this, "成功")
+            }
+        }
+        progress.dismiss()
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        pageIndex = 0
+        adapter.clear()
+        progress.show()
+        presenter.listDriver(userNo, pageIndex, pageCount)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unregister(this)
+    }
+
+    override fun onEnableClick(i: Int) {
+        var driver = lvDrivers.getItemAtPosition(i) as ListDriverEntity.DriversBean
+        val dialog = MessageDialog(this)
+        dialog.setMessageText("确定上线该司机吗?")
+        dialog.setOnCancelClickListener {
+            dialog.dismiss()
+        }
+        dialog.setOnOkClickListener {
+            dialog.dismiss()
+            progress.show()
+            presenter.enableDriver(driver.no)
+        }
+        dialog.show()
+    }
+
+    override fun onDisableClick(i: Int) {
+        var driver = lvDrivers.getItemAtPosition(i) as ListDriverEntity.DriversBean
+        val dialog = MessageDialog(this)
+        dialog.setMessageText("确定下线该司机吗?")
+        dialog.setOnCancelClickListener {
+            dialog.dismiss()
+        }
+        dialog.setOnOkClickListener {
+            dialog.dismiss()
+            progress.show()
+            presenter.disableDriver(driver.no)
+        }
+        dialog.show()
     }
 }

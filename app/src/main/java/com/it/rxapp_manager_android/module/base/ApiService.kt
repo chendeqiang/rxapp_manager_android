@@ -1,33 +1,57 @@
 package com.it.rxapp_manager_android.module.base
 
-import com.it.rxapp_manager_android.modle.CommEntity
-import com.it.rxapp_manager_android.modle.LoginEntity
-import com.it.rxapp_manager_android.modle.LogoutEntity
-import com.it.rxapp_manager_android.modle.UserinfoEntity
+import com.it.rxapp_manager_android.modle.*
 import retrofit2.Call
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
+import retrofit2.http.*
 import java.util.*
 
 /**
  * Created by deqiangchen on 2018/9/3 14:49
  */
 interface ApiService {
-    @FormUrlEncoded
-    @POST(ApiConstants.getVcode)
-    fun getVcode(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
 
     @FormUrlEncoded
     @POST(ApiConstants.login)
     fun login(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<LoginEntity>
 
     @FormUrlEncoded
-    @POST(ApiConstants.logout)
-    fun logout(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<LogoutEntity>
+    @POST(ApiConstants.changepassword)
+    fun changePassword(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
 
     @FormUrlEncoded
-    @POST(ApiConstants.getInfo)
-    fun getInfo(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<UserinfoEntity>
+    @POST(ApiConstants.listdriver)
+    fun listDriver(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListDriverEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.adddriver)
+    fun addDriver(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<AddDriverEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.enabledriver)
+    fun enableDriver(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.disabledriver)
+    fun disableDriver(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.listcar)
+    fun listCar(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListCarEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.listorganizationinfo)
+    fun listOrganizationInfo(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<OrganizationInfoEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.listrelation)
+    fun listRelation(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListRelationEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.relation)
+    fun relation(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.addcar)
+    fun addCar(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<AddCarEntity>
+
 }

@@ -4,28 +4,31 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.TextView
+import android.util.Log
+import android.view.View
+import android.widget.*
 import com.it.rxapp_manager_android.R
+import com.it.rxapp_manager_android.modle.ListOrderEntity
+import com.it.rxapp_manager_android.module.adapter.OrderAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.MyTagButton
 import com.it.rxapp_manager_android.widget.OrderFooterView
+import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
 /**
  * Created by deqiangchen on 2018/9/6 10:51
  */
-class OrdersActivity : BaseActivity() {
+class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrollListener, TabLayout.OnTabSelectedListener {
 
     private lateinit var lvOrders: ListView
-    //    private lateinit var adapter: OrderAdapter
+    private lateinit var adapter: OrderAdapter
     private lateinit var tagButtons: Array<MyTagButton>
     private lateinit var orderFooterView: OrderFooterView
     private lateinit var srlRefresh: SwipeRefreshLayout
@@ -36,6 +39,7 @@ class OrdersActivity : BaseActivity() {
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
+    private var flowStatus: Int = 1
     private var orderType: Int = 0
     private var pageIndex: Int = 0
     private var pageCount: Int = 20
@@ -78,5 +82,104 @@ class OrdersActivity : BaseActivity() {
                 findViewById(R.id.btn_take_train) as MyTagButton,
                 findViewById(R.id.btn_send_train) as MyTagButton,
                 findViewById(R.id.btn_day_renter) as MyTagButton)
+
+        adapter = OrderAdapter(this, arrayListOf())
+        lvOrders.adapter = adapter
+        lvOrders.setOnItemClickListener { _, view, i, _ ->
+            if (view != orderFooterView) {
+                var data = adapter.getItem(i) as ListOrderEntity.OrderEntity
+                OrderInfoActivity.startOrderInfoActivity(this, data.orderNo, data.flowNo, userNo)
+            }
+        }
+        tagButtons.forEach {
+            it.setOnClickListener(this)
+        }
+        orderFooterView = OrderFooterView(this)
+        lvOrders.addFooterView(orderFooterView)
+        lvOrders.setOnScrollListener(this)
+        srlRefresh.setOnRefreshListener {
+            pageIndex = 0
+            adapter.clear()
+            progress.show()
+//            presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+        }
+        srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
+
+        tabOrder.addOnTabSelectedListener(this)
+        tagButtons[0].isSelected = true
+    }
+
+    override fun onClick(view: View?) {
+        tagButtons.forEach {
+            it.isSelected = false
+            if (it == view) {
+                orderType = tagButtons.indexOf(view)
+            }
+        }
+        if (view != null) {
+            (view as MyTagButton).isSelected = true
+        }
+
+        pageIndex = 0
+        adapter.clear()
+        progress.show()
+//        presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        pageIndex = 0
+        adapter.clear()
+        progress.show()
+//        presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+    }
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        flowStatus = tab!!.position + 1
+        pageIndex = 0
+        adapter.clear()
+        onClick(tagButtons[0])
+    }
+
+    override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+        if (totalItemCount == 0)
+            return
+        if (firstVisibleItem + visibleItemCount == totalItemCount) {
+            val lastItemView = lvOrders.getChildAt(lvOrders.childCount - 1)
+            if (lvOrders.bottom == lastItemView.bottom) {
+                if (orderFooterView.refresh) {
+                    pageIndex += pageCount
+//                    presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+                }
+            }
+        }
+    }
+
+    override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
+    }
+
+    @Subscribe
+    fun loadData(any: Any) {
+        if (any::class == ListOrderEntity::class) {
+            var data = any as ListOrderEntity
+            if (data.rspCode.equals("00")) {
+                adapter.addAll(data.order)
+                orderFooterView.refresh = data.order.size >= pageCount
+            }
+            srlRefresh.isRefreshing = false
+        }
+        progress.dismiss()
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unregister(this)
     }
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_order_arrange"
+        android:orderInCategory="100"
+        android:title="派工"
+        android:visible="true"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_order_revise"
+        android:orderInCategory="200"
+        android:title="改派"
+        android:visible="true"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_return2pool"
+        android:orderInCategory="300"
+        android:title="重回订单池"
+        android:visible="true"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_route"
+        android:orderInCategory="400"
+        android:title="位置"
+        android:visible="true"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_add_remark"
+        android:orderInCategory="500"
+        android:title="备注"
+        android:visible="true"
+        app:showAsAction="never"/>
+</menu>

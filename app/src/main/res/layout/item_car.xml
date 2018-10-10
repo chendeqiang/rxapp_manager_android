@@ -2,61 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/item_margin2">
-
-    <LinearLayout
-        android:id="@+id/ll_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_car_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="帕萨特"
-            android:textColor="@color/text_color_black"
-            android:textSize="@dimen/text_size_20"/>
-
-        <TextView
-            android:id="@+id/tv_car_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="苏E88888"
-            android:textSize="@dimen/text_size_18"/>
-    </LinearLayout>
+                android:padding="10dp">
 
     <ImageView
-        android:id="@+id/iv_car_edit"
+        android:id="@+id/iv_ic_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/default_margin"
-        android:layout_toRightOf="@id/ll_car"
-        android:padding="8dp"
-        android:src="@drawable/ic_edit"/>
+        android:src="@drawable/ic_car_2"/>
+
 
     <TextView
-        android:id="@+id/tv_car_source"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin40"
-        android:layout_toRightOf="@id/iv_car_edit"
-        android:text="自营"
-        android:textSize="@dimen/text_size_20"/>
-
-    <TextView
-        android:id="@+id/tv_car_stu"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_car_type"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/default_margin"
-        android:padding="@dimen/default_margin"
-        android:text="启用"
-        android:textSize="@dimen/text_size_20"/>
+        android:layout_marginLeft="@dimen/default_margin"
+        android:text="速腾"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"/>
+
+    <TextView
+        android:id="@+id/tv_car_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/default_margin2"
+        android:layout_toRightOf="@+id/tv_car_no"
+        android:text="舒适型"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_14"/>
+
+    <TextView
+        android:id="@+id/tv_car_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_toRightOf="@+id/iv_ic_car"
+        android:text="苏E66088"
+        android:textColor="@color/text_color_black_gray"
+        android:textSize="@dimen/text_size_14"/>
+
 
 </RelativeLayout>

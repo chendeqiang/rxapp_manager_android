@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="letter">
+        <item>A1</item>
+        <item>A2</item>
+        <item>A3</item>
+        <item>B1</item>
+        <item>B2</item>
+        <item>C1</item>
+        <item>C2</item>
+        <item>C3</item>
+    </string-array>
+    <string-array name="order">
+        <item>- - - - - 指派 - - - - -</item>
+        <item>- - - - - 抢单 - - - - -</item>
+        <item>- - - - - 竞价 - - - - -</item>
+    </string-array>
+</resources>

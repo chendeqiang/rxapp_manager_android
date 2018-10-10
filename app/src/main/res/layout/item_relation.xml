@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/default_padding">
+
+    <TextView
+        android:id="@+id/tv_driverName"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:lines="1"
+        android:text="张三"
+        android:textColor="@color/text_color_black_gray"
+        android:textSize="@dimen/text_size_16"/>
+
+    <TextView
+        android:id="@+id/tv_car1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_toRightOf="@+id/tv_driverName"
+        android:text="速腾"
+        android:textColor="@color/text_color_black_gray"
+        android:textSize="@dimen/text_size_14"/>
+
+    <TextView
+        android:id="@+id/tv_car2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/tv_car1"
+        android:text="(舒适型)"
+        android:textColor="@color/text_color_black_gray"
+        android:textSize="@dimen/text_size_14"/>
+
+    <TextView
+        android:id="@+id/tv_carNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/default_margin"
+        android:layout_toLeftOf="@+id/btn_change_relation"
+        android:text="苏E12345"
+        android:textColor="@color/text_color_black_gray"
+        android:textSize="@dimen/text_size_14"/>
+
+    <Button
+        android:id="@+id/btn_change_relation"
+        android:layout_width="45dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/btn_blue_box"
+        android:focusable="false"
+        android:text="编辑"
+        android:textColor="@color/text_color_blue"
+        android:textSize="@dimen/text_size_12"/>
+
+</RelativeLayout>

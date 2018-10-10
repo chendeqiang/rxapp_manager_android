@@ -2,6 +2,7 @@ package com.it.rxapp_manager_android.module.act;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,14 +17,9 @@ import android.widget.TextView;
 import com.it.rxapp_manager_android.MyApplication;
 import com.it.rxapp_manager_android.R;
 import com.it.rxapp_manager_android.dialog.MessageDialog;
-import com.it.rxapp_manager_android.modle.LogoutEntity;
-import com.it.rxapp_manager_android.modle.UserinfoEntity;
-import com.it.rxapp_manager_android.module.base.ComponentHolder;
 import com.it.rxapp_manager_android.module.base.MyPresenter;
 import com.it.rxapp_manager_android.module.base.data.UserInfoPreferences;
 import com.it.rxapp_manager_android.utils.StartUtil;
-import com.it.rxapp_manager_android.widget.MyProgress;
-import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
@@ -46,9 +42,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     DrawerLayout drawerLayout;
     private Button btnExit;
     private TextView tvName;
-    private TextView tvMobile;
     private String userNo;
-    private MyProgress progress;
 
     public static void startMainActivity(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
@@ -59,11 +53,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        progress = new MyProgress(this);
         userNo = UserInfoPreferences.getInstance().getDriverNo();
         initView();
-        ComponentHolder.getAppComponent().inject(this);
-        presenter.register(this);
 
         MyApplication.isMainActivityLive = true;
     }
@@ -82,8 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rlNotice.setOnClickListener(this);
 
         View view = navView.getHeaderView(0);
-        tvName = (TextView) view.findViewById(R.id.tv_name);
-        tvMobile = (TextView) view.findViewById(R.id.tv_mobile);
+        tvName = (TextView) view.findViewById(R.id.tv_user_name);
         btnExit = view.findViewById(R.id.btn_exit);
         btnExit.setOnClickListener(this);
         view.findViewById(R.id.ll_drivers).setOnClickListener(this);
@@ -94,6 +84,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         view.findViewById(R.id.ll_rule).setOnClickListener(this);
         view.findViewById(R.id.ll_setting).setOnClickListener(this);
         view.findViewById(R.id.ll_custom_service).setOnClickListener(this);
+        view.findViewById(R.id.ll_driver_car).setOnClickListener(this);
+        view.findViewById(R.id.ll_change_pwd).setOnClickListener(this);
+        tvName.setText(UserInfoPreferences.getInstance().getMobile());
     }
 
     @Override
@@ -106,10 +99,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 OrdersActivity.startOrdersActivity(this, userNo);
                 break;
             case R.id.ll_car://车辆管理
-                CarsActivity.startCarsActivity(this, userNo);
+                CarsActivity.startCarsActivity(this, userNo, 0);
+                break;
+            case R.id.ll_driver_car://司机车辆关系
+                RelationActivity.startRelationActivity(this, userNo);
                 break;
             case R.id.ll_valuation://计价管理
-                SearchRouteActivity.startSearchRouteActivity(this);
                 break;
             case R.id.ll_count://统计账单
                 BillActivity.startBillActivity(this, userNo);
@@ -118,13 +113,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 WebViewActivity.startWebViewActivity(this, "服务规范", "http://www.mxingo.com/mxnet/app/serviceSpec.html");
                 break;
             case R.id.ll_setting://用户设置
+                SettingActivity.startSettingActivity(this, userNo);
+                break;
+            case R.id.ll_change_pwd://密码修改
+                ChangePasswordActivity.startChangePasswordActivity(this);
                 break;
             case R.id.ll_custom_service://联系客服
                 callMobile("4008878810");
                 break;
             case R.id.btn_exit:
-                progress.show();
-                presenter.logout(userNo);
+                UserInfoPreferences.getInstance().clear();
+                LoginActivity.startLoginActivity(this);
+                finish();
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -164,35 +164,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (presenter != null) {
-            presenter.unregister(this);
-        }
         MyApplication.isMainActivityLive = false;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.getInfo(userNo);
-    }
-
-    @Subscribe
-    public void loadData(Object o) {
-        if (o.getClass() == LogoutEntity.class) {
-            UserInfoPreferences.getInstance().clear();
-            LoginActivity.startLoginActivity(this);
-            finish();
-        } else if (o.getClass() == UserinfoEntity.class) {
-            userInfo(o);
-            progress.dismiss();
-        }
-    }
-
-    private void userInfo(Object o) {
-        UserinfoEntity data = (UserinfoEntity) o;
-        if (data.rspCode.equals("00")) {
-            tvName.setText(data.driver.cname);
-            tvMobile.setText(data.driver.cphone);
-        }
     }
 }
