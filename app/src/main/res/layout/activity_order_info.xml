@@ -91,9 +91,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/default_margin2"
+                    android:layout_marginLeft="@dimen/default_margin3"
                     android:layout_toRightOf="@+id/tv_order_type"
                     android:text="300元"
+                    android:textColor="@color/text_color_red"
+                    android:textSize="@dimen/text_size_12"/>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:id="@+id/tv_order_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_order_fee"
+                    android:text="1000"
                     android:textColor="@color/text_color_red"
                     android:textSize="@dimen/text_size_14"/>
 
@@ -343,7 +354,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
-                    android:text="备注:"
+                    android:text="订单备注:"
                     android:textSize="@dimen/text_size_14"/>
 
                 <TextView
@@ -367,7 +378,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:minHeight="60dp"
+                android:minHeight="30dp"
                 android:orientation="horizontal"
                 android:visibility="gone">
 
@@ -375,33 +386,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
-                    android:text="司机"
+                    android:text="司机信息:"
                     android:textSize="@dimen/text_size_14"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:minHeight="@dimen/default_margin2"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_driver_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/default_margin"
-                        android:text="王师傅    18265656625"
-                        android:textColor="@color/text_color_black"
-                        android:textSize="@dimen/text_size_16"/>
+                        android:layout_marginLeft="@dimen/default_margin10"
+                        android:text="获取司机信息失败..."
+                        android:textColor="@color/text_color_black_gray"
+                        android:textSize="@dimen/text_size_14"/>
 
                     <TextView
                         android:id="@+id/tv_driver_car"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/default_margin"
-                        android:text="苏E88889    (大众速腾)"
-                        android:textColor="@color/text_color_black"
-                        android:textSize="@dimen/text_size_16"/>
+                        android:layout_marginLeft="@dimen/default_margin15"
+                        android:textColor="@color/text_color_black_gray"
+                        android:textSize="@dimen/text_size_14"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -438,16 +447,6 @@
                     android:layout_weight="1"
                     android:background="@color/line_color"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_finish_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
-                android:gravity="center_horizontal"
-                android:text="完成时间： 2018年9月14日18:30"
-                android:textSize="@dimen/text_size_18"
-                android:visibility="gone"/>
 
 
             <LinearLayout
@@ -491,8 +490,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/default_margin"
                     android:orientation="horizontal">
 
@@ -500,38 +500,9 @@
                         android:id="@+id/btn_order_arrange"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginLeft="@dimen/default_margin"
                         android:background="@drawable/btn_blue_box"
-                        android:text="派工"
+                        android:text="派工/改派"
                         android:textSize="@dimen/text_size_12"/>
-
-                    <Button
-                        android:id="@+id/btn_order_revise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="@dimen/default_margin"
-                        android:background="@drawable/btn_blue_box"
-                        android:text="改派"
-                        android:textSize="@dimen/text_size_12"/>
-
-                    <Button
-                        android:id="@+id/btn_return2pool"
-                        android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="@dimen/default_margin"
-                        android:layout_marginRight="@dimen/default_margin"
-                        android:background="@drawable/btn_blue_box"
-                        android:text="重回订单池"
-                        android:textSize="@dimen/text_size_12"/>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btn_route"
@@ -541,6 +512,26 @@
                         android:background="@drawable/btn_blue_box"
                         android:text="路线"
                         android:textSize="@dimen/text_size_12"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_order_operate2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_return2pool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/btn_blue_box"
+                        android:text="重回订单池"
+                        android:textSize="@dimen/text_size_12"/>
+
 
                     <Button
                         android:id="@+id/btn_add_remark"

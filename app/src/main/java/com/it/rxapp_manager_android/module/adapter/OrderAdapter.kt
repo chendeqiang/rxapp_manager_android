@@ -10,9 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.ListOrderEntity
-import com.it.rxapp_manager_android.modle.OrderEntity
 import com.it.rxapp_manager_android.module.base.*
-import com.it.rxapp_manager_android.utils.TextUtil
 import java.text.SimpleDateFormat
 
 /**
@@ -22,11 +20,11 @@ class OrderAdapter() : BaseAdapter() {
 
     private lateinit var context: Context
     private lateinit var inflater: LayoutInflater
-    private lateinit var datas: ArrayList<ListOrderEntity.OrderEntity>
+    private lateinit var datas: ArrayList<ListOrderEntity.OrdersBean>
     private var sdfMoth: SimpleDateFormat = SimpleDateFormat("MM月dd日")
     private var sdfDay: SimpleDateFormat = SimpleDateFormat("HH:mm")
 
-    constructor(context: Context, datas: ArrayList<ListOrderEntity.OrderEntity>) : this() {
+    constructor(context: Context, datas: ArrayList<ListOrderEntity.OrdersBean>) : this() {
         this.context = context
         inflater = LayoutInflater.from(context)
         this.datas = datas
@@ -59,21 +57,26 @@ class OrderAdapter() : BaseAdapter() {
 
         var order = datas[position]
         holder.tvOrderNo.text = order.orderNo
-        holder.tvOrderType.text = OrderType.getKey(order.orderType) + "(" + CarLevel.getKey(order.carLevel) + ")"
-        holder.tvBookTime.text = sdfMoth.format(order.bookTime.toLong()) + " (" + TextUtil.getWeekDay(order.bookTime.toLong()) + ") " + sdfDay.format(order.bookTime.toLong())
-        if (order.orderType == OrderType.DAY_RENTER_TYPE) {
+        holder.tvOrderType.text = OrderType.getKey(order.orderType.toInt()) + "(" + order.carTypeName + ")"
+        holder.tvBookTime.text = order.useTime
+        if (order.orderType.toInt() == OrderType.DAY_RENTER_TYPE) {
             holder.llBusiness.visibility = View.VISIBLE
             holder.llNoBusiness.visibility = View.GONE
-            holder.tvAddress.text = order.startAddr
+            holder.tvAddress.text = order.cstartAddress
         } else {
             holder.llBusiness.visibility = View.GONE
             holder.llNoBusiness.visibility = View.VISIBLE
-            holder.tvStartAddress.text = order.startAddr
-            holder.tvEndAddress.text = order.endAddr
+            holder.tvStartAddress.text = order.cstartAddress
+            holder.tvEndAddress.text = order.cendAddress
         }
-        holder.tvFee.text = "¥" + order.orderAmount / 100
-        holder.tvType.text = FlowStatus.getKey(order.flowStatus)
-        holder.tvOrderFrom.text = OrderSource.getKey(order.source)
+
+        if (order.payAmount.isNullOrEmpty()) {
+            holder.tvPrice.text = "结算价:" + order.cpayprice.substring(0, order.cpayprice.length - 3)
+        } else {
+            holder.tvPrice.text = "结算价:" + order.payAmount.toInt() / 100
+        }
+        holder.tvFee.text = "¥" + order.cpayprice.substring(0, order.cpayprice.length - 3)
+        holder.tvType.text = OrderStatus.getKey(order.orderStatus.toInt())
         holder.tvType.setTextColor(ContextCompat.getColor(context, R.color.text_color_red))
         holder.tvType.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
 
@@ -88,6 +91,7 @@ class OrderAdapter() : BaseAdapter() {
         var tvStartAddress: TextView
         var tvEndAddress: TextView
         var tvFee: TextView
+        var tvPrice: TextView
         var tvType: TextView
         var llNoBusiness: LinearLayout
         var llBusiness: LinearLayout
@@ -101,6 +105,7 @@ class OrderAdapter() : BaseAdapter() {
             tvStartAddress = view.findViewById(R.id.tv_start_address)
             tvEndAddress = view.findViewById(R.id.tv_end_address)
             tvFee = view.findViewById(R.id.tv_fee)
+            tvPrice = view.findViewById(R.id.tv_price)
             tvType = view.findViewById(R.id.tv_type)
             llNoBusiness = view.findViewById(R.id.ll_no_business)
             llBusiness = view.findViewById(R.id.ll_business)
@@ -112,7 +117,7 @@ class OrderAdapter() : BaseAdapter() {
 
     }
 
-    fun addAll(datas: List<ListOrderEntity.OrderEntity>) {
+    fun addAll(datas: List<ListOrderEntity.OrdersBean>) {
         this.datas.addAll(datas)
         notifyDataSetChanged()
     }

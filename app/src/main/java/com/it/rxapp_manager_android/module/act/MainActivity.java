@@ -105,6 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 RelationActivity.startRelationActivity(this, userNo);
                 break;
             case R.id.ll_valuation://计价管理
+                ValuationActivity.startValuationActivity(this, userNo);
                 break;
             case R.id.ll_count://统计账单
                 BillActivity.startBillActivity(this, userNo);

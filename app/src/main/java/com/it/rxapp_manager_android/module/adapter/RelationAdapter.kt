@@ -52,15 +52,24 @@ class RelationAdapter() : BaseAdapter() {
         }
         var relation = datas[position]
         holder.tvDriverName.text = relation.cname
-        if (relation.model_name.isNullOrEmpty()) {
-            holder.tvCar1.text = " "
-        } else {
+
+        if (!TextUtil.isEmpty(relation.model_name) && relation.model_name.length > 8) {
+            holder.tvCar1.text  = relation.model_name.substring(0, 8) + "..."
+        } else if (!TextUtil.isEmpty(relation.model_name)) {
             holder.tvCar1.text = relation.model_name
+        } else {
+            holder.tvCar1.text = ""
         }
+
+//        if (relation.model_name.isNullOrEmpty()) {
+//            holder.tvCar1.text = " "
+//        } else {
+//            holder.tvCar1.text = relation.model_name + "--"
+//        }
         if (relation.carname.isNullOrEmpty()) {
             holder.tvCar2.text = " "
         } else {
-            holder.tvCar2.text = "(" + relation.carname + ")"
+            holder.tvCar2.text = relation.carname
         }
         if (relation.cplatenumber.isNullOrEmpty()) {
             holder.tvCarNo.text = " "

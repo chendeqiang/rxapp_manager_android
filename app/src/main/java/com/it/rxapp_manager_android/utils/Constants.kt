@@ -10,6 +10,7 @@ object Constants {
     const val RX_VERSION = "rx_version"
     const val USER_NO = "user_no"
     const val ORDER_NO = "order_no"
+    const val ORDER_INFO = "order_info"
     const val FLOW_NO = "flow_no"
     const val TAG = "tag"
 
@@ -18,5 +19,7 @@ object Constants {
 
     const val REQUEST_SELECT_CAR_ACTIVITY = 3
     const val REQUEST_SELECT_CAR1_ACTIVITY = 4
+    const val REQUEST_SELECT_DRIVER_ACTIVITY = 5
+    const val REQUEST_SELECT_PRODUCT_ACTIVITY = 6
 
 }

@@ -42,7 +42,7 @@ public class MyApplication extends Application {
 
         //baidu
         SDKInitializer.initialize(getApplicationContext());
-        SDKInitializer.setCoordType(CoordType.GCJ02);
+        SDKInitializer.setCoordType(CoordType.BD09LL);
         bus.unregister(this);
     }
 }

@@ -10,6 +10,62 @@
 
     <include layout="@layout/action_cars_bar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/default_margin40"
+            android:text="车牌："
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14"/>
+
+        <EditText
+            android:id="@+id/et_carNo"
+            android:layout_width="70dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/item_margin"
+            android:background="@drawable/btn_gray_box"
+            android:lines="1"
+            android:textSize="@dimen/text_size_14"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="车型："
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14"/>
+
+
+        <EditText
+            android:id="@+id/et_carType"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/item_margin"
+            android:background="@drawable/btn_gray_box"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="搜索"
+            android:padding="@dimen/default_padding"
+            android:textColor="@color/text_color_gold"
+            android:textSize="@dimen/text_size_14"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

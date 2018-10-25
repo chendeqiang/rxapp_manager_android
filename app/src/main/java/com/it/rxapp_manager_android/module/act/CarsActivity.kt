@@ -7,17 +7,16 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.widget.AbsListView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ListView
+import android.widget.*
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.CommEntity
 import com.it.rxapp_manager_android.modle.ListCarEntity
+import com.it.rxapp_manager_android.modle.SearchCarEntity
 import com.it.rxapp_manager_android.module.adapter.CarAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
+import com.it.rxapp_manager_android.utils.TextUtil
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.OrderFooterView
 import com.it.rxapp_manager_android.widget.ShowToast
@@ -27,7 +26,7 @@ import javax.inject.Inject
 /**
  * Created by deqiangchen on 2018/9/6 14:20
  */
-class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
+class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.onItemChangeListener {
 
     private lateinit var ivBack: ImageView
     private lateinit var ivAdd: ImageView
@@ -36,6 +35,11 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
     private lateinit var llEmpty: LinearLayout
     private lateinit var footerView: OrderFooterView
     private lateinit var adapter: CarAdapter
+    private lateinit var etCarNo: EditText
+    private lateinit var etCarType: EditText
+    private lateinit var tvSearch: TextView
+    private var car: SearchCarEntity? = null
+    private var carInfo: ListCarEntity.CarsBean? = null
 
     @Inject
     lateinit var presenter: MyPresenter
@@ -64,6 +68,9 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
     }
 
     private fun initView() {
+        etCarNo = findViewById(R.id.et_carNo) as EditText
+        etCarType = findViewById(R.id.et_carType) as EditText
+        tvSearch = findViewById(R.id.tv_search) as TextView
         lvCars = findViewById(R.id.lv_cars) as ListView
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
@@ -78,6 +85,7 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
             //跳转至添加车辆界面
             AddCarActivity.startAddCarActivity(this, userNo)
         }
+
         adapter = CarAdapter(this, arrayListOf())
         lvCars.adapter = adapter
         footerView = OrderFooterView(this)
@@ -97,9 +105,17 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listCar(userNo, pageIndex, pageCount)
+            presenter.listCar(userNo, pageIndex, pageCount, "", "")
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
+
+        tvSearch.setOnClickListener {
+            adapter.clear()
+            progress.show()
+            presenter.listCar(userNo, pageIndex, pageCount, etCarNo.text.toString(), etCarType.text.toString())
+        }
+        adapter.setOnItemChangeClickListener(this)
+
     }
 
     override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
@@ -110,7 +126,7 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
             if (lvCars.bottom == lastItemView.bottom) {
                 if (footerView.refresh) {
                     pageIndex += pageCount
-                    presenter.listDriver(userNo, pageIndex, pageCount)
+                    presenter.listCar(userNo, pageIndex, pageCount, "", "")
                 }
             }
         }
@@ -128,6 +144,13 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
                 footerView.refresh = data.cars.size >= pageCount
             }
             srlRefresh.isRefreshing = false
+        } else if (any::class == CommEntity::class) {
+            var data = any as CommEntity
+            if (data.rspCode.equals("00")) {
+                ShowToast.showBottom(this, data.rspDesc)
+            } else {
+                ShowToast.showBottom(this, data.rspDesc)
+            }
         }
         progress.dismiss()
 
@@ -138,11 +161,25 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener {
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listCar(userNo, pageIndex, pageCount)
+        presenter.listCar(userNo, pageIndex, pageCount, "", "")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.unregister(this)
     }
+
+    override fun onItemClick(i: Int) {
+        CarTypeActivity.startCarTypeActivity(this)
+        carInfo = lvCars.getItemAtPosition(i) as ListCarEntity.CarsBean
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_CAR_ACTIVITY) {
+            car = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as SearchCarEntity
+            presenter.editCar(carInfo!!.carID, car!!.value)
+        }
+    }
+
 }

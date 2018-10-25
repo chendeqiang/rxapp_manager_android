@@ -6,21 +6,22 @@
 
     <ImageView
         android:id="@+id/iv_ic_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/default_margin10"
         android:src="@drawable/ic_car_2"/>
 
 
     <TextView
         android:id="@+id/tv_car_type"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/default_margin"
-        android:text="速腾"
-        android:textColor="@color/text_color_gray"
+        android:layout_toRightOf="@+id/tv_car_style"
+        android:text="一汽-大众-大众速腾"
+        android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
 
     <TextView
@@ -28,10 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin2"
+        android:layout_marginLeft="@dimen/default_margin"
         android:layout_toRightOf="@+id/tv_car_no"
         android:text="舒适型"
-        android:textColor="@color/text_color_gray"
+        android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
 
     <TextView
@@ -39,11 +40,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_marginLeft="@dimen/default_margin10"
         android:layout_toRightOf="@+id/iv_ic_car"
         android:text="苏E66088"
-        android:textColor="@color/text_color_black_gray"
+        android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
 
+    <ImageView
+        android:id="@+id/img_bj"
+        android:layout_width="25dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/default_margin10"
+        android:src="@drawable/ic_bj"/>
 
 </RelativeLayout>

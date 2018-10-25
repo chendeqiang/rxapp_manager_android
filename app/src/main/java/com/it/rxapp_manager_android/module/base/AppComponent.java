@@ -7,6 +7,8 @@ import com.it.rxapp_manager_android.module.act.CarsActivity;
 import com.it.rxapp_manager_android.module.act.ChangePasswordActivity;
 import com.it.rxapp_manager_android.module.act.CreateDriverActivity;
 import com.it.rxapp_manager_android.module.act.DriversActivity;
+import com.it.rxapp_manager_android.module.act.ListBasicAuthCityActivity;
+import com.it.rxapp_manager_android.module.act.ListEnableDriverActivity;
 import com.it.rxapp_manager_android.module.act.LoginActivity;
 import com.it.rxapp_manager_android.module.act.MainActivity;
 import com.it.rxapp_manager_android.module.act.OrderInfoActivity;
@@ -14,6 +16,7 @@ import com.it.rxapp_manager_android.module.act.OrdersActivity;
 import com.it.rxapp_manager_android.module.act.RelationActivity;
 import com.it.rxapp_manager_android.module.act.SearchRouteActivity;
 import com.it.rxapp_manager_android.module.act.SettingActivity;
+import com.it.rxapp_manager_android.module.act.ValuationActivity;
 
 import javax.inject.Singleton;
 
@@ -37,8 +40,6 @@ public interface AppComponent {
 
     void inject(BillActivity activity);
 
-    void inject(SearchRouteActivity activity);
-
     void inject(CreateDriverActivity activity);
 
     void inject(SettingActivity activity);
@@ -48,5 +49,11 @@ public interface AppComponent {
     void inject(ChangePasswordActivity activity);
 
     void inject(AddCarActivity activity);
+
+    void inject(ListEnableDriverActivity activity);
+
+    void inject(ValuationActivity activity);
+
+    void inject(ListBasicAuthCityActivity activity);
 
 }

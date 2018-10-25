@@ -91,8 +91,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listDriver(no: String, pageIndex: Int, pageCount: Int) {
-        manger.listDriver(no, pageIndex, pageCount, object : Callback<ListDriverEntity> {
+    fun listDriver(no: String, pageIndex: Int, pageCount: Int, driverName: String) {
+        manger.listDriver(no, pageIndex, pageCount, driverName, object : Callback<ListDriverEntity> {
             override fun onResponse(call: Call<ListDriverEntity>, response: Response<ListDriverEntity>) {
                 if (response.body() != null) {
                     LogUtils.d("listDriver", response.body().toString())
@@ -171,8 +171,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listCar(orgId: String, pageIndex: Int, pageCount: Int) {
-        manger.listCar(orgId, pageIndex, pageCount, object : Callback<ListCarEntity> {
+    fun listCar(orgId: String, pageIndex: Int, pageCount: Int, carNo: String, carBrand: String) {
+        manger.listCar(orgId, pageIndex, pageCount, carNo, carBrand, object : Callback<ListCarEntity> {
             override fun onResponse(call: Call<ListCarEntity>, response: Response<ListCarEntity>) {
                 if (response.body() != null) {
                     LogUtils.d("listCar", response.body().toString())
@@ -209,8 +209,27 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int) {
-        manger.listRelation(orgId, pageIndex, pageCount, object : Callback<ListRelationEntity> {
+    fun updateOrgInfo(orgId: String, fleetName: String, dispatchPattern: String, fleetMobile: String, fleetNo: String, orgcommissionFZ: String, orgcommissionSY: String, orgcommissionTC: String, orgcommissionXC: String, phone1: String, phone2: String, phone3: String) {
+        manger.updateOrgInfo(orgId, fleetName, dispatchPattern, fleetMobile, fleetNo, orgcommissionFZ, orgcommissionSY, orgcommissionTC, orgcommissionXC, phone1, phone2, phone3, object : Callback<UpdateOrgInfoEntity> {
+            override fun onResponse(call: Call<UpdateOrgInfoEntity>, response: Response<UpdateOrgInfoEntity>) {
+                if (response.body() != null) {
+                    LogUtils.d("updateOrgInfo", response.body().toString())
+                    mBs.post(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateOrgInfoEntity>, t: Throwable) {
+                val data = UpdateOrgInfoEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String) {
+        manger.listRelation(orgId, pageIndex, pageCount, driverName, object : Callback<ListRelationEntity> {
             override fun onFailure(call: Call<ListRelationEntity>, t: Throwable) {
                 val data = ListRelationEntity()
                 data.rspCode = "4"
@@ -281,42 +300,156 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-//    fun listOrder(driverNo: String, flowStatus: Int, orderType: Int, pageIndex: Int, pageCount: Int) {
-//        manger.listOrder(driverNo, flowStatus, orderType, pageIndex, pageCount,
-//                object : Callback<ListOrderEntity> {
-//                    override fun onResponse(call: Call<ListOrderEntity>, response: Response<ListOrderEntity>) {
-//                        LogUtils.d("listOrder", "" + response.body() + "")
-//                        if (response.body() != null) {
-//                            mBs.post(response.body())
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<ListOrderEntity>, t: Throwable) {
-//                        val data = ListOrderEntity()
-//                        data.rspCode = "1000"
-//                        data.rspDesc = "网络连接失败"
-//                        mBs.post(data)
-//                        t.printStackTrace()
-//                    }
-//                })
-//    }
+    fun editCar(carID: String, carType: String) {
+        manger.editCar(carID, carType, object : Callback<CommEntity> {
+            override fun onResponse(call: Call<CommEntity>, response: Response<CommEntity>) {
+                LogUtils.d("editCar", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
 
-//    fun qryOrder(orderNo: String) {
-//        manger.qryOrder(orderNo, object : Callback<OrderInfoEntity> {
-//            override fun onResponse(call: Call<OrderInfoEntity>, response: Response<OrderInfoEntity>) {
-//                LogUtils.d("OrderInfo", "" + response.body() + "")
-//                if (response.body() != null) {
-//                    mBs.post(response.body())
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<OrderInfoEntity>, t: Throwable) {
-//                val data = OrderInfoEntity()
-//                data.rspCode = "1000"
-//                data.rspDesc = "网络连接失败"
-//                mBs.post(data)
-//                t.printStackTrace()
-//            }
-//        })
-//    }
+            override fun onFailure(call: Call<CommEntity>, t: Throwable) {
+                val data = CommEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun listOrder(orgId: String, orderStatus: String, orderType: String, pageIndex: Int, pageCount: Int) {
+        manger.listOrder(orgId, orderStatus, orderType, pageIndex, pageCount,
+                object : Callback<ListOrderEntity> {
+                    override fun onResponse(call: Call<ListOrderEntity>, response: Response<ListOrderEntity>) {
+                        LogUtils.d("listOrder", "" + response.body() + "")
+                        if (response.body() != null) {
+                            mBs.post(response.body())
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ListOrderEntity>, t: Throwable) {
+                        val data = ListOrderEntity()
+                        data.rspCode = "1000"
+                        data.rspDesc = "网络连接失败"
+                        mBs.post(data)
+                        t.printStackTrace()
+                    }
+                })
+    }
+
+    fun pubOrder(orgId: String, orderNo: String, driverNo: String, price: String) {
+        manger.pubOrder(orgId, orderNo, driverNo, price, object : Callback<CommEntity> {
+            override fun onFailure(call: Call<CommEntity>, t: Throwable) {
+                val data = CommEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<CommEntity>, response: Response<CommEntity>) {
+                LogUtils.d("pubOrder", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+        })
+    }
+
+    fun getOrderCar(orgId: String, orderNo: String, pageIndex: Int, pageCount: Int, mobile: String, driverName: String) {
+        manger.getOrderCar(orgId, orderNo, pageIndex, pageCount, mobile, driverName, object : Callback<ListDriversEntity> {
+            override fun onResponse(call: Call<ListDriversEntity>, response: Response<ListDriversEntity>) {
+                if (response.body() != null) {
+                    LogUtils.d("getOrderCar", response.body().toString())
+                    mBs.post(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<ListDriversEntity>, t: Throwable) {
+                val data = ListCarEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun remarkPush(orderNo: String, driverNo: String, remark: String) {
+        manger.remarkPush(orderNo, driverNo, remark, object : Callback<CommEntity> {
+            override fun onFailure(call: Call<CommEntity>, t: Throwable) {
+                val data = CommEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<CommEntity>, response: Response<CommEntity>) {
+                LogUtils.d("remarkPush", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+        })
+    }
+
+    fun returnToOrderPool(orgId: String, orderNo: String) {
+        manger.returnToOrderPool(orgId, orderNo, object : Callback<CommEntity> {
+            override fun onFailure(call: Call<CommEntity>, t: Throwable) {
+                val data = CommEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<CommEntity>, response: Response<CommEntity>) {
+                LogUtils.d("returnToOrderPool", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+        })
+    }
+
+    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int) {
+        manger.listPriceRule(orgId, pageIndex, pageCount, object : Callback<ListValuationsEntity> {
+            override fun onResponse(call: Call<ListValuationsEntity>, response: Response<ListValuationsEntity>) {
+                LogUtils.d("listPriceRule", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<ListValuationsEntity>, t: Throwable) {
+                val data = ListValuationsEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun listBasicAuthCity(orgId: String, pageIndex: Int, pageCount: Int) {
+        manger.listBasicAuthCity(orgId, pageIndex, pageCount, object : Callback<ListBasicAuthCityEntity> {
+            override fun onFailure(call: Call<ListBasicAuthCityEntity>, t: Throwable) {
+                val data = ListBasicAuthCityEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ListBasicAuthCityEntity>, response: Response<ListBasicAuthCityEntity>) {
+                LogUtils.d("listBasicAuthCity", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+        })
+    }
 }

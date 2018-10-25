@@ -39,8 +39,8 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
-    private var flowStatus: Int = 1
-    private var orderType: Int = 0
+    private var orderStatus: Int = 0
+    private var orderType: Int = 10
     private var pageIndex: Int = 0
     private var pageCount: Int = 20
     private lateinit var progress: MyProgress
@@ -76,19 +76,20 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
 
         tabOrder = findViewById(R.id.tab_order) as TabLayout
 
-        tagButtons = arrayOf(findViewById(R.id.btn_all) as MyTagButton,
+        tagButtons = arrayOf(
+                findViewById(R.id.btn_all) as MyTagButton,
                 findViewById(R.id.btn_take_plane) as MyTagButton,
                 findViewById(R.id.btn_send_plane) as MyTagButton,
+                findViewById(R.id.btn_day_renter) as MyTagButton,
                 findViewById(R.id.btn_take_train) as MyTagButton,
-                findViewById(R.id.btn_send_train) as MyTagButton,
-                findViewById(R.id.btn_day_renter) as MyTagButton)
+                findViewById(R.id.btn_send_train) as MyTagButton)
 
         adapter = OrderAdapter(this, arrayListOf())
         lvOrders.adapter = adapter
         lvOrders.setOnItemClickListener { _, view, i, _ ->
             if (view != orderFooterView) {
-                var data = adapter.getItem(i) as ListOrderEntity.OrderEntity
-                OrderInfoActivity.startOrderInfoActivity(this, data.orderNo, data.flowNo, userNo)
+                var data = adapter.getItem(i) as ListOrderEntity.OrdersBean
+                OrderInfoActivity.startOrderInfoActivity(this, data, userNo)
             }
         }
         tagButtons.forEach {
@@ -101,7 +102,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
             pageIndex = 0
             adapter.clear()
             progress.show()
-//            presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+            presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
 
@@ -113,7 +114,15 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
         tagButtons.forEach {
             it.isSelected = false
             if (it == view) {
-                orderType = tagButtons.indexOf(view)
+                if (tagButtons.indexOf(view) == 0) {
+                    orderType = 10
+                } else if (tagButtons.indexOf(view) > 0 && tagButtons.indexOf(view) < 4) {
+                    orderType = tagButtons.indexOf(view) - 1
+                } else if (tagButtons.indexOf(view) == 4) {
+                    orderType = 7
+                } else if (tagButtons.indexOf(view) == 5) {
+                    orderType = 8
+                }
             }
         }
         if (view != null) {
@@ -123,7 +132,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
         pageIndex = 0
         adapter.clear()
         progress.show()
-//        presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+        presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
     }
 
     override fun onStart() {
@@ -131,7 +140,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
         pageIndex = 0
         adapter.clear()
         progress.show()
-//        presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+        presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -141,7 +150,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        flowStatus = tab!!.position + 1
+        orderStatus = tab!!.position
         pageIndex = 0
         adapter.clear()
         onClick(tagButtons[0])
@@ -150,12 +159,12 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
     override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
         if (totalItemCount == 0)
             return
-        if (firstVisibleItem + visibleItemCount == totalItemCount) {
+        if (firstVisibleItem + visibleItemCount == totalItemCount) {//滚动到底部
             val lastItemView = lvOrders.getChildAt(lvOrders.childCount - 1)
             if (lvOrders.bottom == lastItemView.bottom) {
                 if (orderFooterView.refresh) {
                     pageIndex += pageCount
-//                    presenter.listOrder(userNo, flowStatus, orderType, pageIndex, pageCount)
+                    presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
                 }
             }
         }
@@ -169,8 +178,8 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
         if (any::class == ListOrderEntity::class) {
             var data = any as ListOrderEntity
             if (data.rspCode.equals("00")) {
-                adapter.addAll(data.order)
-                orderFooterView.refresh = data.order.size >= pageCount
+                adapter.addAll(data.orders)
+                orderFooterView.refresh = data.orders.size >= pageCount
             }
             srlRefresh.isRefreshing = false
         }

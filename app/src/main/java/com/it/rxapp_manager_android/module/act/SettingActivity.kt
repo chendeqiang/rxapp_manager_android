@@ -12,6 +12,7 @@ import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.CommEntity
 import com.it.rxapp_manager_android.modle.ListDriverEntity
 import com.it.rxapp_manager_android.modle.OrganizationInfoEntity
+import com.it.rxapp_manager_android.modle.UpdateOrgInfoEntity
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.module.base.OrderModel
@@ -121,7 +122,9 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 !TextUtil.isEmpty(et_Phone.text.toString()) ||
                 !TextUtil.isEmpty(et_Phone1.text.toString()) ||
                 !TextUtil.isEmpty(et_Phone2.text.toString())) {
-            ShowToast.showCenter(this, "信息填写完整")
+            presenter.updateOrgInfo(userNo, etFleetName.text.toString(), orderType.toString(), etFleetMobile.text.toString(),
+                    etFleetNo.text.toString(), etCommisionFz.text.toString(),
+                    etCommisionSy.text.toString(), etCommisionTc.text.toString(), etCommisionXc.text.toString(), et_Phone.text.toString(), et_Phone1.text.toString(), et_Phone2.text.toString())
         } else {
             ShowToast.showCenter(this, "信息填写不完整")
         }
@@ -137,9 +140,34 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
                 ShowToast.showCenter(this, data.rspDesc)
                 finish()
             }
+        } else if (any::class == UpdateOrgInfoEntity::class) {
+            var data = any as UpdateOrgInfoEntity
+            if (data.rspCode.equals("00")) {
+                ShowToast.showCenter(this, data.rspDesc)
+                presenter.listOrganizationInfo(userNo)
+                updateView()
+            } else {
+                ShowToast.showCenter(this, data.rspDesc)
+            }
         }
         progress.dismiss()
 
+    }
+
+    private fun updateView() {
+        btnSave.visibility = View.GONE
+        etFleetName.isEnabled = false
+        etFleetMobile.isEnabled = false
+        etFleetNo.isEnabled = false
+        et_Phone.isEnabled = false
+        et_Phone1.isEnabled = false
+        et_Phone2.isEnabled = false
+        etCommisionXc.isEnabled = false
+        etCommisionTc.isEnabled = false
+        etCommisionFz.isEnabled = false
+        etCommisionSy.isEnabled = false
+        spDispatchPattern.visibility = View.GONE
+        etDispatchPattern.visibility = View.VISIBLE
     }
 
     private fun setData(organizations: OrganizationInfoEntity.OrganizationsBean?) {

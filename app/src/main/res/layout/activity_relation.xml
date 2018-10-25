@@ -9,6 +9,75 @@
 
     <include layout="@layout/action_bar"/>
 
+    <RelativeLayout
+        android:id="@+id/rl_search_address"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white">
+
+
+        <TextView
+            android:id="@+id/tv_select_car"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:gravity="center"
+            android:minWidth="70dp"
+            android:paddingRight="@dimen/item_margin"
+            android:text="搜索"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text_color_gray"
+            android:textSize="@dimen/text_size_14"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/tv_cancel"
+            android:layout_toRightOf="@id/tv_select_car">
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/line_color"/>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/line_color"/>
+
+            <EditText
+                android:textSize="@dimen/text_size_12"
+                android:id="@+id/et_driver"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/item_margin"
+                android:layout_marginRight="@dimen/item_margin"
+                android:background="@null"
+                android:hint="请输入司机姓名"/>
+
+            <ImageView
+                android:id="@+id/img_cancel"
+                android:layout_width="@dimen/ic_height"
+                android:layout_height="@dimen/ic_height"
+                android:layout_alignRight="@+id/et_driver"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_cancel"/>
+        </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

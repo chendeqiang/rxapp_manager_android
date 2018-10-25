@@ -42,8 +42,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -69,11 +69,11 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填"
                     android:inputType="number"
                     android:maxLength="11"
                     android:maxLines="1"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -99,8 +99,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -126,11 +126,11 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填"
                     android:inputType="number"
                     android:maxLength="11"
                     android:maxLines="1"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -156,11 +156,11 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="非必填"
                     android:inputType="number"
                     android:maxLength="11"
                     android:maxLines="1"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -186,11 +186,11 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="非必填"
                     android:inputType="number"
                     android:maxLength="11"
                     android:maxLines="1"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -216,8 +216,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填(整数)"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -243,8 +243,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填(整数)"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -270,8 +270,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填(整数)"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -297,8 +297,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:hint="必填(整数)"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 
@@ -334,7 +334,8 @@
                     android:background="@drawable/btn_gray_box"
                     android:enabled="false"
                     android:gravity="center_horizontal"
-                    android:padding="3dp"/>
+                    android:padding="3dp"
+                    android:textColor="@color/text_color_black_gray"/>
 
             </LinearLayout>
 

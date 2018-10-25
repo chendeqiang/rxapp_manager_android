@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.widget.AbsListView
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ListView
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.WindowManager
+import android.widget.*
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.dialog.MessageDialog
 import com.it.rxapp_manager_android.modle.CommEntity
@@ -17,6 +17,7 @@ import com.it.rxapp_manager_android.module.adapter.DriverAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
+import com.it.rxapp_manager_android.utils.TextUtil
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.OrderFooterView
 import com.it.rxapp_manager_android.widget.ShowToast
@@ -26,7 +27,7 @@ import javax.inject.Inject
 /**
  * Created by deqiangchen on 2018/9/6 14:00
  */
-class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdapter.onItemChangeListener {
+class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdapter.onItemChangeListener, TextWatcher {
 
     private lateinit var ivBack: ImageView
     private lateinit var ivAdd: ImageView
@@ -36,12 +37,18 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
     private lateinit var llEmpty: LinearLayout
     private lateinit var adapter: DriverAdapter
 
+    private lateinit var etDriver: EditText
+    private lateinit var ivCancle: ImageView
+    private lateinit var tvCancle: TextView
+
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
     private var pageIndex: Int = 0
     private var pageCount: Int = 20
     private lateinit var progress: MyProgress
+    private lateinit var datas: ArrayList<ListDriverEntity.DriversBean>
+
 
     companion object {
         @JvmStatic
@@ -53,6 +60,7 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drivers)
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         progress = MyProgress(this)
@@ -61,6 +69,9 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
     }
 
     private fun initView() {
+        etDriver = findViewById(R.id.et_driver) as EditText
+        ivCancle = findViewById(R.id.img_cancel) as ImageView
+        tvCancle = findViewById(R.id.tv_cancel) as TextView
         lvDrivers = findViewById(R.id.lv_drivers) as ListView
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
@@ -76,17 +87,25 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
             //跳转至添加司机界面
             CreateDriverActivity.startCreateDriverActivity(this, userNo)
         }
+        tvCancle.setOnClickListener {
+            finish()
+        }
+        ivCancle.setOnClickListener {
+            etDriver.text.clear()
+        }
+        etDriver.addTextChangedListener(this)
         adapter = DriverAdapter(this, arrayListOf())
         lvDrivers.adapter = adapter
         footerView = OrderFooterView(this)
         lvDrivers.addFooterView(footerView)
         adapter.setOnItemChangeClickListener(this)
         lvDrivers.setOnScrollListener(this)
+
         srlRefresh.setOnRefreshListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listDriver(userNo, pageIndex, pageCount)
+            presenter.listDriver(userNo, pageIndex, pageCount, "")
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
     }
@@ -99,7 +118,7 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
             if (lvDrivers.bottom == lastItemView.bottom) {
                 if (footerView.refresh) {
                     pageIndex += pageCount
-                    presenter.listDriver(userNo, pageIndex, pageCount)
+                    presenter.listDriver(userNo, pageIndex, pageCount, "")
                 }
             }
         }
@@ -132,7 +151,7 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listDriver(userNo, pageIndex, pageCount)
+        presenter.listDriver(userNo, pageIndex, pageCount, "")
     }
 
     override fun onDestroy() {
@@ -169,4 +188,19 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
         }
         dialog.show()
     }
+
+    override fun afterTextChanged(p0: Editable?) {
+    }
+
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    }
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        if (!TextUtil.isEmpty(p0.toString())) {
+            adapter.clear()
+            progress.show()
+            presenter.listDriver(userNo, pageIndex, pageCount, p0.toString())
+        }
+    }
+
 }

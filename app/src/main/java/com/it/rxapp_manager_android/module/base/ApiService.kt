@@ -43,6 +43,10 @@ interface ApiService {
     fun listOrganizationInfo(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<OrganizationInfoEntity>
 
     @FormUrlEncoded
+    @POST(ApiConstants.updateorginfo)
+    fun updateOrgInfo(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<UpdateOrgInfoEntity>
+
+    @FormUrlEncoded
     @POST(ApiConstants.listrelation)
     fun listRelation(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListRelationEntity>
 
@@ -53,5 +57,38 @@ interface ApiService {
     @FormUrlEncoded
     @POST(ApiConstants.addcar)
     fun addCar(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<AddCarEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.editcar)
+    fun editCar(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.listorder)
+    fun listOrder(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListOrderEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.getordercar)
+    fun getOrderCar(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListDriversEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.puborder)
+    fun pubOrder(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.remarkpush)
+    fun remarkPush(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.returntoorderpool)
+    fun returnToOrderPool(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.listpricerule)
+    fun listPriceRule(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListValuationsEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.listbasicauthcity)
+    fun listBasicAuthCity(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListBasicAuthCityEntity>
+
 
 }

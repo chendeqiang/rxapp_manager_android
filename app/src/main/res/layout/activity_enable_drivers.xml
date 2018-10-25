@@ -8,7 +8,8 @@
     android:orientation="vertical"
     tools:context="com.it.rxapp_manager_android.module.act.DriversActivity">
 
-    <include layout="@layout/action_drivers_bar"/>
+    <include layout="@layout/action_bar"/>
+
 
     <RelativeLayout
         android:id="@+id/rl_search_address"
@@ -18,10 +19,10 @@
 
 
         <TextView
-            android:layout_marginLeft="@dimen/default_margin"
             android:id="@+id/tv_select_car"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/default_margin"
             android:gravity="center"
             android:minWidth="70dp"
             android:paddingRight="@dimen/item_margin"
@@ -61,14 +62,14 @@
                 android:background="@color/line_color"/>
 
             <EditText
-                android:textSize="@dimen/text_size_12"
                 android:id="@+id/et_driver"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/item_margin"
                 android:layout_marginRight="@dimen/item_margin"
                 android:background="@null"
-                android:hint="请输入司机姓名"/>
+                android:hint="请输入司机姓名"
+                android:textSize="@dimen/text_size_14"/>
 
             <ImageView
                 android:id="@+id/img_cancel"
@@ -79,6 +80,7 @@
                 android:src="@drawable/ic_cancel"/>
         </RelativeLayout>
     </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -2,62 +2,57 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/default_padding">
+                android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_driver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_driver"/>
 
     <TextView
-        android:id="@+id/tv_driverName"
+        android:id="@+id/tv_driver_name"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/default_margin10"
+        android:layout_toRightOf="@+id/iv_driver"
         android:lines="1"
-        android:text="张三疯"
+        android:text="郭靖"
         android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
 
     <TextView
-        android:id="@+id/tv_car1"
+        android:id="@+id/tv_car"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/tv_driverName"
-        android:text="速腾"
+        android:layout_marginLeft="@dimen/default_margin"
+        android:layout_toRightOf="@+id/tv_car_typee"
+        android:text="一汽-大众-速腾"
         android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
 
     <TextView
-        android:layout_marginRight="@dimen/default_margin10"
-        android:id="@+id/tv_car2"
+        android:id="@+id/tv_car_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/tv_carNo"
-        android:text="舒适型"
+        android:layout_toRightOf="@+id/tv_driver_name"
+        android:text="苏E66666"
         android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
 
     <TextView
-        android:id="@+id/tv_carNo"
+        android:id="@+id/tv_car_typee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/default_margin10"
-        android:layout_toLeftOf="@+id/btn_change_relation"
-        android:text="苏E12345"
+        android:layout_marginLeft="@dimen/default_margin10"
+        android:layout_toRightOf="@+id/tv_car_no"
+        android:text="豪华型"
         android:textColor="@color/text_color_black"
         android:textSize="@dimen/text_size_14"/>
-
-    <Button
-        android:id="@+id/btn_change_relation"
-        android:layout_width="45dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_blue_box"
-        android:focusable="false"
-        android:text="编辑"
-        android:textColor="@color/text_color_blue"
-        android:textSize="@dimen/text_size_12"/>
 
 </RelativeLayout>

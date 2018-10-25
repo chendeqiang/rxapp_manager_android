@@ -10,15 +10,10 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.MapView;
 import com.it.rxapp_manager_android.R;
-import com.it.rxapp_manager_android.modle.OrderEntity;
-import com.it.rxapp_manager_android.modle.OrderInfoEntity;
+import com.it.rxapp_manager_android.modle.ListOrderEntity;
 import com.it.rxapp_manager_android.module.base.ComponentHolder;
-import com.it.rxapp_manager_android.module.base.MyPresenter;
 import com.it.rxapp_manager_android.utils.Constants;
-import com.it.rxapp_manager_android.widget.MyProgress;
-import com.squareup.otto.Subscribe;
-
-import javax.inject.Inject;
+import com.it.rxapp_manager_android.widget.ShowToast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,23 +24,19 @@ import butterknife.ButterKnife;
 
 public class SearchRouteActivity extends BaseActivity {
 
-    @Inject
-    MyPresenter presenter;
     @BindView(R.id.tv_toolbar_title)
     TextView mTvToolbarTitle;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.mapView_search)
     MapView mMapViewSearch;
-    private MyProgress progress;
+
     private RoutePlanSearchUtil searchUtil;
-    private String orderNo;
-    private OrderEntity order;
+    private ListOrderEntity.OrdersBean data;
 
-
-    public static void startSearchRouteActivity(Context context, String orderNo) {
+    public static void startSearchRouteActivity(Context context, ListOrderEntity.OrdersBean data) {
         context.startActivity(new Intent(context, SearchRouteActivity.class)
-                .putExtra(Constants.ORDER_NO, orderNo));
+                .putExtra(Constants.ORDER_INFO, data));
     }
 
     @Override
@@ -53,32 +44,21 @@ public class SearchRouteActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //百度地图
         SDKInitializer.initialize(this);
-        SDKInitializer.setCoordType(CoordType.GCJ02);
+        SDKInitializer.setCoordType(CoordType.BD09LL);
         setContentView(R.layout.activity_search_route);
         ButterKnife.bind(this);
-        ComponentHolder.getAppComponent().inject(this);
 
-        presenter.register(this);
-        progress = new MyProgress(this);
-        orderNo = getIntent().getStringExtra(Constants.ORDER_NO);
+        data = (ListOrderEntity.OrdersBean) getIntent().getSerializableExtra(Constants.ORDER_INFO);
         setToolbar(mToolbar);
         mTvToolbarTitle.setText("路线详情");
-        progress.show();
-//        presenter.qryOrder(orderNo);
+        initView(data);
     }
 
-    @Subscribe
-    public void loadData(Object object) {
-        if (object.getClass() == OrderInfoEntity.class) {
-            route((OrderInfoEntity) object);
-            progress.dismiss();
-        }
-    }
-
-    private void route(OrderInfoEntity object) {
-        if (object.rspCode.equals("00")) {
-            order = object.order;
-            routePlan(order.startLat, order.startLon, order.endLat, order.endLon);
+    private void initView(ListOrderEntity.OrdersBean data) {
+        if (data.startLat != null && data.startLon != null && data.endLat != null && data.endLon != null) {
+            routePlan(Double.parseDouble(data.startLat), Double.parseDouble(data.startLon), Double.parseDouble(data.endLat), Double.parseDouble(data.endLon));
+        } else {
+            ShowToast.showBottom(this, "获取路线数据失败");
         }
     }
 
@@ -87,6 +67,7 @@ public class SearchRouteActivity extends BaseActivity {
     private void routePlan(double startLat, double startLon, double endLat, double endLon) {
         searchUtil = new RoutePlanSearchUtil(mMapViewSearch.getMap(), this);
         searchUtil.drivingPlan(startLat, startLon, endLat, endLon);
+//        searchUtil.drivingPlan(30.248061, 120.451534, 30.303667, 120.225824);
         //endLat=30.303667, endLon=120.225824,startLat=30.248061, startLon=120.451534
     }
 
@@ -106,6 +87,5 @@ public class SearchRouteActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mMapViewSearch.onDestroy();
-        presenter.unregister(this);
     }
 }

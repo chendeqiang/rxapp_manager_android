@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.ListCarEntity
+import com.it.rxapp_manager_android.utils.TextUtil
 
 /**
  * Created by deqiangchen on 2018/9/30 14:32
@@ -49,9 +51,22 @@ class CarAdapter() : BaseAdapter() {
             holder = v.tag as ViewHolder
         }
         var car = datas[position]
-        holder.tvCarType.text = car.carBrand
+
+        if (!TextUtil.isEmpty(car.carBrand) && car.carBrand.length > 8) {
+            holder.tvCarType.text = car.carBrand.substring(0, 8) + "..."
+        } else if (!TextUtil.isEmpty(car.carBrand)) {
+            holder.tvCarType.text = car.carBrand
+        } else {
+            holder.tvCarType.text = ""
+        }
+
+//        holder.tvCarType.text = car.carBrand
         holder.tvCarStyle.text = car.carLevelName
         holder.tvCarNo.text = car.carNo
+
+        holder.imgBj.setOnClickListener {
+            mOnItemChangeListener!!.onItemClick(position)
+        }
 
         return v
     }
@@ -61,12 +76,14 @@ class CarAdapter() : BaseAdapter() {
         var tvCarType: TextView
         var tvCarStyle: TextView
         var tvCarNo: TextView
+        var imgBj: ImageView
 
 
         constructor(view: View) {
             tvCarType = view.findViewById(R.id.tv_car_type)
             tvCarStyle = view.findViewById(R.id.tv_car_style)
             tvCarNo = view.findViewById(R.id.tv_car_no)
+            imgBj = view.findViewById(R.id.img_bj)
 
         }
 
@@ -80,5 +97,15 @@ class CarAdapter() : BaseAdapter() {
     fun clear() {
         this.datas.clear()
         notifyDataSetChanged()
+    }
+
+    interface onItemChangeListener {
+        fun onItemClick(i: Int)
+    }
+
+    private var mOnItemChangeListener: onItemChangeListener? = null
+
+    fun setOnItemChangeClickListener(mOnItemChangeListener: onItemChangeListener) {
+        this.mOnItemChangeListener = mOnItemChangeListener
     }
 }
