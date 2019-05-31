@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/item_margin"
             android:background="@null"
             android:focusable="true"
-            android:hint="金额"
+            android:hint="点击输入金额"
             android:lines="1"
             android:minHeight="@dimen/default_height"
             android:textColor="@color/text_color_black"

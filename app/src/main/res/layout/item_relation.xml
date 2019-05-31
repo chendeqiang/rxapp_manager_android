@@ -2,62 +2,89 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/default_padding">
+                android:padding="5dp">
 
-    <TextView
-        android:id="@+id/tv_driverName"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin10"
-        android:lines="1"
-        android:text="张三疯"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
-
-    <TextView
-        android:id="@+id/tv_car1"
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:id="@+id/ll_driver_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/tv_driverName"
-        android:text="速腾"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_marginRight="@dimen/default_margin10"
-        android:id="@+id/tv_car2"
+        <TextView
+            android:id="@+id/tv_driverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:text="张三疯"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_driver_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_12"
+            android:text="18662170766"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/tv_carNo"
-        android:text="舒适型"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/ll_driver_info"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_carNo"
+        <TextView
+            android:id="@+id/tv_car1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="速腾"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14"/>
+
+        <TextView
+            android:id="@+id/tv_carNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="苏E12345"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_12"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/default_margin10"
-        android:layout_toLeftOf="@+id/btn_change_relation"
-        android:text="苏E12345"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
-
-    <Button
-        android:id="@+id/btn_change_relation"
-        android:layout_width="45dp"
-        android:layout_height="20dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/btn_blue_box"
-        android:focusable="false"
-        android:text="编辑"
-        android:textColor="@color/text_color_blue"
-        android:textSize="@dimen/text_size_12"/>
+        android:layout_marginRight="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_car2"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="25座中巴"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14"/>
+
+        <Button
+            android:id="@+id/btn_change_relation"
+            android:layout_width="45dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/btn_blue_box"
+            android:focusable="false"
+            android:text="编辑"
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_12"/>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

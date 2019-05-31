@@ -91,6 +91,7 @@ public class ListOrderEntity implements Serializable {
         public String endLat;
         public String cremark;
         public String payAmount;
+        public String source;
 
         @Override
         public String toString() {
@@ -127,6 +128,7 @@ public class ListOrderEntity implements Serializable {
                     ", endLat='" + endLat + '\'' +
                     ", cremark='" + cremark + '\'' +
                     ", payAmount='" + payAmount + '\'' +
+                    ", source='" + source + '\'' +
                     '}';
         }
     }

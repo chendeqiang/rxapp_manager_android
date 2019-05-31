@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import com.it.rxapp_manager_android.R
@@ -59,11 +60,25 @@ class LoginActivity : BaseActivity() {
             finish()
         }
 
+
+        etVCode.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                if (etVCode.text.isNotEmpty() && etPhone.text.isNotEmpty()) {
+                    progress.show()
+                    val devInfo: String = DevInfo.getInfo()
+                    presenter.login(etPhone.text.toString().trim(), etVCode.text.toString().trim(), 1, "devToken", devInfo)
+                }
+                true
+            } else {
+                false
+            }
+        }
+
         btnLogin.setOnClickListener {
             progress.show()
 //            var devToken: String = UserInfoPreferences.getInstance().devToken
             val devInfo: String = DevInfo.getInfo()
-            presenter.login(etPhone.text.toString(), etVCode.text.toString(), 1, "devToken", devInfo)
+            presenter.login(etPhone.text.toString().trim(), etVCode.text.toString().trim(), 1, "devToken", devInfo)
         }
         etPhone.append(UserInfoPreferences.getInstance().mobile)
     }
@@ -71,6 +86,10 @@ class LoginActivity : BaseActivity() {
     @Subscribe
     fun loadData(any: Any) {
         if (any::class == LoginEntity::class) {
+            var entity: LoginEntity = any as LoginEntity
+            if(entity.rspCode.equals("2000")){
+                ShowToast.showCenter(this, "用户名或密码不正确,请核对")
+            }
             login(any)
         }
     }

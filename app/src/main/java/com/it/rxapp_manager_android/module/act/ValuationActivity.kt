@@ -73,12 +73,12 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         ivAdd = findViewById(R.id.iv_add_valuation) as ImageView
         ivAdd.setOnClickListener {
             //新增计价
-            ListBasicAuthCityActivity.startListBasicAuthCityActivity(this, userNo)
+            CreateValuationActivity.startCreateValuationActivity(this, userNo)
         }
         adapter = ValuationAdapter(this, arrayListOf())
         lvValuation.adapter = adapter
         footerView = OrderFooterView(this)
-        lvValuation.addFooterView(footerView)
+        lvValuation.addFooterView(footerView, "", false)
         adapter.setOnItemValuationClickListener(this)
         lvValuation.setOnScrollListener(this)
 
@@ -92,7 +92,8 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
     }
 
     override fun onValuationClick(i: Int) {
-        ShowToast.showBottom(this, "调价" + i)
+        var data = lvValuation.getItemAtPosition(i) as ListValuationsEntity.PriceRulesBean
+        UpdateValuationActivity.startUpdateValuationActivity(this, userNo, data)
     }
 
     override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
@@ -132,6 +133,10 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
             if (data.rspCode.equals("00")) {
                 adapter.addAll(data.priceRules)
                 footerView.refresh = data.priceRules.size >= pageCount
+            } else if (data.rspCode.equals("101")) {
+                ShowToast.showCenter(this, "账号异常,请重新登陆")
+            }else{
+                ShowToast.showCenter(this,data.rspDesc)
             }
             srlRefresh.isRefreshing = false
         }

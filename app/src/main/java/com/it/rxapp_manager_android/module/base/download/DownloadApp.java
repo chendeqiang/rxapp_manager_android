@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
+
 import com.it.rxapp_manager_android.MyApplication;
 import com.it.rxapp_manager_android.R;
 import com.it.rxapp_manager_android.utils.TextUtil;
@@ -44,7 +45,7 @@ public class DownloadApp {
                 DownloadManager dm = (DownloadManager) MyApplication.application.getSystemService(MyApplication.application.DOWNLOAD_SERVICE);
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(data.url));
                 //设置在什么网络情况下进行下载
-                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+                request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
                 //设置通知栏标题
                 request.setMimeType("application/vnd.android.package-archive");
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
@@ -69,9 +70,11 @@ public class DownloadApp {
 
     private void loadView() {
         Intent intentDownload = new Intent(Intent.ACTION_VIEW);
-        intentDownload.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intentDownload.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intentDownload.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intentDownload.addCategory(Intent.CATEGORY_DEFAULT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intentDownload.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intentDownload.setDataAndType(uri, "application/vnd.android.package-archive");
         } else {
             intentDownload.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");

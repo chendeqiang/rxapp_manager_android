@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.CommEntity
@@ -29,7 +30,7 @@ import javax.inject.Inject
 /**
  * Created by deqiangchen on 2018/10/8 09:52
  */
-class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationAdapter.onItemChangeListener, TextWatcher {
+class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationAdapter.onItemChangeListener {
 
     private lateinit var lvRelation: ListView
     private lateinit var srlRefresh: SwipeRefreshLayout
@@ -40,7 +41,6 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
     private var relation: ListRelationEntity.RelationsBean? = null
     private lateinit var etDriver: EditText
     private lateinit var ivCancle: ImageView
-    private lateinit var tvCancle: TextView
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
@@ -58,7 +58,7 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_relation)
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         progress = MyProgress(this)
@@ -71,31 +71,50 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
         (findViewById(R.id.tv_toolbar_title) as TextView).text = "司机-车辆"
         etDriver = findViewById(R.id.et_driver) as EditText
         ivCancle = findViewById(R.id.img_cancel) as ImageView
-        tvCancle = findViewById(R.id.tv_cancel) as TextView
         lvRelation = findViewById(R.id.lv_relation) as ListView
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
 
         lvRelation.emptyView = llEmpty
 
-        tvCancle.setOnClickListener {
-            finish()
-        }
         ivCancle.setOnClickListener {
             etDriver.text.clear()
         }
-        etDriver.addTextChangedListener(this)
+
+
+        etDriver.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (etDriver.text.isNotEmpty()) {
+                    if (TextUtil.isStartWithNumber(etDriver.text.toString())) {
+                        adapter.clear()
+                        progress.show()
+                        pageIndex=0
+                        pageCount=20
+                        presenter.listRelation(userNo, pageIndex, pageCount, "", etDriver.text.toString())
+                    } else {
+                        pageIndex=0
+                        pageCount=20
+                        adapter.clear()
+                        progress.show()
+                        presenter.listRelation(userNo, pageIndex, pageCount, etDriver.text.toString(), "")
+                    }
+                }
+                true
+            } else {
+                false
+            }
+        }
         adapter = RelationAdapter(this, arrayListOf())
         lvRelation.adapter = adapter
         footerView = OrderFooterView(this)
-        lvRelation.addFooterView(footerView)
+        lvRelation.addFooterView(footerView, "", false)
         adapter.setOnItemChangeClickListener(this)
         lvRelation.setOnScrollListener(this)
         srlRefresh.setOnRefreshListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listRelation(userNo, pageIndex, pageCount, "")
+            presenter.listRelation(userNo, pageIndex, pageCount, "","")
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
     }
@@ -105,8 +124,13 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
         if (any::class == ListRelationEntity::class) {
             var data = any as ListRelationEntity
             if (data.rspCode.equals("00")) {
+                if (data.relations.isEmpty()) {
+                    ShowToast.showCenter(this, "司机不存在！")
+                }
                 adapter.addAll(data.relations)
                 footerView.refresh = data.relations.size >= pageCount
+            } else if (data.rspCode.equals("101")) {
+                ShowToast.showCenter(this, "账号异常,请重新登陆")
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
             }
@@ -115,6 +139,8 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
             var data = any as CommEntity
             if (data.rspCode.equals("00")) {
                 ShowToast.showBottom(this, "编辑成功")
+            } else {
+                ShowToast.showCenter(this, data.rspDesc)
             }
         }
         progress.dismiss()
@@ -130,7 +156,7 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
             if (lvRelation.bottom == lastItemView.bottom) {
                 if (footerView.refresh) {
                     pageIndex += pageCount
-                    presenter.listRelation(userNo, pageIndex, pageCount, "")
+                    presenter.listRelation(userNo, pageIndex, pageCount, "","")
                 }
             }
         }
@@ -144,7 +170,7 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listRelation(userNo, pageIndex, pageCount, "")
+        presenter.listRelation(userNo, pageIndex, pageCount, "","")
     }
 
     override fun onDestroy() {
@@ -168,19 +194,19 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
         }
     }
 
-    override fun afterTextChanged(p0: Editable?) {
-    }
-
-    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-    }
-
-    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        if (!TextUtil.isEmpty(p0.toString())) {
-            adapter.clear()
-            progress.show()
-            presenter.listRelation(userNo, pageIndex, pageCount, p0.toString())
-        }
-    }
+//    override fun afterTextChanged(p0: Editable?) {
+//    }
+//
+//    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//    }
+//
+//    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//        if (!TextUtil.isEmpty(p0.toString())) {
+//            adapter.clear()
+//            progress.show()
+//            presenter.listRelation(userNo, pageIndex, pageCount, p0.toString())
+//        }
+//    }
 
 
 }

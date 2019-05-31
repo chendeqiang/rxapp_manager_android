@@ -15,7 +15,6 @@ import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.dialog.RemarkDialog
 import com.it.rxapp_manager_android.dialog.SetPriceDialog
 import com.it.rxapp_manager_android.modle.CommEntity
-import com.it.rxapp_manager_android.modle.ListDriverEntity
 import com.it.rxapp_manager_android.modle.ListDriversEntity
 import com.it.rxapp_manager_android.modle.ListOrderEntity
 import com.it.rxapp_manager_android.module.base.*
@@ -63,7 +62,7 @@ class OrderInfoActivity : BaseActivity() {
     private lateinit var progress: MyProgress
     lateinit var userNo: String
     private lateinit var data: ListOrderEntity.OrdersBean
-    private var driver: ListDriversEntity.DriversBean? = null
+//    private var driver: ListDriversEntity.DriversBean? = null
 
     companion object {
         @JvmStatic
@@ -194,14 +193,17 @@ class OrderInfoActivity : BaseActivity() {
         }
 
         if (orderInfo.payAmount.isNullOrEmpty()) {
-            tvOrderPrice.text = "结算价: " + orderInfo.cpayprice.substring(0, orderInfo.cpayprice.length - 3) + " 元"
+//            tvOrderPrice.text = "结算价: " + orderInfo.cpayprice.substring(0, orderInfo.cpayprice.length - 3) + " 元"
+            tvOrderPrice.text = "结算价: " + orderInfo.cpayprice + " 元"
         } else {
-            tvOrderPrice.text = "结算价: " + orderInfo.payAmount.toInt() / 100 + " 元"
+//            tvOrderPrice.text = "结算价: " + orderInfo.payAmount.toInt() / 100 + " 元"
+            tvOrderPrice.text = "结算价: " + String.format("%.2f", orderInfo.payAmount.toDouble() / 100) + " 元"
         }
         tvAddress.text = orderInfo.cstartAddress
         tvStAds.text = orderInfo.cstartAddress
         tvEnAds.text = orderInfo.cendAddress
-        tvOrderFee.text = "¥ " + orderInfo.cpayprice.substring(0, orderInfo.cpayprice.length - 3) + " 元"
+//        tvOrderFee.text = "¥ " + orderInfo.cpayprice.substring(0, orderInfo.cpayprice.length - 3) + " 元"
+        tvOrderFee.text = "¥ " + orderInfo.cpayprice + " 元"
         tvPhone.text = orderInfo.ccustomPhone
 
         if (!TextUtil.isEmpty(orderInfo.cremark) && orderInfo.cremark.length > 50) {
@@ -261,19 +263,19 @@ class OrderInfoActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_DRIVER_ACTIVITY) {
-            driver = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as ListDriversEntity.DriversBean
-            setPrice()
+            val enableDriver = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as ListDriversEntity.DriversBean
+            setPrice(enableDriver)
 //            progress.show()
 //            presenter.pubOrder(userNo, tvOrderNo.text.toString(), driver!!.no.toString())
         }
     }
 
-    private fun setPrice() {
+    private fun setPrice(enableDriver: ListDriversEntity.DriversBean) {
         val dialog = SetPriceDialog(this)
         dialog.setOnYesClickListener {
             dialog.dismiss()
             progress.show()
-            presenter.pubOrder(userNo, tvOrderNo.text.toString(), driver!!.no.toString(), dialog.message())
+            presenter.pubOrder(userNo, tvOrderNo.text.toString(), enableDriver.no.toString(), dialog.message())
         }
         dialog.show()
     }

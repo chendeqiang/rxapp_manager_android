@@ -89,7 +89,7 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.on
         adapter = CarAdapter(this, arrayListOf())
         lvCars.adapter = adapter
         footerView = OrderFooterView(this)
-        lvCars.addFooterView(footerView)
+        lvCars.addFooterView(footerView, "", false)
         lvCars.setOnScrollListener(this)
         if (tag == 1) {
             lvCars.setOnItemClickListener { _, _, i, _ ->
@@ -112,6 +112,8 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.on
         tvSearch.setOnClickListener {
             adapter.clear()
             progress.show()
+            pageIndex=0
+            pageCount=20
             presenter.listCar(userNo, pageIndex, pageCount, etCarNo.text.toString(), etCarType.text.toString())
         }
         adapter.setOnItemChangeClickListener(this)
@@ -140,8 +142,15 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.on
         if (any::class == ListCarEntity::class) {
             var data = any as ListCarEntity
             if (data.rspCode.equals("00")) {
+                if (data.cars.isEmpty()) {
+                    ShowToast.showCenter(this, "查询失败！")
+                }
                 adapter.addAll(data.cars)
                 footerView.refresh = data.cars.size >= pageCount
+            } else if (data.rspCode.equals("101")) {
+                ShowToast.showCenter(this, "账号异常,请重新登陆")
+            } else {
+                ShowToast.showCenter(this, data.rspDesc)
             }
             srlRefresh.isRefreshing = false
         } else if (any::class == CommEntity::class) {

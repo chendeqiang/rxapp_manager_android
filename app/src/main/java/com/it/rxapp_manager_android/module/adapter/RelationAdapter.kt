@@ -52,9 +52,10 @@ class RelationAdapter() : BaseAdapter() {
         }
         var relation = datas[position]
         holder.tvDriverName.text = relation.cname
+        holder.tvDriverPhone.text = relation.cphone
 
         if (!TextUtil.isEmpty(relation.model_name) && relation.model_name.length > 8) {
-            holder.tvCar1.text  = relation.model_name.substring(0, 8) + "..."
+            holder.tvCar1.text = relation.model_name.substring(0, 8) + "..."
         } else if (!TextUtil.isEmpty(relation.model_name)) {
             holder.tvCar1.text = relation.model_name
         } else {
@@ -86,6 +87,7 @@ class RelationAdapter() : BaseAdapter() {
     inner class ViewHolder {
 
         var tvDriverName: TextView
+        var tvDriverPhone: TextView
         var tvCar1: TextView
         var tvCar2: TextView
         var tvCarNo: TextView
@@ -94,6 +96,7 @@ class RelationAdapter() : BaseAdapter() {
 
         constructor(view: View) {
             tvDriverName = view.findViewById(R.id.tv_driverName)
+            tvDriverPhone = view.findViewById(R.id.tv_driver_phone)
             tvCar1 = view.findViewById(R.id.tv_car1)
             tvCar2 = view.findViewById(R.id.tv_car2)
             tvCarNo = view.findViewById(R.id.tv_carNo)

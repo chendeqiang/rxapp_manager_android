@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.it.rxapp_manager_android.module.act.SettingActivity">
 
-    <include layout="@layout/action_setting_bar"/>
+    <include layout="@layout/action_bar"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="总控室司机:  "
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_fleetName"
@@ -40,7 +40,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:textColor="@color/text_color_black_gray"/>
@@ -59,7 +58,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="总控室电话:  "
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_fleetMobile"
@@ -67,7 +66,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:inputType="number"
                     android:maxLength="11"
@@ -89,7 +87,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="总控室车牌:  "
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_fleetNo"
@@ -97,7 +95,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:textColor="@color/text_color_black_gray"/>
@@ -116,7 +113,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="调度手机号1:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_phone"
@@ -124,7 +121,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:inputType="number"
                     android:maxLength="11"
@@ -146,7 +142,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="调度手机号2:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_phone1"
@@ -154,7 +150,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:inputType="number"
                     android:maxLength="11"
@@ -176,7 +171,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="调度手机号3:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_phone2"
@@ -184,7 +179,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:inputType="number"
                     android:maxLength="11"
@@ -206,7 +200,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="携程司机佣金比例:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_commisionXc"
@@ -214,7 +208,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:textColor="@color/text_color_black_gray"/>
@@ -233,7 +226,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="同城司机佣金比例:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_commisionTc"
@@ -241,7 +234,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:textColor="@color/text_color_black_gray"/>
@@ -260,7 +252,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="飞猪司机佣金比例:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_commisionFz"
@@ -268,7 +260,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:textColor="@color/text_color_black_gray"/>
@@ -287,7 +278,7 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="胜意司机佣金比例:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <EditText
                     android:id="@+id/et_commisionSy"
@@ -295,7 +286,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
                     android:gravity="center_horizontal"
                     android:padding="3dp"
                     android:textColor="@color/text_color_black_gray"/>
@@ -314,28 +304,16 @@
                     android:layout_marginLeft="@dimen/default_margin"
                     android:text="派工模式:"
                     android:textColor="@color/text_color_black"
-                    android:textSize="@dimen/text_size_16"/>
+                    android:textSize="@dimen/text_size_14"/>
 
                 <Spinner
                     android:id="@+id/spinner_dispatchPattern"
-                    android:layout_width="150dp"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/default_margin"
                     android:background="@drawable/btn_gray_box"
                     android:entries="@array/order"
-                    android:padding="3dp"
-                    android:visibility="gone"/>
-
-                <EditText
-                    android:id="@+id/et_dispatchPattern"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/default_margin"
-                    android:background="@drawable/btn_gray_box"
-                    android:enabled="false"
-                    android:gravity="center_horizontal"
-                    android:padding="3dp"
-                    android:textColor="@color/text_color_black_gray"/>
+                    android:padding="3dp"/>
 
             </LinearLayout>
 
@@ -347,8 +325,7 @@
                 android:layout_marginBottom="@dimen/default_margin40"
                 android:layout_marginTop="@dimen/default_margin15"
                 android:background="@drawable/btn_gold_round"
-                android:text="保存"
-                android:visibility="gone"/>
+                android:text="保存"/>
         </LinearLayout>
 
     </ScrollView>

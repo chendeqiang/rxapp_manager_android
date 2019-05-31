@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/action_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_select_product"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:id="@+id/tv_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:text="选择产品："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:id="@+id/tv_select_product"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/tv_product"
+                    android:lines="1"
+                    android:maxLength="25"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/default_margin"
+                    android:src="@drawable/ic_gree_arrow"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="起步价："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_start_price"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(必填)  单位：元"
+                    android:textColor="@color/colorNav"
+                    android:textSize="@dimen/text_size_12"/>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="起步公里："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_start_km"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(必填)  单位：公里"
+                    android:textColor="@color/colorNav"
+                    android:textSize="@dimen/text_size_12"/>
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="起步外单价："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_outStartKmPrice"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(必填)  单位：元"
+                    android:textColor="@color/colorNav"
+                    android:textSize="@dimen/text_size_12"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="长途公里数："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_longDistanceKm"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="长途外单价："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_longDistanceKmPrice"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="超长途公里数："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_superLongDistanceKm"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="超长途单价："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_superLongDistanceKmPrice"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="其它费用："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_otherPrice"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="夜间费用："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <EditText
+                    android:id="@+id/et_nightFee"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="夜间段："
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_nightBegin"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/nightBegin"
+                    android:padding="3dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_nightBegin"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:gravity="center_horizontal"
+                    android:padding="3dp"
+                    android:text="23:00"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="至"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_nightEnd"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/nightEnd"
+                    android:padding="3dp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tv_nightEnd"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:background="@drawable/btn_gray_box"
+                    android:gravity="center_horizontal"
+                    android:padding="3dp"
+                    android:text="05:00"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="周一"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_mondayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="周二"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_tuesdayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="周三"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_wednesdayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin"
+                    android:text="周四"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_thursdayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="周五"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_fridayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="周六"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_saturdayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/default_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="周日"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_sundayRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/default_margin10"
+                    android:text="法定假日"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="@dimen/text_size_14"/>
+
+                <Spinner
+                    android:id="@+id/spinner_publicholidaysRate"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_gray_box"
+                    android:entries="@array/fluctuation"
+                    android:padding="3dp"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/line_color"/>
+
+            <Button
+                android:id="@+id/btn_save_valuation"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/default_margin10"
+                android:layout_marginTop="@dimen/default_margin15"
+                android:background="@drawable/btn_gold_round"
+                android:text="保存"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/default_margin2"
+                android:layout_marginLeft="@dimen/default_margin"
+                android:text="备注：价格采用分段计费（总价格=基础价格段+长途价格段+超长途价格段+其他费用+夜间服务费基数）"
+                android:textColor="@color/text_color_red"
+                android:textSize="@dimen/text_size_12"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

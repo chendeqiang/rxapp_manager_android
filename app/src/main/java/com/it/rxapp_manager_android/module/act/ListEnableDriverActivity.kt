@@ -18,6 +18,7 @@ import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.OrderFooterView
+import com.it.rxapp_manager_android.widget.ShowToast
 import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
@@ -42,7 +43,6 @@ class ListEnableDriverActivity : BaseActivity(), AbsListView.OnScrollListener, T
 
     private lateinit var etDriver: EditText
     private lateinit var ivCancle: ImageView
-    private lateinit var tvCancle: TextView
 
 
     companion object {
@@ -69,15 +69,11 @@ class ListEnableDriverActivity : BaseActivity(), AbsListView.OnScrollListener, T
 
         etDriver = findViewById(R.id.et_driver) as EditText
         ivCancle = findViewById(R.id.img_cancel) as ImageView
-        tvCancle = findViewById(R.id.tv_cancel) as TextView
 
         lvDrivers = findViewById(R.id.lv_drivers) as ListView
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
 
-        tvCancle.setOnClickListener {
-            finish()
-        }
         ivCancle.setOnClickListener {
             etDriver.text.clear()
         }
@@ -86,7 +82,7 @@ class ListEnableDriverActivity : BaseActivity(), AbsListView.OnScrollListener, T
         adapter = EnableDriverAdapter(this, arrayListOf())
         lvDrivers.adapter = adapter
         footerView = OrderFooterView(this)
-        lvDrivers.addFooterView(footerView)
+        lvDrivers.addFooterView(footerView, "", false)
         lvDrivers.setOnScrollListener(this)
 
         lvDrivers.setOnItemClickListener { _, _, i, _ ->
@@ -140,6 +136,9 @@ class ListEnableDriverActivity : BaseActivity(), AbsListView.OnScrollListener, T
         if (any::class == ListDriversEntity::class) {
             var data = any as ListDriversEntity
             if (data.rspCode.equals("00")) {
+                if (data.drivers.isEmpty()) {
+                    ShowToast.showCenter(this, "司机不存在！")
+                }
                 adapter.addAll(data.drivers)
                 footerView.refresh = data.drivers.size >= pageCount
             }

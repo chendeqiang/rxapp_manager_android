@@ -13,6 +13,7 @@ object Constants {
     const val ORDER_INFO = "order_info"
     const val FLOW_NO = "flow_no"
     const val TAG = "tag"
+    const val PRODUCT = "product_info"
 
     const val ACTIVITY_DATA = "activity_data"
     const val ACTIVITY_BACK_DATA = "activity_back_data"
@@ -22,4 +23,7 @@ object Constants {
     const val REQUEST_SELECT_DRIVER_ACTIVITY = 5
     const val REQUEST_SELECT_PRODUCT_ACTIVITY = 6
 
+    const val RX_MANAGER_APP = "rx_admin_android"
+    const val REQUEST_PERMISSION_SDCARD_6_0: Int = 2
+    const val REQUEST_PERMISSION_SDCARD_8_0: Int = 3
 }

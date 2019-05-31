@@ -11,8 +11,109 @@
         <item>C3</item>
     </string-array>
     <string-array name="order">
-        <item>- - - - - 指派 - - - - -</item>
-        <item>- - - - - 抢单 - - - - -</item>
-        <item>- - - - - 竞价 - - - - -</item>
+        <item>指派</item>
+        <item>抢单</item>
+        <item>竞价</item>
+    </string-array>
+
+    <string-array name="fluctuation">
+        <item>100%</item>
+        <item>-50%</item>
+        <item>-40%</item>
+        <item>-30%</item>
+        <item>-20%</item>
+        <item>-10%</item>
+        <item>-9%</item>
+        <item>-8%</item>
+        <item>-7%</item>
+        <item>-6%</item>
+        <item>-5%</item>
+        <item>-4%</item>
+        <item>-3%</item>
+        <item>-2%</item>
+        <item>-1%</item>
+        <item>+1%</item>
+        <item>+2%</item>
+        <item>+3%</item>
+        <item>+4%</item>
+        <item>+5%</item>
+        <item>+6%</item>
+        <item>+7%</item>
+        <item>+8%</item>
+        <item>+9%</item>
+        <item>+10%</item>
+        <item>+11%</item>
+        <item>+12%</item>
+        <item>+13%</item>
+        <item>+14%</item>
+        <item>+15%</item>
+        <item>+16%</item>
+        <item>+17%</item>
+        <item>+18%</item>
+        <item>+19%</item>
+        <item>+20%</item>
+        <item>+30%</item>
+        <item>+40%</item>
+        <item>+50%</item>
+        <item>+60%</item>
+        <item>+70%</item>
+        <item>+80%</item>
+        <item>+90%</item>
+        <item>+100%</item>
+    </string-array>
+
+    <string-array name="nightBegin">
+        <item>22:00</item>
+        <item>22:30</item>
+        <item>23:00</item>
+        <item>23:30</item>
+        <item>24:00</item>
+    </string-array>
+
+    <string-array name="nightEnd">
+        <item>05:00</item>
+        <item>05:30</item>
+        <item>06:00</item>
+        <item>06:30</item>
+        <item>07:00</item>
+    </string-array>
+
+    <string-array name="productType">
+        <item>全部</item>
+        <item>携程</item>
+        <item>平台自有</item>
+        <item>同程</item>
+        <item>微信</item>
+        <item>胜意</item>
+        <item>途牛</item>
+        <item>出租车</item>
+        <item>飞猪</item>
+        <item>车队自有</item>
+        <item>淘宝店铺</item>
+        <item>APP订单</item>
+    </string-array>
+
+    <string-array name="carType">
+        <item>全部</item>
+        <item>经济型</item>
+        <item>舒适型</item>
+        <item>豪华型</item>
+        <item>奢华型</item>
+        <item>商务型</item>
+        <item>特斯拉</item>
+        <item>10座小巴</item>
+        <item>20座中巴</item>
+        <item>35座大巴</item>
+        <item>45座大巴</item>
+        <item>豪华商务型</item>
+        <item>8座小巴</item>
+        <item>15座中巴</item>
+        <item>30座大巴</item>
+        <item>25座中巴</item>
+        <item>40座大巴</item>
+        <item>53座大巴</item>
+        <item>50座大巴</item>
+        <item>别克GL8</item>
+        <item>17座中巴</item>
     </string-array>
 </resources>

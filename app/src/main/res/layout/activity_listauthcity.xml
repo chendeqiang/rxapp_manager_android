@@ -10,6 +10,97 @@
 
     <include layout="@layout/action_bar"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/activity_bg"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="车型："
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_14"/>
+
+        <Spinner
+            android:id="@+id/spinner_carType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_gray_box"
+            android:entries="@array/carType"
+            android:padding="1dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/default_margin10"
+            android:text="产线："
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_14"/>
+
+        <Spinner
+            android:id="@+id/spinner_productType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_gray_box"
+            android:entries="@array/productType"
+            android:padding="1dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/activity_bg"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="出发城市："
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_14"/>
+
+        <EditText
+            android:id="@+id/et_startCity"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_gray_box"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="目的城市："
+            android:textColor="@color/text_color_blue"
+            android:textSize="@dimen/text_size_14"/>
+
+        <EditText
+            android:id="@+id/et_endCity"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/btn_gray_box"/>
+
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:text="搜索"
+            android:textColor="@color/colorAccent"/>
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

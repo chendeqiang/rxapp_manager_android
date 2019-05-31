@@ -77,7 +77,7 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
         etNo.addTextChangedListener(this)
 
         btnSv.setOnClickListener {
-            if (TextUtil.isEmpty(tvType.text.toString()) || TextUtil.isEmpty(etNo.text.toString())) {
+            if (TextUtil.isEmpty(etNo.text.toString()) || tvType.text.toString().equals("请选择车型")) {
                 ShowToast.showCenter(this, "信息不完整")
             } else {
                 progress.show()
@@ -137,5 +137,10 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
             }
         }
         progress.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.unregister(this)
     }
 }

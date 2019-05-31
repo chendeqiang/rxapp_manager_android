@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
 import android.widget.*
 import com.it.rxapp_manager_android.R
@@ -16,9 +14,11 @@ import com.it.rxapp_manager_android.module.adapter.OrderAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
+import com.it.rxapp_manager_android.utils.LogUtils
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.MyTagButton
 import com.it.rxapp_manager_android.widget.OrderFooterView
+import com.it.rxapp_manager_android.widget.ShowToast
 import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
@@ -33,8 +33,12 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
     private lateinit var orderFooterView: OrderFooterView
     private lateinit var srlRefresh: SwipeRefreshLayout
     private lateinit var llEmpty: LinearLayout
+    private lateinit var ivBack: ImageView
+    private lateinit var ivSort: ImageView
     private lateinit var hsvOrderType: HorizontalScrollView
     private lateinit var tabOrder: TabLayout
+    private var sortType: String = "0"
+
 
     @Inject
     lateinit var presenter: MyPresenter
@@ -63,15 +67,17 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
     }
 
     private fun initView() {
+
+        ivBack = findViewById(R.id.iv_back_orders) as ImageView
+        ivSort = findViewById(R.id.iv_sort_orders) as ImageView
         lvOrders = findViewById(R.id.lv_orders) as ListView
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
 
-        setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
-        (findViewById(R.id.tv_toolbar_title) as TextView).text = "车队订单"
-
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
         hsvOrderType = findViewById(R.id.hsv_order_type) as HorizontalScrollView
-
+        ivBack.setOnClickListener {
+            finish()
+        }
         lvOrders.emptyView = llEmpty
 
         tabOrder = findViewById(R.id.tab_order) as TabLayout
@@ -86,6 +92,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
 
         adapter = OrderAdapter(this, arrayListOf())
         lvOrders.adapter = adapter
+
         lvOrders.setOnItemClickListener { _, view, i, _ ->
             if (view != orderFooterView) {
                 var data = adapter.getItem(i) as ListOrderEntity.OrdersBean
@@ -96,18 +103,36 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
             it.setOnClickListener(this)
         }
         orderFooterView = OrderFooterView(this)
-        lvOrders.addFooterView(orderFooterView)
+        lvOrders.addFooterView(orderFooterView, "", false)
         lvOrders.setOnScrollListener(this)
         srlRefresh.setOnRefreshListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
+            presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount, sortType)
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
 
         tabOrder.addOnTabSelectedListener(this)
         tagButtons[0].isSelected = true
+
+
+        ivSort.setOnClickListener {
+            if (sortType == "0") {
+                sortType = "1"
+                pageIndex = 0
+                adapter.clear()
+                progress.show()
+                presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount, sortType)
+            } else {
+                sortType = "0"
+                pageIndex = 0
+                adapter.clear()
+                progress.show()
+                presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount, sortType)
+            }
+//            LogUtils.d("--------", sortType)
+        }
     }
 
     override fun onClick(view: View?) {
@@ -132,7 +157,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
+        presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount, sortType)
     }
 
     override fun onStart() {
@@ -140,7 +165,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
+        presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount, sortType)
     }
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -164,7 +189,7 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
             if (lvOrders.bottom == lastItemView.bottom) {
                 if (orderFooterView.refresh) {
                     pageIndex += pageCount
-                    presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount)
+                    presenter.listOrder(userNo, orderStatus.toString(), orderType.toString(), pageIndex, pageCount, sortType)
                 }
             }
         }
@@ -180,6 +205,10 @@ class OrdersActivity : BaseActivity(), View.OnClickListener, AbsListView.OnScrol
             if (data.rspCode.equals("00")) {
                 adapter.addAll(data.orders)
                 orderFooterView.refresh = data.orders.size >= pageCount
+            } else if (data.rspCode.equals("101")) {
+                ShowToast.showCenter(this, "账号异常,请重新登陆")
+            } else {
+                ShowToast.showCenter(this, data.rspDesc)
             }
             srlRefresh.isRefreshing = false
         }

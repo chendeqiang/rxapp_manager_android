@@ -74,7 +74,7 @@ class CreateDriverActivity : BaseActivity() {
 
     private fun createDriver(name: String, phone: String) {
         progress.show()
-        presenter.addDriver(userNo,name, phone)
+        presenter.addDriver(userNo, name, phone)
     }
 
     @Subscribe
@@ -83,6 +83,8 @@ class CreateDriverActivity : BaseActivity() {
             var data = any as AddDriverEntity
             if (data.rspCode.equals("00") && !TextUtil.isEmpty(data.driver.toString())) {
                 ShowToast.showCenter(this, "添加成功")
+            } else {
+                ShowToast.showCenter(this, data.rspDesc)
             }
         }
         progress.dismiss()

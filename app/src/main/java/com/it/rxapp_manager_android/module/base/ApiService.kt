@@ -90,5 +90,16 @@ interface ApiService {
     @POST(ApiConstants.listbasicauthcity)
     fun listBasicAuthCity(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListBasicAuthCityEntity>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.addpricerule)
+    fun addPriceRule(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CreateValuationEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.updatepricerule)
+    fun updatePriceRule(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<UpdateValuationEntity>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.checkVersion)
+    fun checkVersion(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CheckVersionEntity>
 
 }

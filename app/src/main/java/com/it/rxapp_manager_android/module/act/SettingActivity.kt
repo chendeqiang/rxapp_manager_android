@@ -28,8 +28,6 @@ import javax.inject.Inject
  */
 class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
-    private lateinit var ivBack: ImageView
-    private lateinit var ivRewrite: ImageView
     private lateinit var spDispatchPattern: Spinner
     private lateinit var etFleetName: EditText
     private lateinit var etFleetMobile: EditText
@@ -41,13 +39,13 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     private lateinit var etCommisionTc: EditText
     private lateinit var etCommisionFz: EditText
     private lateinit var etCommisionSy: EditText
-    private lateinit var etDispatchPattern: EditText
     private lateinit var btnSave: Button
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
     private lateinit var progress: MyProgress
     private var orderType: Int = 0
+    lateinit var type: Array<String>
 
     companion object {
         @JvmStatic
@@ -69,6 +67,8 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     }
 
     private fun initView() {
+        setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
+        (findViewById(R.id.tv_toolbar_title) as TextView).text = "用户设置"
         etFleetName = findViewById(R.id.et_fleetName) as EditText
         etFleetMobile = findViewById(R.id.et_fleetMobile) as EditText
         etFleetNo = findViewById(R.id.et_fleetNo) as EditText
@@ -79,32 +79,10 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         etCommisionTc = findViewById(R.id.et_commisionTc) as EditText
         etCommisionFz = findViewById(R.id.et_commisionFz) as EditText
         etCommisionSy = findViewById(R.id.et_commisionSy) as EditText
-        etDispatchPattern = findViewById(R.id.et_dispatchPattern) as EditText
         spDispatchPattern = findViewById(R.id.spinner_dispatchPattern) as Spinner
         btnSave = findViewById(R.id.btn_save_setting) as Button
 
         spDispatchPattern.onItemSelectedListener = this
-
-        ivBack = findViewById(R.id.iv_back_setting) as ImageView
-        ivBack.setOnClickListener {
-            finish()
-        }
-        ivRewrite = findViewById(R.id.iv_rewrite_setting) as ImageView
-        ivRewrite.setOnClickListener {
-            btnSave.visibility = View.VISIBLE
-            etFleetName.isEnabled = true
-            etFleetMobile.isEnabled = true
-            etFleetNo.isEnabled = true
-            et_Phone.isEnabled = true
-            et_Phone1.isEnabled = true
-            et_Phone2.isEnabled = true
-            etCommisionXc.isEnabled = true
-            etCommisionTc.isEnabled = true
-            etCommisionFz.isEnabled = true
-            etCommisionSy.isEnabled = true
-            spDispatchPattern.visibility = View.VISIBLE
-            etDispatchPattern.visibility = View.GONE
-        }
         btnSave.setOnClickListener {
             checkView()
         }
@@ -136,6 +114,8 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             var data = any as OrganizationInfoEntity
             if (data.rspCode.equals("00")) {
                 setData(data.organizations.get(0))
+            } else if (data.rspCode.equals("101")) {
+                ShowToast.showCenter(this, "账号异常,请重新登陆")
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
                 finish()
@@ -145,7 +125,6 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
             if (data.rspCode.equals("00")) {
                 ShowToast.showCenter(this, data.rspDesc)
                 presenter.listOrganizationInfo(userNo)
-                updateView()
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
             }
@@ -154,21 +133,6 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
 
     }
 
-    private fun updateView() {
-        btnSave.visibility = View.GONE
-        etFleetName.isEnabled = false
-        etFleetMobile.isEnabled = false
-        etFleetNo.isEnabled = false
-        et_Phone.isEnabled = false
-        et_Phone1.isEnabled = false
-        et_Phone2.isEnabled = false
-        etCommisionXc.isEnabled = false
-        etCommisionTc.isEnabled = false
-        etCommisionFz.isEnabled = false
-        etCommisionSy.isEnabled = false
-        spDispatchPattern.visibility = View.GONE
-        etDispatchPattern.visibility = View.VISIBLE
-    }
 
     private fun setData(organizations: OrganizationInfoEntity.OrganizationsBean?) {
         etFleetName.setText(organizations!!.fleetName)
@@ -189,8 +153,13 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
         etCommisionTc.setText(organizations.orgcommissionTC)
         etCommisionFz.setText(organizations.orgcommissionFZ)
         etCommisionSy.setText(organizations.orgcommissionSY)
-        etDispatchPattern.setText(OrderModel.getKey(organizations.dispatchPattern.toInt()))
 
+        type = resources.getStringArray(R.array.order)
+        for (i in type.indices) {
+            if (OrderModel.getKey(organizations.dispatchPattern.toInt()).equals(type[i])) {
+                spDispatchPattern.setSelection(i)
+            }
+        }
     }
 
     override fun onStart() {
@@ -210,7 +179,6 @@ class SettingActivity : BaseActivity(), AdapterView.OnItemSelectedListener {
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (parent!!.id) {
             R.id.spinner_dispatchPattern -> {
-                val letter = resources.getStringArray(R.array.order)
                 orderType = position + 1
             }
         }

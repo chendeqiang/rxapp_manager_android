@@ -1,12 +1,13 @@
 package com.it.rxapp_manager_android.modle;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by deqiangchen on 2018/10/19 15:00
  */
 
-public class ListValuationsEntity {
+public class ListValuationsEntity implements Serializable{
 
     /**
      * rspCode : 00
@@ -27,7 +28,7 @@ public class ListValuationsEntity {
                 '}';
     }
 
-    public static class PriceRulesBean {
+    public static class PriceRulesBean implements Serializable {
         /**
          * authCityId : fde8d6c0bcf54a02aa
          * carType : d44016b2d02d48fd9a
@@ -88,6 +89,10 @@ public class ListValuationsEntity {
         public String tuesdayRate;
         public String wednesdayRate;
         public String productType;
+        public String productNo;
+        public String nightBegin;
+        public String nightEnd;
+        public String nightFee;
 
         @Override
         public String toString() {
@@ -121,6 +126,10 @@ public class ListValuationsEntity {
                     ", tuesdayRate='" + tuesdayRate + '\'' +
                     ", wednesdayRate='" + wednesdayRate + '\'' +
                     ", productType='" + productType + '\'' +
+                    ", productNo='" + productNo + '\'' +
+                    ", nightBegin='" + nightBegin + '\'' +
+                    ", nightEnd='" + nightEnd + '\'' +
+                    ", nightFee='" + nightFee + '\'' +
                     '}';
         }
     }

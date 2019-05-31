@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.Toolbar
-import android.widget.AbsListView
-import android.widget.LinearLayout
-import android.widget.ListView
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.ListBasicAuthCityEntity
 import com.it.rxapp_manager_android.module.adapter.BasicAuthCityAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
+import com.it.rxapp_manager_android.utils.LogUtils
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.OrderFooterView
 import com.squareup.otto.Subscribe
@@ -24,7 +23,7 @@ import javax.inject.Inject
 /**
  * Created by deqiangchen on 2018/10/22 11:04
  */
-class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
+class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener, AdapterView.OnItemSelectedListener {
 
     @Inject
     lateinit var presenter: MyPresenter
@@ -38,6 +37,14 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
     private lateinit var footerView: OrderFooterView
     private lateinit var llEmpty: LinearLayout
     private lateinit var adapter: BasicAuthCityAdapter
+    private lateinit var sp_carType: Spinner
+    private lateinit var sp_productType: Spinner
+    private lateinit var etStartCity: EditText
+    private lateinit var etEndCity: EditText
+    private lateinit var tvSearch: TextView
+
+    lateinit var cartpye: String
+    lateinit var producttpye: String
 
     companion object {
         @JvmStatic
@@ -60,6 +67,12 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
         (findViewById(R.id.tv_toolbar_title) as TextView).text = "产品列表"
 
+        sp_carType = findViewById(R.id.spinner_carType) as Spinner
+        sp_productType = findViewById(R.id.spinner_productType) as Spinner
+        etStartCity = findViewById(R.id.et_startCity) as EditText
+        etEndCity = findViewById(R.id.et_endCity) as EditText
+        tvSearch = findViewById(R.id.tv_search) as TextView
+
         lvProducts = findViewById(R.id.lv_products) as ListView
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
@@ -68,10 +81,20 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
         adapter = BasicAuthCityAdapter(this, arrayListOf())
         lvProducts.adapter = adapter
         footerView = OrderFooterView(this)
-        lvProducts.addFooterView(footerView)
+        lvProducts.addFooterView(footerView, "", false)
         lvProducts.setOnScrollListener(this)
 
+        sp_carType.onItemSelectedListener = this
+        sp_productType.onItemSelectedListener = this
+
+        tvSearch.setOnClickListener {
+            adapter.clear()
+            progress.show()
+            presenter.listBasicAuthCity(userNo, etStartCity.text.toString(), etEndCity.text.toString(), producttpye, cartpye, pageIndex, pageCount)
+        }
+
         lvProducts.setOnItemClickListener { _, _, i, _ ->
+
             setResult(Activity.RESULT_OK, Intent().putExtra(Constants.ACTIVITY_BACK_DATA, adapter.getItem(i) as ListBasicAuthCityEntity.AuthCitysBean))
             finish()
         }
@@ -80,7 +103,7 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listBasicAuthCity(userNo, pageIndex, pageCount)
+            presenter.listBasicAuthCity(userNo, "", "", "", "", pageIndex, pageCount)
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
     }
@@ -93,7 +116,7 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
             if (lvProducts.bottom == lastItemView.bottom) {
                 if (footerView.refresh) {
                     pageIndex += pageCount
-                    presenter.listBasicAuthCity(userNo, pageIndex, pageCount)
+                    presenter.listBasicAuthCity(userNo, "", "", "", "", pageIndex, pageCount)
                 }
             }
         }
@@ -107,7 +130,8 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listBasicAuthCity(userNo, pageIndex, pageCount)
+        presenter.listBasicAuthCity(userNo, "", "", "", "", pageIndex, pageCount)
+
     }
 
     override fun onDestroy() {
@@ -127,4 +151,28 @@ class ListBasicAuthCityActivity : BaseActivity(), AbsListView.OnScrollListener {
         }
         progress.dismiss()
     }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        when (p0!!.id) {
+            R.id.spinner_carType -> {
+                val car = resources.getStringArray(R.array.carType)
+                if (p2 == 0) {
+                    cartpye = ""
+                } else {
+                    cartpye = car[p2]
+                }
+            }
+            R.id.spinner_productType -> {
+                if (p2 == 0) {
+                    producttpye = ""
+                } else {
+                    producttpye = p2.toString()
+                }
+            }
+        }
+    }
+
 }

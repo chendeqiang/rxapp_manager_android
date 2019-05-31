@@ -30,13 +30,12 @@ class BillActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bill)
         initView()
-
-
     }
 
     private fun initView() {
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
         (findViewById(R.id.tv_toolbar_title) as TextView).text = "统计账单"
+
         srlRefresh = findViewById(R.id.srl_refresh) as SwipeRefreshLayout
         lvBill = findViewById(R.id.lv_bill) as StickyListHeadersListView
 

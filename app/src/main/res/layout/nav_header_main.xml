@@ -164,7 +164,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_item_height"
         android:gravity="center_vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/ic_height"
@@ -253,7 +253,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_item_height"
         android:gravity="center_vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="@dimen/ic_height"
@@ -289,7 +289,7 @@
             android:layout_width="@dimen/ic_height"
             android:layout_height="@dimen/ic_height"
             android:layout_marginLeft="@dimen/default_margin"
-            android:src="@drawable/ic_check_version"/>
+            android:src="@drawable/ic_changeword"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -302,11 +302,16 @@
             android:textSize="@dimen/text_size_16"/>
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_color"/>
+
     <RelativeLayout
         android:id="@+id/rl_check_version"
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_item_height"
-        android:visibility="gone">
+        android:visibility="visible">
 
 
         <ImageView
@@ -335,7 +340,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/default_margin"
             android:text="v_1.0.0"
-            android:textColor="@color/text_color_black"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_16"/>
     </RelativeLayout>
 

@@ -91,8 +91,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listDriver(no: String, pageIndex: Int, pageCount: Int, driverName: String) {
-        manger.listDriver(no, pageIndex, pageCount, driverName, object : Callback<ListDriverEntity> {
+    fun listDriver(no: String, pageIndex: Int, pageCount: Int, driverName: String, mobile: String) {
+        manger.listDriver(no, pageIndex, pageCount, driverName, mobile, object : Callback<ListDriverEntity> {
             override fun onResponse(call: Call<ListDriverEntity>, response: Response<ListDriverEntity>) {
                 if (response.body() != null) {
                     LogUtils.d("listDriver", response.body().toString())
@@ -228,8 +228,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String) {
-        manger.listRelation(orgId, pageIndex, pageCount, driverName, object : Callback<ListRelationEntity> {
+    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String,mobile: String) {
+        manger.listRelation(orgId, pageIndex, pageCount, driverName,mobile, object : Callback<ListRelationEntity> {
             override fun onFailure(call: Call<ListRelationEntity>, t: Throwable) {
                 val data = ListRelationEntity()
                 data.rspCode = "4"
@@ -319,8 +319,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listOrder(orgId: String, orderStatus: String, orderType: String, pageIndex: Int, pageCount: Int) {
-        manger.listOrder(orgId, orderStatus, orderType, pageIndex, pageCount,
+    fun listOrder(orgId: String, orderStatus: String, orderType: String, pageIndex: Int, pageCount: Int, sortType: String) {
+        manger.listOrder(orgId, orderStatus, orderType, pageIndex, pageCount, sortType,
                 object : Callback<ListOrderEntity> {
                     override fun onResponse(call: Call<ListOrderEntity>, response: Response<ListOrderEntity>) {
                         LogUtils.d("listOrder", "" + response.body() + "")
@@ -415,6 +415,25 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
+    fun checkVersion(key: String) {
+        manger.checkVersion(key, object : Callback<CheckVersionEntity> {
+            override fun onResponse(call: Call<CheckVersionEntity>, response: Response<CheckVersionEntity>) {
+                LogUtils.d("getDataDict", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<CheckVersionEntity>, t: Throwable) {
+                val data = CheckVersionEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+        })
+    }
+
     fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int) {
         manger.listPriceRule(orgId, pageIndex, pageCount, object : Callback<ListValuationsEntity> {
             override fun onResponse(call: Call<ListValuationsEntity>, response: Response<ListValuationsEntity>) {
@@ -434,8 +453,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listBasicAuthCity(orgId: String, pageIndex: Int, pageCount: Int) {
-        manger.listBasicAuthCity(orgId, pageIndex, pageCount, object : Callback<ListBasicAuthCityEntity> {
+    fun listBasicAuthCity(orgId: String, startCity: String, endCity: String, lineType: String, carType: String, pageIndex: Int, pageCount: Int) {
+        manger.listBasicAuthCity(orgId, startCity, endCity, lineType, carType, pageIndex, pageCount, object : Callback<ListBasicAuthCityEntity> {
             override fun onFailure(call: Call<ListBasicAuthCityEntity>, t: Throwable) {
                 val data = ListBasicAuthCityEntity()
                 data.rspCode = "1000"
@@ -449,6 +468,53 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
                 if (response.body() != null) {
                     mBs.post(response.body())
                 }
+            }
+        })
+    }
+
+    fun addPriceRule(orgId: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
+                     startCity: String, startCityName: String, endCity: String, endCityName: String, authCityId: String, authCityName: String,
+                     incityCartype: String, carType: String, carTypeName: String, online: String, lineType: String, lineTypeName: String,
+                     isPush: String, isInquire: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
+                     superLongDistanceKmPrice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+                     tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
+                     publicholidaysRate: String) {
+        manger.addPriceRule(orgId, startPrice, startKm, orgName, outStartKmPrice, productType, startCity, startCityName, endCity, endCityName, authCityId, authCityName, incityCartype, carType, carTypeName, online, lineType, lineTypeName, isPush, isInquire, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<CreateValuationEntity> {
+            override fun onResponse(call: Call<CreateValuationEntity>, response: Response<CreateValuationEntity>) {
+                LogUtils.d("addPriceRule", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<CreateValuationEntity>, t: Throwable) {
+                val data = CreateValuationEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun updatePriceRule(orgId: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
+                        superLongDistanceKmPrice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+                        tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
+                        publicholidaysRate: String) {
+        manger.updatePriceRule(orgId, productNo, startPrice, startKm, outStartKmPrice, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<UpdateValuationEntity> {
+            override fun onResponse(call: Call<UpdateValuationEntity>, response: Response<UpdateValuationEntity>) {
+                LogUtils.d("updatePriceRule", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<UpdateValuationEntity>, t: Throwable) {
+                val data = UpdateValuationEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
             }
         })
     }

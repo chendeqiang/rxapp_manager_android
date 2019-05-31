@@ -25,7 +25,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:lines="1"
-            android:text="张三"
+            android:text="西门吹雪"
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_14"/>
 
