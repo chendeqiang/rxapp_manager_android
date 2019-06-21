@@ -228,8 +228,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String,mobile: String) {
-        manger.listRelation(orgId, pageIndex, pageCount, driverName,mobile, object : Callback<ListRelationEntity> {
+    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String, mobile: String) {
+        manger.listRelation(orgId, pageIndex, pageCount, driverName, mobile, object : Callback<ListRelationEntity> {
             override fun onFailure(call: Call<ListRelationEntity>, t: Throwable) {
                 val data = ListRelationEntity()
                 data.rspCode = "4"
@@ -472,14 +472,14 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun addPriceRule(orgId: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
+    fun addPriceRule(orgId: String, operater: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
                      startCity: String, startCityName: String, endCity: String, endCityName: String, authCityId: String, authCityName: String,
                      incityCartype: String, carType: String, carTypeName: String, online: String, lineType: String, lineTypeName: String,
                      isPush: String, isInquire: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
-                     superLongDistanceKmPrice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+                     superLongDistanceKmPrice: String, maxdistancekm: String, maxdistancekmprice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                      tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                      publicholidaysRate: String) {
-        manger.addPriceRule(orgId, startPrice, startKm, orgName, outStartKmPrice, productType, startCity, startCityName, endCity, endCityName, authCityId, authCityName, incityCartype, carType, carTypeName, online, lineType, lineTypeName, isPush, isInquire, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<CreateValuationEntity> {
+        manger.addPriceRule(orgId, operater, startPrice, startKm, orgName, outStartKmPrice, productType, startCity, startCityName, endCity, endCityName, authCityId, authCityName, incityCartype, carType, carTypeName, online, lineType, lineTypeName, isPush, isInquire, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, maxdistancekm, maxdistancekmprice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<CreateValuationEntity> {
             override fun onResponse(call: Call<CreateValuationEntity>, response: Response<CreateValuationEntity>) {
                 LogUtils.d("addPriceRule", "" + response.body() + "")
                 if (response.body() != null) {
@@ -497,11 +497,11 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun updatePriceRule(orgId: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
-                        superLongDistanceKmPrice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+    fun updatePriceRule(orgId: String, operater: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
+                        superLongDistanceKmPrice: String, maxdistancekm: String, maxdistancekmprice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                         tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                         publicholidaysRate: String) {
-        manger.updatePriceRule(orgId, productNo, startPrice, startKm, outStartKmPrice, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<UpdateValuationEntity> {
+        manger.updatePriceRule(orgId, operater, productNo, startPrice, startKm, outStartKmPrice, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, maxdistancekm, maxdistancekmprice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<UpdateValuationEntity> {
             override fun onResponse(call: Call<UpdateValuationEntity>, response: Response<UpdateValuationEntity>) {
                 LogUtils.d("updatePriceRule", "" + response.body() + "")
                 if (response.body() != null) {

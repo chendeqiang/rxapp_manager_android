@@ -99,6 +99,8 @@ public class CreateValuationEntity {
         public String lineTypeName;
         public String endCityName;
         public String superLongDistanceKm;
+        public String maxdistancekm ;
+        public String maxdistancekmprice;
         public String saturdayRate;
         public String online;
 
@@ -139,6 +141,8 @@ public class CreateValuationEntity {
                     ", lineTypeName='" + lineTypeName + '\'' +
                     ", endCityName='" + endCityName + '\'' +
                     ", superLongDistanceKm='" + superLongDistanceKm + '\'' +
+                    ", maxdistancekm='" + maxdistancekm + '\'' +
+                    ", maxdistancekmprice='" + maxdistancekmprice + '\'' +
                     ", saturdayRate='" + saturdayRate + '\'' +
                     ", online='" + online + '\'' +
                     '}';

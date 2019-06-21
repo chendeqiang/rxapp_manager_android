@@ -276,15 +276,16 @@ class MyManger(val apiService: ApiService) {
         apiService.listBasicAuthCity(map, headers).enqueue(callback)
     }
 
-    fun addPriceRule(orgId: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
+    fun addPriceRule(orgId: String, operater:String,startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
                      startCity: String, startCityName: String, endCity: String, endCityName: String, authCityId: String, authCityName: String,
                      incityCartype: String, carType: String, carTypeName: String, online: String, lineType: String, lineTypeName: String,
                      isPush: String, isInquire: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
-                     superLongDistanceKmPrice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+                     superLongDistanceKmPrice: String,maxdistancekm:String,maxdistancekmprice:String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                      tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                      publicholidaysRate: String, callback: Callback<CreateValuationEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
+        map.put("operater",operater)
         map.put("startPrice", startPrice)
         map.put("startKm", startKm)
         map.put("orgName", orgName)
@@ -308,6 +309,8 @@ class MyManger(val apiService: ApiService) {
         map.put("longDistanceKmPrice", longDistanceKmPrice)
         map.put("superLongDistanceKm", superLongDistanceKm)
         map.put("superLongDistanceKmPrice", superLongDistanceKmPrice)
+        map.put("maxdistancekm", maxdistancekm)
+        map.put("maxdistancekmprice", maxdistancekmprice)
         map.put("otherPrice", otherPrice)
         map.put("nightFee", nightFee)
         map.put("nightBegin", nightBegin)
@@ -326,12 +329,13 @@ class MyManger(val apiService: ApiService) {
         apiService.addPriceRule(map, headers).enqueue(callback)
     }
 
-    fun updatePriceRule(orgId: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
-                        superLongDistanceKmPrice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+    fun updatePriceRule(orgId: String,operater: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
+                        superLongDistanceKmPrice: String,maxdistancekm:String,maxdistancekmprice:String,otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                         tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                         publicholidaysRate: String, callback: Callback<UpdateValuationEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
+        map.put("operater",operater)
         map.put("productNo", productNo)
         map.put("startPrice", startPrice)
         map.put("startKm", startKm)
@@ -340,6 +344,8 @@ class MyManger(val apiService: ApiService) {
         map.put("longDistanceKmPrice", longDistanceKmPrice)
         map.put("superLongDistanceKm", superLongDistanceKm)
         map.put("superLongDistanceKmPrice", superLongDistanceKmPrice)
+        map.put("maxdistancekm", maxdistancekm)
+        map.put("maxdistancekmprice", maxdistancekmprice)
         map.put("otherPrice", otherPrice)
         map.put("nightFee", nightFee)
         map.put("nightBegin", nightBegin)

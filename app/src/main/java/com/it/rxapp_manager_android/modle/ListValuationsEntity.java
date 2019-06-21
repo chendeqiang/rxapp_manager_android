@@ -85,6 +85,8 @@ public class ListValuationsEntity implements Serializable{
         public String sundayRate;
         public String superLongDistanceKm;
         public String superLongDistanceKmPrice;
+        public String maxdistancekm ;
+        public String maxdistancekmprice;
         public String thursdayRate;
         public String tuesdayRate;
         public String wednesdayRate;
@@ -122,6 +124,8 @@ public class ListValuationsEntity implements Serializable{
                     ", sundayRate='" + sundayRate + '\'' +
                     ", superLongDistanceKm='" + superLongDistanceKm + '\'' +
                     ", superLongDistanceKmPrice='" + superLongDistanceKmPrice + '\'' +
+                    ", maxdistancekm='" + maxdistancekm + '\'' +
+                    ", maxdistancekmprice='" + maxdistancekmprice + '\'' +
                     ", thursdayRate='" + thursdayRate + '\'' +
                     ", tuesdayRate='" + tuesdayRate + '\'' +
                     ", wednesdayRate='" + wednesdayRate + '\'' +

@@ -8,8 +8,8 @@ object ApiConstants {
     const val sign = "Rx-Sign"
     const val token = "Rx-Token"
     const val version = "Rx-Vern"
-//  const val ip = "http://101.37.202.182:8018/"//测试库
-    const val ip = "https://wycapi.mxingo.com:443/"//生产库
+    const val ip = "http://101.37.202.182:8018/"//测试库
+//    const val ip = "https://wycapi.mxingo.com:443/"//生产库
 
     const val login = "usr/fleet/login"//登录
     const val changepassword = "usr/fleet/changepassword"//密码修改

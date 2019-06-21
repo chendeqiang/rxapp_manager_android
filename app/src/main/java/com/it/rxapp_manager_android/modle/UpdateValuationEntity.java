@@ -68,6 +68,8 @@ public class UpdateValuationEntity {
         public String saturdayRate;
         public String wednesdayRate;
         public String longDistanceKm;
+        public String maxdistancekm ;
+        public String maxdistancekmprice;
         public String sundayRate;
 
         @Override
@@ -92,6 +94,8 @@ public class UpdateValuationEntity {
                     ", saturdayRate='" + saturdayRate + '\'' +
                     ", wednesdayRate='" + wednesdayRate + '\'' +
                     ", longDistanceKm='" + longDistanceKm + '\'' +
+                    ", maxdistancekm='" + maxdistancekm + '\'' +
+                    ", maxdistancekmprice='" + maxdistancekmprice + '\'' +
                     ", sundayRate='" + sundayRate + '\'' +
                     '}';
         }
