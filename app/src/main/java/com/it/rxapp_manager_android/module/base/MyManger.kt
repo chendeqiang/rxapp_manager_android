@@ -261,6 +261,19 @@ class MyManger(val apiService: ApiService) {
         apiService.listPriceRule(map, headers).enqueue(callback)
     }
 
+    //比价
+    fun listpricerulecompetebycmainid(cmainid: String, pageIndex: Int, pageCount: Int, callback: retrofit2.Callback<ListValuationsEntity>){
+        val map = TreeMap<String, Any>()
+        map.put("cmainid", cmainid)
+        map.put("pageIndex", pageIndex)
+        map.put("pageCount", pageCount)
+        val headers = HeaderUtil.getHeaders(map)
+        LogUtils.d("listpricerulecompetebycmainid 参数", map.toString())
+        LogUtils.d("headers", headers.toString())
+        apiService.listpricerulecompetebycmainid(map, headers).enqueue(callback)
+    }
+
+
     fun listBasicAuthCity(orgId: String, startCity: String, endCity: String, lineType: String, carType: String, pageIndex: Int, pageCount: Int, callback: retrofit2.Callback<ListBasicAuthCityEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
@@ -276,7 +289,7 @@ class MyManger(val apiService: ApiService) {
         apiService.listBasicAuthCity(map, headers).enqueue(callback)
     }
 
-    fun addPriceRule(orgId: String, operater:String,startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
+    fun addPriceRule(orgId: String, operater:String,startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,usetype:String,
                      startCity: String, startCityName: String, endCity: String, endCityName: String, authCityId: String, authCityName: String,
                      incityCartype: String, carType: String, carTypeName: String, online: String, lineType: String, lineTypeName: String,
                      isPush: String, isInquire: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
@@ -291,6 +304,7 @@ class MyManger(val apiService: ApiService) {
         map.put("orgName", orgName)
         map.put("outStartKmPrice", outStartKmPrice)
         map.put("productType", productType)
+        map.put("Usetype", usetype)
         map.put("startCity", startCity)
         map.put("startCityName", startCityName)
         map.put("endCity", endCity)

@@ -35,12 +35,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="起步价: "
+                    android:text="起步价："
                     android:textSize="@dimen/text_size_12" />
 
                 <TextView
                     android:id="@+id/tv_start_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:text="150"
                     android:textSize="@dimen/text_size_12" />
@@ -48,8 +48,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:text="公里: "
+                    android:layout_marginLeft="6dp"
+                    android:text="公里："
                     android:textSize="@dimen/text_size_12" />
 
                 <TextView
@@ -58,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:text="30"
                     android:textSize="@dimen/text_size_12" />
-
             </LinearLayout>
 
 
@@ -74,17 +73,6 @@
             android:textColor="@color/text_color_green"
             android:textSize="@dimen/text_size_14"
             android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btn_compare"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:layout_marginRight="@dimen/default_margin10"
-            android:background="@drawable/btn_blue_box"
-            android:focusable="false"
-            android:text="比价"
-            android:textColor="@color/text_color_blue"
-            android:textSize="@dimen/text_size_15" />
     </LinearLayout>
 
 
@@ -193,60 +181,6 @@
                 android:textColor="@color/text_color_red"
                 android:textSize="@dimen/text_size_12" />
         </LinearLayout>
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="2dp"
-        android:background="@color/line_color" />
-
-    <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_state"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:text="竞价被选中"
-            android:textSize="@dimen/text_size_12" />
-
-
-        <TextView
-            android:id="@+id/tv_state_online"
-            android:layout_marginLeft="@dimen/default_margin10"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="上线"
-            android:textSize="@dimen/text_size_12" />
-
-        <TextView
-            android:id="@+id/tv_modify"
-            android:layout_marginLeft="@dimen/default_margin10"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="初始化"
-            android:textSize="@dimen/text_size_12" />
-
-
-        <TextView
-            android:id="@+id/tv_frozen"
-            android:layout_marginLeft="@dimen/default_margin10"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="未冻结"
-            android:textSize="@dimen/text_size_12" />
-
-
-
     </LinearLayout>
 
 </LinearLayout>

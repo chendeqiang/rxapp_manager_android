@@ -32,7 +32,12 @@ object ApiConstants {
     const val remarkpush = "usr/fleet/remarkpush"//添加备注
     const val returntoorderpool = "usr/fleet/returntoorderpool"//重回订单池
     const val listpricerule = "usr/fleet/listpricerule"//计价规则列表
-    const val updatepricerule = "usr/fleet/updatepricerule"//更新计价规则
+
+    const val listpricerulecompete = "usr/fleet/listpricerulecompete"//计价规则列表
+
+    const val updatepricerule = "usr/fleet/updatepricerulecompete"//更新计价规则
+
+    const val listpricerulecompetebycmainid="usr/fleet/listpricerulecompetebycmainid"//比价
     const val addpricerule = "usr/fleet/addpricerule"//新增计价规则
     const val listbasicauthcity = "usr/fleet/listbasicauthcity"//产品授权列表
 

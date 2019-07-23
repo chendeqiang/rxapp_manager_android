@@ -71,6 +71,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         userNo = UserInfoPreferences.getInstance().getDriverNo();
         initView();
 
+        presenter.checkVersion(Constants.RX_MANAGER_APP);
         MyApplication.isMainActivityLive = true;
     }
 

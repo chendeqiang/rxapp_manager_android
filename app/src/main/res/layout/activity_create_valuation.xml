@@ -37,7 +37,6 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/tv_product"
                     android:lines="1"
-                    android:maxLength="25"
                     android:textColor="@color/text_color_black"
                     android:textSize="@dimen/text_size_14" />
 

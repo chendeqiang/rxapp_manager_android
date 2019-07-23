@@ -82,9 +82,22 @@ interface ApiService {
     @POST(ApiConstants.returntoorderpool)
     fun returnToOrderPool(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
 
+//    @FormUrlEncoded
+//    @POST(ApiConstants.listpricerule)
+//    fun listPriceRule(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListValuationsEntity>
+
+
     @FormUrlEncoded
-    @POST(ApiConstants.listpricerule)
+    @POST(ApiConstants.listpricerulecompete)
     fun listPriceRule(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListValuationsEntity>
+
+    //比价
+    @FormUrlEncoded
+    @POST(ApiConstants.listpricerulecompetebycmainid)
+    fun listpricerulecompetebycmainid(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>):Call<ListValuationsEntity>
+
+
+
 
     @FormUrlEncoded
     @POST(ApiConstants.listbasicauthcity)

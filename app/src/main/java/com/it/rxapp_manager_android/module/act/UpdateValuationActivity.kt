@@ -2,6 +2,7 @@ package com.it.rxapp_manager_android.module.act
 
 import android.app.Activity
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.text.Editable
@@ -188,6 +189,7 @@ class UpdateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
     }
 
     private fun initView() {
+
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
         (findViewById(R.id.tv_toolbar_title) as TextView).text = "更新计价"
 
@@ -229,6 +231,12 @@ class UpdateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
         tvNightEnd = findViewById(R.id.tv_nightEnd) as TextView
         btnSave = findViewById(R.id.btn_save_valuation) as Button
 
+        if (data.frozen == 1) {
+            btnSave.isEnabled = false
+        }else{
+            btnSave.isEnabled =true
+        }
+
         tvNightBegin.setOnClickListener {
             timeBeginPicker.show()
         }
@@ -267,12 +275,12 @@ class UpdateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
             }
 
             //2.判断最长途公里数、超长途公里数、长途公里数、起步公里
-            if (etMaxdistancekm.text.toString().isNotEmpty() && etMaxdistancekm.text.toString().substring(0,1).toInt() > 0 && etSuperLongDistanceKm.text.toString().isNullOrEmpty()) {
+            if (etMaxdistancekm.text.toString().isNotEmpty() && etMaxdistancekm.text.toString().substring(0, 1).toInt() > 0 && etSuperLongDistanceKm.text.toString().isNullOrEmpty()) {
                 ShowToast.showCenter(this, "超长途公里数不能为空")
                 return@setOnClickListener
             }
 
-            if (etSuperLongDistanceKm.text.toString().isNotEmpty() && etSuperLongDistanceKm.text.toString().substring(0,1).toInt() > 0 && etLongDistanceKm.text.toString().isNullOrEmpty()) {
+            if (etSuperLongDistanceKm.text.toString().isNotEmpty() && etSuperLongDistanceKm.text.toString().substring(0, 1).toInt() > 0 && etLongDistanceKm.text.toString().isNullOrEmpty()) {
                 ShowToast.showCenter(this, "长途公里数不能为空")
                 return@setOnClickListener
             }
@@ -297,29 +305,29 @@ class UpdateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
 
             //4.分开判断公里数和单价，二者必须同时存在
 
-            if (etLongDistanceKm.text.toString().isNotEmpty() && etLongDistanceKm.text.toString().substring(0,1).toInt()!=0 && etLongDistanceKmPrice.text.isNullOrEmpty()) {
+            if (etLongDistanceKm.text.toString().isNotEmpty() && etLongDistanceKm.text.toString().substring(0, 1).toInt() != 0 && etLongDistanceKmPrice.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "长途外单价不能为空")
                 return@setOnClickListener
             }
-            if (etLongDistanceKmPrice.text.toString().isNotEmpty() && etLongDistanceKmPrice.text.toString().substring(0,1).toInt()!=0 && etLongDistanceKm.text.isNullOrEmpty()) {
+            if (etLongDistanceKmPrice.text.toString().isNotEmpty() && etLongDistanceKmPrice.text.toString().substring(0, 1).toInt() != 0 && etLongDistanceKm.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "长途公里数不能为空")
                 return@setOnClickListener
             }
 
-            if (etSuperLongDistanceKm.text.toString().isNotEmpty() && etSuperLongDistanceKm.text.toString().substring(0,1).toInt()!=0 && etSuperLongDistanceKmPrice.text.isNullOrEmpty()) {
+            if (etSuperLongDistanceKm.text.toString().isNotEmpty() && etSuperLongDistanceKm.text.toString().substring(0, 1).toInt() != 0 && etSuperLongDistanceKmPrice.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "超长途单价不能为空")
                 return@setOnClickListener
             }
-            if (etSuperLongDistanceKmPrice.text.toString().isNotEmpty()&& etSuperLongDistanceKmPrice.text.toString().substring(0,1).toInt()!=0&&etSuperLongDistanceKm.text.toString().isNullOrEmpty()) {
+            if (etSuperLongDistanceKmPrice.text.toString().isNotEmpty() && etSuperLongDistanceKmPrice.text.toString().substring(0, 1).toInt() != 0 && etSuperLongDistanceKm.text.toString().isNullOrEmpty()) {
                 ShowToast.showCenter(this, "超长途公里数不能为空")
                 return@setOnClickListener
             }
 
-            if (etMaxdistancekm.text.toString().isNotEmpty() && etMaxdistancekm.text.toString().substring(0,1).toInt()!=0 && etMaxdistancekmPrice.text.isNullOrEmpty()) {
+            if (etMaxdistancekm.text.toString().isNotEmpty() && etMaxdistancekm.text.toString().substring(0, 1).toInt() != 0 && etMaxdistancekmPrice.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "最长途单价不能为空")
                 return@setOnClickListener
             }
-            if (etMaxdistancekmPrice.text.toString().isNotEmpty() && etMaxdistancekmPrice.text.toString().substring(0,1).toInt()!=0 && etMaxdistancekm.text.isNullOrEmpty()) {
+            if (etMaxdistancekmPrice.text.toString().isNotEmpty() && etMaxdistancekmPrice.text.toString().substring(0, 1).toInt() != 0 && etMaxdistancekm.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "最长途公里数不能为空")
                 return@setOnClickListener
             }

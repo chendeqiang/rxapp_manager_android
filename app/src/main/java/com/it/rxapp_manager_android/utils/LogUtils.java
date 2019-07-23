@@ -16,10 +16,10 @@ import java.util.Locale;
 
 public class LogUtils {
 
-    public static String customTagPrefix = "finddreams"; // 自定义Tag的前缀，可以是作者名
+    public static String customTagPrefix = "mingxuan"; // 自定义Tag的前缀，可以是作者名
     private static final boolean isSaveLog = false; // 是否把保存日志到SD卡中
     public static final String ROOT = Environment.getExternalStorageDirectory()
-            .getPath() + "/finddreams/"; // SD卡中的根目录
+            .getPath() + "/mingxuan/"; // SD卡中的根目录
     private static final String PATH_LOG_INFO = ROOT + "info/";
 
     private LogUtils() {

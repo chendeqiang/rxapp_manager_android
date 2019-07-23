@@ -63,6 +63,7 @@ public class ListBasicAuthCityEntity implements Serializable {
         public String startCity;
         public String startcityname;
         public String productType;
+        public String usetype;
 
         @Override
         public String toString() {
@@ -83,6 +84,7 @@ public class ListBasicAuthCityEntity implements Serializable {
                     ", startCity='" + startCity + '\'' +
                     ", startcityname='" + startcityname + '\'' +
                     ", productType='" + productType + '\'' +
+                    ", Usetype='" + usetype + '\'' +
                     '}';
         }
     }

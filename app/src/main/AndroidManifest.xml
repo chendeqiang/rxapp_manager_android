@@ -85,6 +85,10 @@
             android:name=".module.act.ValuationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".module.act.RelativePriceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".module.act.CarsActivity"
             android:screenOrientation="portrait"

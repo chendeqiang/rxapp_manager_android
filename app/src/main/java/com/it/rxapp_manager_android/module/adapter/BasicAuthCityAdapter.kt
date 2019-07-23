@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Switch
 import android.widget.TextView
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.ListBasicAuthCityEntity
@@ -49,7 +50,15 @@ class BasicAuthCityAdapter() : BaseAdapter() {
             holder = v.tag as ViewHolder
         }
         var product = datas[position]
-        holder.tvAuthCity.text = "[" + product.linetypename + "] " + product.startcityname + "--" + product.endcityname + "--" + product.cartypename + "--" + ProductType.getKey(product.productType.toInt())
+
+        var useType = ProductType.getKey(product.productType.toInt())
+        if (product.usetype.equals("1")) {
+            useType += "机"
+        } else if (product.usetype.equals("2")) {
+            useType += "火车"
+        }
+
+        holder.tvAuthCity.text = "[" + product.linetypename + "] " + product.startcityname + "--" + product.endcityname + "--" + product.cartypename + "--" + useType
 
         return v
     }

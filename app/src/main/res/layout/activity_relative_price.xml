@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.it.rxapp_manager_android.module.act.ValuationActivity">
 
-    <include layout="@layout/action_valuation_bar"/>
+    <include layout="@layout/action_relative_bar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_margin"
-                android:text="尚未有计价产品哦~"
+                android:text="数据未找到"
                 android:textColor="@color/text_color_black"
                 android:textSize="@dimen/text_size_16"/>
         </LinearLayout>

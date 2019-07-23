@@ -208,35 +208,35 @@ class CreateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
                 return@setOnClickListener
             }
 
-            if (etLongDistanceKm.text.toString().isNotEmpty() && etLongDistanceKm.text.toString().substring(0, 1).toInt() != 0  &&  etStartKm.text.toString().toDouble().toInt() >= etLongDistanceKm.text.toString().toDouble().toInt()) {
+            if (etLongDistanceKm.text.toString().isNotEmpty() && etLongDistanceKm.text.toString().substring(0, 1).toInt() != 0 && etStartKm.text.toString().toDouble().toInt() >= etLongDistanceKm.text.toString().toDouble().toInt()) {
                 ShowToast.showCenter(this, "长途公里数必须大于起步公里数")
                 return@setOnClickListener
             }
 
             //3.分开判断公里数和单价，二者必须同时存在
-            if (etLongDistanceKm.text.toString().isNotEmpty() && etLongDistanceKm.text.toString().substring(0,1).toInt()!=0 && etLongDistanceKmPrice.text.isNullOrEmpty()) {
+            if (etLongDistanceKm.text.toString().isNotEmpty() && etLongDistanceKm.text.toString().substring(0, 1).toInt() != 0 && etLongDistanceKmPrice.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "长途外单价不能为空")
                 return@setOnClickListener
             }
-            if (etLongDistanceKmPrice.text.toString().isNotEmpty() && etLongDistanceKmPrice.text.toString().substring(0,1).toInt()!=0 && etLongDistanceKm.text.isNullOrEmpty()) {
+            if (etLongDistanceKmPrice.text.toString().isNotEmpty() && etLongDistanceKmPrice.text.toString().substring(0, 1).toInt() != 0 && etLongDistanceKm.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "长途公里数不能为空")
                 return@setOnClickListener
             }
 
-            if (etSuperLongDistanceKm.text.toString().isNotEmpty() && etSuperLongDistanceKm.text.toString().substring(0,1).toInt()!=0 && etSuperLongDistanceKmPrice.text.isNullOrEmpty()) {
+            if (etSuperLongDistanceKm.text.toString().isNotEmpty() && etSuperLongDistanceKm.text.toString().substring(0, 1).toInt() != 0 && etSuperLongDistanceKmPrice.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "超长途单价不能为空")
                 return@setOnClickListener
             }
-            if (etSuperLongDistanceKmPrice.text.toString().isNotEmpty()&& etSuperLongDistanceKmPrice.text.toString().substring(0,1).toInt()!=0&&etSuperLongDistanceKm.text.toString().isNullOrEmpty()) {
+            if (etSuperLongDistanceKmPrice.text.toString().isNotEmpty() && etSuperLongDistanceKmPrice.text.toString().substring(0, 1).toInt() != 0 && etSuperLongDistanceKm.text.toString().isNullOrEmpty()) {
                 ShowToast.showCenter(this, "超长途公里数不能为空")
                 return@setOnClickListener
             }
 
-            if (etMaxdistancekm.text.toString().isNotEmpty() && etMaxdistancekm.text.toString().substring(0,1).toInt()!=0 && etMaxdistancekmPrice.text.isNullOrEmpty()) {
+            if (etMaxdistancekm.text.toString().isNotEmpty() && etMaxdistancekm.text.toString().substring(0, 1).toInt() != 0 && etMaxdistancekmPrice.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "最长途单价不能为空")
                 return@setOnClickListener
             }
-            if (etMaxdistancekmPrice.text.toString().isNotEmpty() && etMaxdistancekmPrice.text.toString().substring(0,1).toInt()!=0 && etMaxdistancekm.text.isNullOrEmpty()) {
+            if (etMaxdistancekmPrice.text.toString().isNotEmpty() && etMaxdistancekmPrice.text.toString().substring(0, 1).toInt() != 0 && etMaxdistancekm.text.isNullOrEmpty()) {
                 ShowToast.showCenter(this, "最长途公里数不能为空")
                 return@setOnClickListener
             }
@@ -246,9 +246,10 @@ class CreateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
             progress.show()
             presenter.addPriceRule(userNo, userName, etStartPrice.text.toString(),
                     etStartKm.text.toString(), product!!.orgName, etOutStartKmPrice.text.toString(),
-                    product!!.productType, product!!.startCity, product!!.startcityname, product!!.endCity,
+                    product!!.productType, product!!.usetype, product!!.startCity, product!!.startcityname, product!!.endCity,
                     product!!.endcityname, product!!.authCityId,
-                    tvSelectProduct.text.toString(), product!!.org_incity_cartype,
+                    tvSelectProduct.text.toString(),
+                    product!!.org_incity_cartype,
                     product!!.cartype, product!!.cartypename, product!!.isonline,
                     product!!.linetype, product!!.linetypename, product!!.isPush,
                     product!!.isInquire, etLongDistanceKm.text.toString(),
@@ -264,7 +265,14 @@ class CreateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_PRODUCT_ACTIVITY) {
             product = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as ListBasicAuthCityEntity.AuthCitysBean
-            tvSelectProduct.text = "[" + product!!.linetypename + "]" + product!!.startcityname + "--" + product!!.endcityname + "--" + ProductType.getKey(product!!.productType.toInt()) + "--" + product!!.cartypename
+            var useType = ProductType.getKey(product!!.productType.toInt())
+            if (product!!.usetype.equals("1")) {
+                useType += "机"
+            } else if (product!!.usetype.equals("2")) {
+                useType += "火车"
+            }
+//            tvSelectProduct.text = "[" + product!!.linetypename + "]" + product!!.startcityname + "--" + product!!.endcityname + "--" + useType + "--" + product!!.cartypename
+            tvSelectProduct.text = "出发城市[" + product!!.startcityname + "]目的地城市[" + product!!.endcityname + "]服务类型[" + useType + "]车型[" + product!!.cartypename + "]"
         }
     }
 

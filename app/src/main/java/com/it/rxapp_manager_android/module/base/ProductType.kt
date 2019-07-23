@@ -4,7 +4,7 @@ package com.it.rxapp_manager_android.module.base
  * Created by deqiangchen on 2018/9/14 14:49
  */
 enum class ProductType {
-    TAKE_PLANE_TRAIN(0, "接机/接站"), SEND_PLANE_TRAIN(1, "送机/送站"), DAY_RENTER(4, "日租");
+    TAKE_PLANE_TRAIN(0, "接"), SEND_PLANE_TRAIN(1, "送"), DAY_RENTER(4, "日租");
 
     private var value: Int
     private var key: String

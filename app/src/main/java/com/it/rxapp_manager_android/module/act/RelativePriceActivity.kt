@@ -11,7 +11,7 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.ListValuationsEntity
-import com.it.rxapp_manager_android.module.adapter.ValuationAdapter
+import com.it.rxapp_manager_android.module.adapter.RelativePriceAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
@@ -21,41 +21,38 @@ import com.it.rxapp_manager_android.widget.ShowToast
 import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
-/**
- * Created by deqiangchen on 2018/10/19 11:08
- */
-class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListener, AbsListView.OnScrollListener {
+class RelativePriceActivity : BaseActivity(), AbsListView.OnScrollListener {
 
-
-    private lateinit var ivBack: ImageView
-    //    private lateinit var ivAdd: ImageView
     private lateinit var lvValuation: ListView
     private lateinit var srlRefresh: SwipeRefreshLayout
     private lateinit var footerView: OrderFooterView
     private lateinit var llEmpty: LinearLayout
-    private lateinit var adapter: ValuationAdapter
+    private lateinit var ivBack: ImageView
+    private lateinit var adapter: RelativePriceAdapter
 
     @Inject
     lateinit var presenter: MyPresenter
-    lateinit var userNo: String
     private var pageIndex: Int = 0
     private var pageCount: Int = 20
     private lateinit var progress: MyProgress
+    lateinit var cmainid: String
+
 
     companion object {
         @JvmStatic
-        fun startValuationActivity(context: Context, userNo: String) {
-            context.startActivity(Intent(context, ValuationActivity::class.java).putExtra(Constants.USER_NO, userNo))
+        fun startRelativePriceActivity(context: Context, cmainid: String) {
+            context.startActivity(Intent(context, RelativePriceActivity::class.java).putExtra(Constants.CMAINID, cmainid))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_valuation)
+        setContentView(R.layout.activity_relative_price)
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         progress = MyProgress(this)
-        userNo = intent.getStringExtra(Constants.USER_NO)
+
+        cmainid = intent.getStringExtra(Constants.CMAINID)
         initView()
     }
 
@@ -70,56 +67,20 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         ivBack.setOnClickListener {
             finish()
         }
-//        ivAdd = findViewById(R.id.iv_add_valuation) as ImageView
-//        ivAdd.setOnClickListener {
-//            //新增计价
-//            CreateValuationActivity.startCreateValuationActivity(this, userNo)
-//        }
 
-
-        adapter = ValuationAdapter(this, arrayListOf())
+        adapter = RelativePriceAdapter(this, arrayListOf())
         lvValuation.adapter = adapter
         footerView = OrderFooterView(this)
         lvValuation.addFooterView(footerView, "", false)
-        adapter.setOnItemValuationClickListener(this)
         lvValuation.setOnScrollListener(this)
-
-        lvValuation.setOnItemClickListener { _, view, i, _ ->
-            if (view != footerView) {
-                var data = lvValuation.getItemAtPosition(i) as ListValuationsEntity.PriceRulesBean
-                UpdateValuationActivity.startUpdateValuationActivity(this, userNo, data)
-            }
-        }
         srlRefresh.setOnRefreshListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listPriceRule(userNo, pageIndex, pageCount)
+            presenter.listpricerulecompetebycmainid(cmainid, pageIndex, pageCount)
         }
         srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
-    }
 
-    override fun onValuationClick(i: Int) {
-//        ShowToast.showCenter(this, "比价...")
-        var data = lvValuation.getItemAtPosition(i) as ListValuationsEntity.PriceRulesBean
-        RelativePriceActivity.startRelativePriceActivity(this,data.authCityId)
-    }
-
-    override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-        if (totalItemCount == 0)
-            return
-        if (firstVisibleItem + visibleItemCount == totalItemCount) {
-            val lastItemView = lvValuation.getChildAt(lvValuation.childCount - 1)
-            if (lvValuation.bottom == lastItemView.bottom) {
-                if (footerView.refresh) {
-                    pageIndex += pageCount
-                    presenter.listPriceRule(userNo, pageIndex, pageCount)
-                }
-            }
-        }
-    }
-
-    override fun onScrollStateChanged(p0: AbsListView?, p1: Int) {
     }
 
     override fun onStart() {
@@ -127,7 +88,7 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listPriceRule(userNo, pageIndex, pageCount)
+        presenter.listpricerulecompetebycmainid(cmainid, pageIndex, pageCount)
     }
 
     override fun onDestroy() {
@@ -151,4 +112,23 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         }
         progress.dismiss()
     }
+
+
+    override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
+        if (totalItemCount == 0)
+            return
+        if (firstVisibleItem + visibleItemCount == totalItemCount) {
+            val lastItemView = lvValuation.getChildAt(lvValuation.childCount - 1)
+            if (lvValuation.bottom == lastItemView.bottom) {
+                if (footerView.refresh) {
+                    pageIndex += pageCount
+                    presenter.listpricerulecompetebycmainid(cmainid, pageIndex, pageCount)
+                }
+            }
+        }
+    }
+
+    override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
+    }
+
 }

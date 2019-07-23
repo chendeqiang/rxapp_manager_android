@@ -89,6 +89,7 @@ public class CreateValuationEntity {
         public String longDistanceKm;
         public String sundayRate;
         public String productType;
+        public String Usetype;
         public String carTypeName;
         public String startCity;
         public String startPrice;
@@ -131,6 +132,7 @@ public class CreateValuationEntity {
                     ", longDistanceKm='" + longDistanceKm + '\'' +
                     ", sundayRate='" + sundayRate + '\'' +
                     ", productType='" + productType + '\'' +
+                    ", Usetype='" + Usetype + '\'' +
                     ", carTypeName='" + carTypeName + '\'' +
                     ", startCity='" + startCity + '\'' +
                     ", startPrice='" + startPrice + '\'' +

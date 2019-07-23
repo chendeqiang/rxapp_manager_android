@@ -7,7 +7,7 @@ import java.util.List;
  * Created by deqiangchen on 2018/10/19 15:00
  */
 
-public class ListValuationsEntity implements Serializable{
+public class ListValuationsEntity implements Serializable {
 
     /**
      * rspCode : 00
@@ -85,7 +85,7 @@ public class ListValuationsEntity implements Serializable{
         public String sundayRate;
         public String superLongDistanceKm;
         public String superLongDistanceKmPrice;
-        public String maxdistancekm ;
+        public String maxdistancekm;
         public String maxdistancekmprice;
         public String thursdayRate;
         public String tuesdayRate;
@@ -95,6 +95,15 @@ public class ListValuationsEntity implements Serializable{
         public String nightBegin;
         public String nightEnd;
         public String nightFee;
+        public int twentykmprice;
+        public int thritykmprice;
+        public int fortykmprice;
+        public int fiftykmprice;
+        public int state;
+        public int modify;
+        public int frozen;
+        public int online;
+
 
         @Override
         public String toString() {
@@ -134,6 +143,14 @@ public class ListValuationsEntity implements Serializable{
                     ", nightBegin='" + nightBegin + '\'' +
                     ", nightEnd='" + nightEnd + '\'' +
                     ", nightFee='" + nightFee + '\'' +
+                    ", twentykmprice='" + twentykmprice + '\'' +
+                    ", thritykmprice='" + thritykmprice + '\'' +
+                    ", fortykmprice='" + fortykmprice + '\'' +
+                    ", fiftykmprice='" + fiftykmprice + '\'' +
+                    ", state='" + state + '\'' +
+                    ", modify='" + modify + '\'' +
+                    ", frozen='" + frozen + '\'' +
+                    ", online='" + online + '\'' +
                     '}';
         }
     }

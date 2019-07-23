@@ -15,6 +15,7 @@ import com.it.rxapp_manager_android.module.act.MainActivity;
 import com.it.rxapp_manager_android.module.act.OrderInfoActivity;
 import com.it.rxapp_manager_android.module.act.OrdersActivity;
 import com.it.rxapp_manager_android.module.act.RelationActivity;
+import com.it.rxapp_manager_android.module.act.RelativePriceActivity;
 import com.it.rxapp_manager_android.module.act.SearchRouteActivity;
 import com.it.rxapp_manager_android.module.act.SettingActivity;
 import com.it.rxapp_manager_android.module.act.UpdateValuationActivity;
@@ -63,5 +64,7 @@ public interface AppComponent {
     void inject(UpdateValuationActivity activity);
 
     void inject(MainActivity activity);
+
+    void inject(RelativePriceActivity activity);
 
 }

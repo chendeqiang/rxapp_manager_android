@@ -453,6 +453,26 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
+    fun listpricerulecompetebycmainid(cmainid: String, pageIndex: Int, pageCount: Int) {
+        manger.listpricerulecompetebycmainid(cmainid, pageIndex, pageCount, object : Callback<ListValuationsEntity> {
+            override fun onFailure(call: Call<ListValuationsEntity>, t: Throwable) {
+                val data = ListValuationsEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ListValuationsEntity>, response: Response<ListValuationsEntity>) {
+                LogUtils.d("listpricerulecompetebycmainid", "" + response.body() + "")
+                if (response.body() != null) {
+                    mBs.post(response.body())
+                }
+            }
+        })
+    }
+
+
     fun listBasicAuthCity(orgId: String, startCity: String, endCity: String, lineType: String, carType: String, pageIndex: Int, pageCount: Int) {
         manger.listBasicAuthCity(orgId, startCity, endCity, lineType, carType, pageIndex, pageCount, object : Callback<ListBasicAuthCityEntity> {
             override fun onFailure(call: Call<ListBasicAuthCityEntity>, t: Throwable) {
@@ -472,14 +492,14 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun addPriceRule(orgId: String, operater: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,
+    fun addPriceRule(orgId: String, operater: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String, usetype: String,
                      startCity: String, startCityName: String, endCity: String, endCityName: String, authCityId: String, authCityName: String,
                      incityCartype: String, carType: String, carTypeName: String, online: String, lineType: String, lineTypeName: String,
                      isPush: String, isInquire: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
                      superLongDistanceKmPrice: String, maxdistancekm: String, maxdistancekmprice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                      tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                      publicholidaysRate: String) {
-        manger.addPriceRule(orgId, operater, startPrice, startKm, orgName, outStartKmPrice, productType, startCity, startCityName, endCity, endCityName, authCityId, authCityName, incityCartype, carType, carTypeName, online, lineType, lineTypeName, isPush, isInquire, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, maxdistancekm, maxdistancekmprice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<CreateValuationEntity> {
+        manger.addPriceRule(orgId, operater, startPrice, startKm, orgName, outStartKmPrice, productType, usetype, startCity, startCityName, endCity, endCityName, authCityId, authCityName, incityCartype, carType, carTypeName, online, lineType, lineTypeName, isPush, isInquire, longDistanceKm, longDistanceKmPrice, superLongDistanceKm, superLongDistanceKmPrice, maxdistancekm, maxdistancekmprice, otherPrice, nightFee, nightBegin, nightEnd, mondayRate, tuesdayRate, wednesdayRate, thursdayRate, fridayRate, saturdayRate, sundayRate, publicholidaysRate, object : Callback<CreateValuationEntity> {
             override fun onResponse(call: Call<CreateValuationEntity>, response: Response<CreateValuationEntity>) {
                 LogUtils.d("addPriceRule", "" + response.body() + "")
                 if (response.body() != null) {

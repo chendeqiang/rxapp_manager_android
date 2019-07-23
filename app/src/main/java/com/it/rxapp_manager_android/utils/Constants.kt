@@ -9,6 +9,7 @@ object Constants {
     const val URL = "url"
     const val RX_VERSION = "rx_version"
     const val USER_NO = "user_no"
+    const val CMAINID = "cmainid"
     const val ORDER_NO = "order_no"
     const val ORDER_INFO = "order_info"
     const val FLOW_NO = "flow_no"
