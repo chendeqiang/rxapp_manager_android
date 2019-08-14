@@ -37,6 +37,7 @@ public class AddCarEntity {
         public String carNo;
         public String carType;
         public String orgId;
+        public String ccolor;
 
         @Override
         public String toString() {
@@ -45,6 +46,7 @@ public class AddCarEntity {
                     ", carNo='" + carNo + '\'' +
                     ", carType='" + carType + '\'' +
                     ", orgId='" + orgId + '\'' +
+                    ", ccolor='" + ccolor + '\'' +
                     '}';
         }
     }

@@ -2,9 +2,11 @@ package com.it.rxapp_manager_android.module.act
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.graphics.ColorUtils
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,6 +19,7 @@ import com.it.rxapp_manager_android.utils.Constants
 import android.view.MotionEvent
 import android.view.View
 import com.it.rxapp_manager_android.modle.AddCarEntity
+import com.it.rxapp_manager_android.modle.ListColorEntity
 import com.it.rxapp_manager_android.modle.SearchCarEntity
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
@@ -35,6 +38,7 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
 
     private lateinit var etNo: EditText
     private lateinit var tvType: TextView
+    private lateinit var tvColor: TextView
     private lateinit var btnSv: Button
     private var keyboardUtil: KeyboardUtil? = null
     @Inject
@@ -42,6 +46,7 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
     private lateinit var progress: MyProgress
     lateinit var userNo: String
     private var car: SearchCarEntity? = null
+    private var color :ListColorEntity.CarcolorsBean?=null
 
     companion object {
         @JvmStatic
@@ -67,21 +72,25 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
         (findViewById(R.id.tv_toolbar_title) as TextView).text = "添加车辆"
         etNo = findViewById(R.id.et_car_no) as EditText
         tvType = findViewById(R.id.tv_car_type) as TextView
+        tvColor = findViewById(R.id.tv_car_color) as TextView
         btnSv = findViewById(R.id.btn_save) as Button
         tvType.setOnClickListener {
             CarTypeActivity.startCarTypeActivity(this)
         }
 
+        tvColor.setOnClickListener {
+            ColorsActivity.startColorsActivity(this)
+        }
         etNo.setOnTouchListener(this)
 
         etNo.addTextChangedListener(this)
 
         btnSv.setOnClickListener {
-            if (TextUtil.isEmpty(etNo.text.toString()) || tvType.text.toString().equals("请选择车型")) {
+            if (TextUtil.isEmpty(etNo.text.toString()) || tvType.text.toString().equals("请选择车型")||tvColor.text.toString().equals("请选择颜色")) {
                 ShowToast.showCenter(this, "信息不完整")
             } else {
                 progress.show()
-                presenter.addCar(userNo, car!!.value, etNo.text.toString())
+                presenter.addCar(userNo, car!!.value, etNo.text.toString(),tvColor.text.toString())
             }
         }
     }
@@ -123,6 +132,9 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
         if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_CAR_ACTIVITY) {
             car = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as SearchCarEntity
             tvType.text = car!!.label
+        }else if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_COLOR_ACTIVITY){
+            color = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as ListColorEntity.CarcolorsBean
+            tvColor.text= color!!.name
         }
     }
 
@@ -132,6 +144,7 @@ class AddCarActivity : BaseActivity(), TextWatcher, View.OnTouchListener {
             var data = any as AddCarEntity
             if (data.rspCode.equals("00")) {
                 ShowToast.showCenter(this, data.rspDesc)
+                finish()
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
             }

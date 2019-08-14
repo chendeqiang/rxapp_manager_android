@@ -210,9 +210,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             if (VersionInfo.getVersionCode() < versionEntity.versionCode && Constants.RX_MANAGER_APP.equals(dataEntity.key)) {
                 versionEntity.isMustUpdate = versionEntity.forceUpdataVersions.contains(VersionInfo.getVersionName());
                 UpdateVersionActivity.startUpdateVersionActivity(this, versionEntity);
-            } else {
-                ShowToast.showCenter(this, "您已经是最新版本了");
             }
+//            else {
+//                ShowToast.showCenter(this, "您已经是最新版本了");
+//            }
         } else {
             ShowToast.showCenter(this, data.rspDesc);
         }

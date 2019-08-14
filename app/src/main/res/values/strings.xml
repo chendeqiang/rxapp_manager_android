@@ -120,8 +120,7 @@
     <string name="day">日</string>
     <string name="hour">时</string>
     <string name="minute">分</string>
-
-
+    <string name="color_picker">选择车辆颜色</string>
 
 
 </resources>

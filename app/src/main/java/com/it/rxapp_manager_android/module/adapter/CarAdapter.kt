@@ -61,7 +61,7 @@ class CarAdapter() : BaseAdapter() {
         }
 
 //        holder.tvCarType.text = car.carBrand
-        holder.tvCarStyle.text = car.carLevelName
+        holder.tvCarStyle.text = car.carLevelName+"("+ car.ccolor +")"
         holder.tvCarNo.text = car.carNo
 
         holder.imgBj.setOnClickListener {

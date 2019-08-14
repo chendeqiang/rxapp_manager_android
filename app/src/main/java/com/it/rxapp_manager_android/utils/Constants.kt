@@ -9,6 +9,8 @@ object Constants {
     const val URL = "url"
     const val RX_VERSION = "rx_version"
     const val USER_NO = "user_no"
+    const val CAR_NO = "car_no"
+    const val CAR_ID = "car_id"
     const val CMAINID = "cmainid"
     const val ORDER_NO = "order_no"
     const val ORDER_INFO = "order_info"
@@ -19,6 +21,7 @@ object Constants {
     const val ACTIVITY_DATA = "activity_data"
     const val ACTIVITY_BACK_DATA = "activity_back_data"
 
+    const val REQUEST_SELECT_COLOR_ACTIVITY=7
     const val REQUEST_SELECT_CAR_ACTIVITY = 3
     const val REQUEST_SELECT_CAR1_ACTIVITY = 4
     const val REQUEST_SELECT_DRIVER_ACTIVITY = 5

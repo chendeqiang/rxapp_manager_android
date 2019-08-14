@@ -43,4 +43,5 @@ object ApiConstants {
 
     const val checkVersion = "comm/checkversion"//检查更新
 
+    const val listcarcolor="usr/fleet/listcarcolor"//获取车辆颜色列表
 }

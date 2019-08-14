@@ -115,4 +115,8 @@ interface ApiService {
     @POST(ApiConstants.checkVersion)
     fun checkVersion(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CheckVersionEntity>
 
+
+
+    @POST(ApiConstants.listcarcolor)
+    fun listColor():Call<ListColorEntity>
 }

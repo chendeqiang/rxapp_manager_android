@@ -20,14 +20,16 @@
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_16"/>
 
-        <EditText
-            android:id="@+id/et_car_no"
+        <TextView
+            android:id="@+id/tv_car_number"
+            android:textColor="@color/text_color_black"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_margin"
             android:background="@drawable/btn_gray_box"
-            android:hint="请输入车牌"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:text="苏E12345"
+            android:textSize="@dimen/text_size_16"/>
 
     </LinearLayout>
 
@@ -100,21 +102,5 @@
         android:background="@drawable/btn_gold_round"
         android:text="保存"/>
 
-    <android.inputmethodservice.KeyboardView
-        android:id="@+id/keyboard_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#DCDCDC"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:keyBackground="@drawable/selector_key"
-        android:keyTextColor="#000"
-        android:keyTextSize="18sp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:shadowColor="#FFFFFF"
-        android:shadowRadius="0.0"
-        android:visibility="gone"/>
 
 </RelativeLayout>

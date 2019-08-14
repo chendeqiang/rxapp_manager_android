@@ -149,7 +149,7 @@
             android:layout_marginLeft="@dimen/default_margin"
             android:drawableRight="@drawable/ic_gree_arrow"
             android:paddingRight="@dimen/default_margin"
-            android:text="司机车辆关系"
+            android:text="司机车辆"
             android:textColor="@color/text_color_black"
             android:textSize="@dimen/text_size_16"/>
     </LinearLayout>

@@ -44,6 +44,7 @@ public class ListCarEntity implements Serializable {
         public String carLevelName;
         public String carNo;
         public String orgId;
+        public String ccolor;
 
         @Override
         public String toString() {
@@ -54,6 +55,7 @@ public class ListCarEntity implements Serializable {
                     ", carLevelName='" + carLevelName + '\'' +
                     ", carNo='" + carNo + '\'' +
                     ", orgId='" + orgId + '\'' +
+                    ", ccolor='" + ccolor + '\'' +
                     '}';
         }
     }

@@ -266,7 +266,7 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun addCar(orgId: String, carType: String, carNo: String) {
+    fun addCar(orgId: String, carType: String, carNo: String,ccolor:String) {
 
         if (TextUtil.isEmpty(carNo)) {
             val data = AddCarEntity()
@@ -281,7 +281,7 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
             mBs.post(data)
         }
 
-        manger.addCar(orgId, carType, carNo, object : Callback<AddCarEntity> {
+        manger.addCar(orgId, carType, carNo,ccolor, object : Callback<AddCarEntity> {
             override fun onResponse(call: Call<AddCarEntity>, response: Response<AddCarEntity>) {
                 if (response.body() != null) {
                     LogUtils.d("addCar", response.body().toString())
@@ -300,8 +300,8 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun editCar(carID: String, carType: String) {
-        manger.editCar(carID, carType, object : Callback<CommEntity> {
+    fun editCar(carID: String, carType: String,ccolor: String) {
+        manger.editCar(carID, carType,ccolor, object : Callback<CommEntity> {
             override fun onResponse(call: Call<CommEntity>, response: Response<CommEntity>) {
                 LogUtils.d("editCar", "" + response.body() + "")
                 if (response.body() != null) {
@@ -434,8 +434,23 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int) {
-        manger.listPriceRule(orgId, pageIndex, pageCount, object : Callback<ListValuationsEntity> {
+
+    fun listColor(){
+        manger.listColor(object :Callback<ListColorEntity>{
+            override fun onFailure(call: Call<ListColorEntity>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ListColorEntity>, response: Response<ListColorEntity>) {
+                if (response.body() != null) {
+                    LogUtils.d("listColor", "" + response!!.body() + "")
+                    mBs.post(response.body())
+                }
+            }
+        })
+    }
+
+    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int,productTypeReq:String) {
+        manger.listPriceRule(orgId, pageIndex, pageCount,productTypeReq, object : Callback<ListValuationsEntity> {
             override fun onResponse(call: Call<ListValuationsEntity>, response: Response<ListValuationsEntity>) {
                 LogUtils.d("listPriceRule", "" + response.body() + "")
                 if (response.body() != null) {

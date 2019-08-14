@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.*
 import com.it.rxapp_manager_android.R
+import com.it.rxapp_manager_android.dialog.MessageDialog
 import com.it.rxapp_manager_android.modle.CommEntity
 import com.it.rxapp_manager_android.modle.ListCarEntity
 import com.it.rxapp_manager_android.modle.SearchCarEntity
@@ -93,10 +94,17 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.on
         lvCars.setOnScrollListener(this)
         if (tag == 1) {
             lvCars.setOnItemClickListener { _, _, i, _ ->
-
-                setResult(Activity.RESULT_OK, Intent().putExtra(Constants.ACTIVITY_BACK_DATA, adapter.getItem(i) as ListCarEntity.CarsBean))
-                finish()
-
+                val dialog = MessageDialog(this)
+                dialog.setMessageText("确定更换车辆吗?")
+                dialog.setOnCancelClickListener {
+                    dialog.dismiss()
+                }
+                dialog.setOnOkClickListener {
+                    dialog.dismiss()
+                    setResult(Activity.RESULT_OK, Intent().putExtra(Constants.ACTIVITY_BACK_DATA, adapter.getItem(i) as ListCarEntity.CarsBean))
+                    finish()
+                }
+                dialog.show()
             }
         }
 
@@ -112,8 +120,8 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.on
         tvSearch.setOnClickListener {
             adapter.clear()
             progress.show()
-            pageIndex=0
-            pageCount=20
+            pageIndex = 0
+            pageCount = 20
             presenter.listCar(userNo, pageIndex, pageCount, etCarNo.text.toString(), etCarType.text.toString())
         }
         adapter.setOnItemChangeClickListener(this)
@@ -179,16 +187,19 @@ class CarsActivity : BaseActivity(), AbsListView.OnScrollListener, CarAdapter.on
     }
 
     override fun onItemClick(i: Int) {
-        CarTypeActivity.startCarTypeActivity(this)
+//        CarTypeActivity.startCarTypeActivity(this)
+//        carInfo = lvCars.getItemAtPosition(i) as ListCarEntity.CarsBean
         carInfo = lvCars.getItemAtPosition(i) as ListCarEntity.CarsBean
+
+        CompileCarActivity.startCompileCarActivity(this, carInfo!!.carNo, carInfo!!.carID)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_CAR_ACTIVITY) {
-            car = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as SearchCarEntity
-            presenter.editCar(carInfo!!.carID, car!!.value)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_SELECT_CAR_ACTIVITY) {
+//            car = data!!.getSerializableExtra(Constants.ACTIVITY_BACK_DATA) as SearchCarEntity
+//            presenter.editCar(carInfo!!.carID, car!!.value,"红色")
+//        }
+//    }
 
 }

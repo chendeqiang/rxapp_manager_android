@@ -357,6 +357,7 @@ class UpdateValuationActivity : BaseActivity(), AdapterView.OnItemSelectedListen
             var data = any as UpdateValuationEntity
             if (data.rspCode.equals("00")) {
                 ShowToast.showCenter(this, data.rspDesc)
+                finish()
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
             }

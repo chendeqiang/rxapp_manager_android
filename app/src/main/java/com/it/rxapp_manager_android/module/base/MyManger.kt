@@ -153,21 +153,23 @@ class MyManger(val apiService: ApiService) {
 
     }
 
-    fun addCar(orgId: String, carType: String, carNo: String, callback: retrofit2.Callback<AddCarEntity>) {
+    fun addCar(orgId: String, carType: String, carNo: String,ccolor:String, callback: retrofit2.Callback<AddCarEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
         map.put("carType", carType)
         map.put("carNo", carNo)
+        map.put("ccolor", ccolor)
         val headers = HeaderUtil.getHeaders(map)
         LogUtils.d("addCar 参数", map.toString())
         LogUtils.d("headers", headers.toString())
         apiService.addCar(map, headers).enqueue(callback)
     }
 
-    fun editCar(carID: String, carType: String, callback: Callback<CommEntity>) {
+    fun editCar(carID: String, carType: String,ccolor: String, callback: Callback<CommEntity>) {
         val map = TreeMap<String, Any>()
         map.put("carID", carID)
         map.put("carType", carType)
+        map.put("ccolor", ccolor)
         val headers = HeaderUtil.getHeaders(map)
         LogUtils.d("editCar 参数", map.toString())
         LogUtils.d("headers", headers.toString())
@@ -250,11 +252,17 @@ class MyManger(val apiService: ApiService) {
 
     }
 
-    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int, callback: retrofit2.Callback<ListValuationsEntity>) {
+    fun listColor(callback: retrofit2.Callback<ListColorEntity>){
+        apiService.listColor().enqueue(callback)
+    }
+
+
+    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int,productTypeReq:String, callback: retrofit2.Callback<ListValuationsEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
         map.put("pageIndex", pageIndex)
         map.put("pageCount", pageCount)
+        map.put("productTypeReq", productTypeReq)
         val headers = HeaderUtil.getHeaders(map)
         LogUtils.d("listPriceRule 参数", map.toString())
         LogUtils.d("headers", headers.toString())

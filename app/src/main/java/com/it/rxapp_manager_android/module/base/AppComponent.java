@@ -5,6 +5,8 @@ import com.it.rxapp_manager_android.module.act.BillActivity;
 import com.it.rxapp_manager_android.module.act.CarTypeActivity;
 import com.it.rxapp_manager_android.module.act.CarsActivity;
 import com.it.rxapp_manager_android.module.act.ChangePasswordActivity;
+import com.it.rxapp_manager_android.module.act.ColorsActivity;
+import com.it.rxapp_manager_android.module.act.CompileCarActivity;
 import com.it.rxapp_manager_android.module.act.CreateDriverActivity;
 import com.it.rxapp_manager_android.module.act.CreateValuationActivity;
 import com.it.rxapp_manager_android.module.act.DriversActivity;
@@ -67,4 +69,7 @@ public interface AppComponent {
 
     void inject(RelativePriceActivity activity);
 
+    void inject(ColorsActivity activity);
+
+    void inject(CompileCarActivity activity);
 }

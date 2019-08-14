@@ -3,6 +3,7 @@ package com.it.rxapp_manager_android.module.act
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.AbsListView
@@ -24,7 +25,7 @@ import javax.inject.Inject
 /**
  * Created by deqiangchen on 2018/10/19 11:08
  */
-class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListener, AbsListView.OnScrollListener {
+class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListener, AbsListView.OnScrollListener, TabLayout.OnTabSelectedListener {
 
 
     private lateinit var ivBack: ImageView
@@ -34,12 +35,14 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
     private lateinit var footerView: OrderFooterView
     private lateinit var llEmpty: LinearLayout
     private lateinit var adapter: ValuationAdapter
+    private lateinit var tabPriceRule: TabLayout
 
     @Inject
     lateinit var presenter: MyPresenter
     lateinit var userNo: String
     private var pageIndex: Int = 0
     private var pageCount: Int = 20
+    private var productTypeReq:Int=0
     private lateinit var progress: MyProgress
 
     companion object {
@@ -65,6 +68,7 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         llEmpty = findViewById(R.id.ll_empty) as LinearLayout
 
         lvValuation.emptyView = llEmpty
+        tabPriceRule =findViewById(R.id.tab_pricerule) as TabLayout
 
         ivBack = findViewById(R.id.iv_back_valuation) as ImageView
         ivBack.setOnClickListener {
@@ -90,13 +94,19 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
                 UpdateValuationActivity.startUpdateValuationActivity(this, userNo, data)
             }
         }
+
+        srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
+        tabPriceRule.addOnTabSelectedListener(this)
         srlRefresh.setOnRefreshListener {
             pageIndex = 0
             adapter.clear()
             progress.show()
-            presenter.listPriceRule(userNo, pageIndex, pageCount)
+            if (productTypeReq==0){
+                presenter.listPriceRule(userNo, pageIndex, pageCount,"")
+            }else{
+                presenter.listPriceRule(userNo, pageIndex, pageCount,productTypeReq.toString())
+            }
         }
-        srlRefresh.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorButtonBg))
     }
 
     override fun onValuationClick(i: Int) {
@@ -113,7 +123,12 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
             if (lvValuation.bottom == lastItemView.bottom) {
                 if (footerView.refresh) {
                     pageIndex += pageCount
-                    presenter.listPriceRule(userNo, pageIndex, pageCount)
+//                    presenter.listPriceRule(userNo, pageIndex, pageCount,productTypeReq.toString())
+                    if (productTypeReq==0){
+                        presenter.listPriceRule(userNo, pageIndex, pageCount,"")
+                    }else{
+                        presenter.listPriceRule(userNo, pageIndex, pageCount,productTypeReq.toString())
+                    }
                 }
             }
         }
@@ -127,7 +142,7 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         pageIndex = 0
         adapter.clear()
         progress.show()
-        presenter.listPriceRule(userNo, pageIndex, pageCount)
+        presenter.listPriceRule(userNo, pageIndex, pageCount,"")
     }
 
     override fun onDestroy() {
@@ -151,4 +166,24 @@ class ValuationActivity : BaseActivity(), ValuationAdapter.onItemValuationListen
         }
         progress.dismiss()
     }
+
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        productTypeReq= tab!!.position
+//        ShowToast.showCenter(this,productTypeReq.toString())
+        pageIndex=0
+        adapter.clear()
+        if (productTypeReq==0){
+            presenter.listPriceRule(userNo, pageIndex, pageCount,"")
+        }else{
+            presenter.listPriceRule(userNo, pageIndex, pageCount,productTypeReq.toString())
+        }
+    }
+
 }

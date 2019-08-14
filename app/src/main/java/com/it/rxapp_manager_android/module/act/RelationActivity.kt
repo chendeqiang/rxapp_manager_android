@@ -68,7 +68,7 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
 
     private fun initView() {
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
-        (findViewById(R.id.tv_toolbar_title) as TextView).text = "司机-车辆"
+        (findViewById(R.id.tv_toolbar_title) as TextView).text = "司机车辆信息"
         etDriver = findViewById(R.id.et_driver) as EditText
         ivCancle = findViewById(R.id.img_cancel) as ImageView
         lvRelation = findViewById(R.id.lv_relation) as ListView
@@ -138,7 +138,7 @@ class RelationActivity : BaseActivity(), AbsListView.OnScrollListener, RelationA
         } else if (any::class == CommEntity::class) {
             var data = any as CommEntity
             if (data.rspCode.equals("00")) {
-                ShowToast.showBottom(this, "编辑成功")
+                ShowToast.showBottom(this, "修改成功")
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
             }
