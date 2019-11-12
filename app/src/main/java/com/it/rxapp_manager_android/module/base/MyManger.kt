@@ -37,7 +37,7 @@ class MyManger(val apiService: ApiService) {
         apiService.changePassword(map, headers).enqueue(callback)
     }
 
-    fun listDriver(no: String, pageIndex: Int, pageCount: Int, driverName: String,mobile:String, callback: retrofit2.Callback<ListDriverEntity>) {
+    fun listDriver(no: String, pageIndex: Int, pageCount: Int, driverName: String, mobile: String, callback: retrofit2.Callback<ListDriverEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", no)
         map.put("pageIndex", pageIndex)
@@ -51,11 +51,12 @@ class MyManger(val apiService: ApiService) {
 
     }
 
-    fun addDriver(no: String, driverName: String, mobile: String, callback: retrofit2.Callback<AddDriverEntity>) {
+    fun addDriver(no: String, driverName: String, mobile: String, card: String, callback: retrofit2.Callback<AddDriverEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", no)
         map.put("driverName", driverName)
         map.put("mobile", mobile)
+        map.put("cidentity", card)
         val headers = HeaderUtil.getHeaders(map)
         LogUtils.d("addDriver 参数", map.toString())
         LogUtils.d("headers", headers.toString())
@@ -81,6 +82,17 @@ class MyManger(val apiService: ApiService) {
         LogUtils.d("headers", headers.toString())
         apiService.disableDriver(map, headers).enqueue(callback)
 
+    }
+
+    fun editdriver(cuuid:String,driverName:String,cidentity:String,callback: Callback<EditDriverEntity>){
+        val map = TreeMap<String, Any>()
+        map.put("cuuid", cuuid)
+        map.put("driverName", driverName)
+        map.put("cidentity", cidentity)
+        val headers = HeaderUtil.getHeaders(map)
+        LogUtils.d("editdriver 参数", map.toString())
+        LogUtils.d("headers", headers.toString())
+        apiService.editdriver(map,headers).enqueue(callback)
     }
 
     fun listCar(orgId: String, pageIndex: Int, pageCount: Int, carNo: String, carBrand: String, callback: retrofit2.Callback<ListCarEntity>) {
@@ -127,7 +139,7 @@ class MyManger(val apiService: ApiService) {
         apiService.updateOrgInfo(map, headers).enqueue(callback)
     }
 
-    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String,mobile: String, callback: retrofit2.Callback<ListRelationEntity>) {
+    fun listRelation(orgId: String, pageIndex: Int, pageCount: Int, driverName: String, mobile: String, callback: retrofit2.Callback<ListRelationEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
         map.put("pageIndex", pageIndex)
@@ -153,7 +165,7 @@ class MyManger(val apiService: ApiService) {
 
     }
 
-    fun addCar(orgId: String, carType: String, carNo: String,ccolor:String, callback: retrofit2.Callback<AddCarEntity>) {
+    fun addCar(orgId: String, carType: String, carNo: String, ccolor: String, callback: retrofit2.Callback<AddCarEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
         map.put("carType", carType)
@@ -165,7 +177,7 @@ class MyManger(val apiService: ApiService) {
         apiService.addCar(map, headers).enqueue(callback)
     }
 
-    fun editCar(carID: String, carType: String,ccolor: String, callback: Callback<CommEntity>) {
+    fun editCar(carID: String, carType: String, ccolor: String, callback: Callback<CommEntity>) {
         val map = TreeMap<String, Any>()
         map.put("carID", carID)
         map.put("carType", carType)
@@ -252,12 +264,12 @@ class MyManger(val apiService: ApiService) {
 
     }
 
-    fun listColor(callback: retrofit2.Callback<ListColorEntity>){
+    fun listColor(callback: retrofit2.Callback<ListColorEntity>) {
         apiService.listColor().enqueue(callback)
     }
 
 
-    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int,productTypeReq:String, callback: retrofit2.Callback<ListValuationsEntity>) {
+    fun listPriceRule(orgId: String, pageIndex: Int, pageCount: Int, productTypeReq: String, callback: retrofit2.Callback<ListValuationsEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
         map.put("pageIndex", pageIndex)
@@ -270,7 +282,7 @@ class MyManger(val apiService: ApiService) {
     }
 
     //比价
-    fun listpricerulecompetebycmainid(cmainid: String, pageIndex: Int, pageCount: Int, callback: retrofit2.Callback<ListValuationsEntity>){
+    fun listpricerulecompetebycmainid(cmainid: String, pageIndex: Int, pageCount: Int, callback: retrofit2.Callback<ListValuationsEntity>) {
         val map = TreeMap<String, Any>()
         map.put("cmainid", cmainid)
         map.put("pageIndex", pageIndex)
@@ -297,16 +309,16 @@ class MyManger(val apiService: ApiService) {
         apiService.listBasicAuthCity(map, headers).enqueue(callback)
     }
 
-    fun addPriceRule(orgId: String, operater:String,startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String,usetype:String,
+    fun addPriceRule(orgId: String, operater: String, startPrice: String, startKm: String, orgName: String, outStartKmPrice: String, productType: String, usetype: String,
                      startCity: String, startCityName: String, endCity: String, endCityName: String, authCityId: String, authCityName: String,
                      incityCartype: String, carType: String, carTypeName: String, online: String, lineType: String, lineTypeName: String,
                      isPush: String, isInquire: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
-                     superLongDistanceKmPrice: String,maxdistancekm:String,maxdistancekmprice:String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+                     superLongDistanceKmPrice: String, maxdistancekm: String, maxdistancekmprice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                      tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                      publicholidaysRate: String, callback: Callback<CreateValuationEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
-        map.put("operater",operater)
+        map.put("operater", operater)
         map.put("startPrice", startPrice)
         map.put("startKm", startKm)
         map.put("orgName", orgName)
@@ -351,13 +363,13 @@ class MyManger(val apiService: ApiService) {
         apiService.addPriceRule(map, headers).enqueue(callback)
     }
 
-    fun updatePriceRule(orgId: String,operater: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
-                        superLongDistanceKmPrice: String,maxdistancekm:String,maxdistancekmprice:String,otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
+    fun updatePriceRule(orgId: String, operater: String, productNo: String, startPrice: String, startKm: String, outStartKmPrice: String, longDistanceKm: String, longDistanceKmPrice: String, superLongDistanceKm: String,
+                        superLongDistanceKmPrice: String, maxdistancekm: String, maxdistancekmprice: String, otherPrice: String, nightFee: String, nightBegin: String, nightEnd: String, mondayRate: String,
                         tuesdayRate: String, wednesdayRate: String, thursdayRate: String, fridayRate: String, saturdayRate: String, sundayRate: String,
                         publicholidaysRate: String, callback: Callback<UpdateValuationEntity>) {
         val map = TreeMap<String, Any>()
         map.put("orgId", orgId)
-        map.put("operater",operater)
+        map.put("operater", operater)
         map.put("productNo", productNo)
         map.put("startPrice", startPrice)
         map.put("startKm", startKm)

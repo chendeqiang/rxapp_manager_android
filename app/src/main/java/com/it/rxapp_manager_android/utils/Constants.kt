@@ -9,6 +9,12 @@ object Constants {
     const val URL = "url"
     const val RX_VERSION = "rx_version"
     const val USER_NO = "user_no"
+
+    const val DRIVER_NAME = "driver_name"
+    const val DRIVER_PHONE = "driver_phone"
+    const val DRIVER_ID_CARD = "driver_id_card"
+    const val DRIVER_NO = "driver_no"
+
     const val CAR_NO = "car_no"
     const val CAR_ID = "car_id"
     const val CMAINID = "cmainid"

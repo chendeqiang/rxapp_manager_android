@@ -4,10 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import com.it.rxapp_manager_android.R
-import com.it.rxapp_manager_android.modle.AddDriverEntity
-
+import com.it.rxapp_manager_android.modle.EditDriverEntity
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
@@ -17,52 +18,68 @@ import com.it.rxapp_manager_android.widget.ShowToast
 import com.squareup.otto.Subscribe
 import javax.inject.Inject
 
-/**
- * Created by deqiangchen on 2018/9/25 10:45
- */
-class CreateDriverActivity : BaseActivity() {
+class EditDriverActivity : BaseActivity() {
 
-    //    private lateinit var sp: Spinner
     private lateinit var btnSave: Button
     private lateinit var dvName: EditText
     private lateinit var dvPhone: EditText
     private lateinit var dvIdCard: EditText
 
+
     @Inject
     lateinit var presenter: MyPresenter
     private lateinit var progress: MyProgress
     lateinit var userNo: String
-//    lateinit var sptype: String
+    lateinit var driverName: String
+    lateinit var driverPhone: String
+    lateinit var driverIdCard: String
+    lateinit var driverNo: String
 
     companion object {
         @JvmStatic
-        fun startCreateDriverActivity(context: Context, userNo: String) {
-            context.startActivity(Intent(context, CreateDriverActivity::class.java)
-                    .putExtra(Constants.USER_NO, userNo))
+        fun startEditDriverActivity(context: Context, driverName: String, driverPhone: String, driverIdCard: String, driverNo: String) {
+            context.startActivity(Intent(context, EditDriverActivity::class.java)
+                    .putExtra(Constants.DRIVER_NAME, driverName)
+                    .putExtra(Constants.DRIVER_PHONE, driverPhone)
+                    .putExtra(Constants.DRIVER_ID_CARD, driverIdCard)
+                    .putExtra(Constants.DRIVER_NO, driverNo))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_driver)
+        setContentView(R.layout.activity_edit_driver)
         ComponentHolder.appComponent!!.inject(this)
         presenter.register(this)
         progress = MyProgress(this)
-        userNo = intent.getStringExtra(Constants.USER_NO)
+        driverNo = intent.getStringExtra(Constants.DRIVER_NO)
+        driverName = intent.getStringExtra(Constants.DRIVER_NAME)
+        driverPhone = intent.getStringExtra(Constants.DRIVER_PHONE)
+        driverIdCard = intent.getStringExtra(Constants.DRIVER_ID_CARD)
         initView()
-
-
     }
 
     private fun initView() {
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
-        (findViewById(R.id.tv_toolbar_title) as TextView).text = "添加司机"
-//        sp = findViewById(R.id.spinner_type) as Spinner
-//        sp.onItemSelectedListener = this
+        (findViewById(R.id.tv_toolbar_title) as TextView).text = "编辑司机"
         dvName = findViewById(R.id.et_driver_name) as EditText
         dvPhone = findViewById(R.id.et_driver_phone) as EditText
         dvIdCard = findViewById(R.id.et_driver_id_card) as EditText
 
+        dvPhone.isFocusable=false
+        dvPhone.isFocusableInTouchMode=false
+
+        if (!driverName.equals("")) {
+            dvName.setText(driverName)
+        }
+
+        if (!driverPhone.equals("")) {
+            dvPhone.setText(driverPhone)
+        }
+
+        if (!driverIdCard.equals("")) {
+            dvIdCard.setText(driverIdCard)
+        }
 
         btnSave = findViewById(R.id.btn_save_driver) as Button
         btnSave.setOnClickListener {
@@ -72,23 +89,18 @@ class CreateDriverActivity : BaseActivity() {
 
     private fun checkView() {
         if (!TextUtil.isEmpty(dvName.text.toString()) && !TextUtil.isEmpty(dvPhone.text.toString()) && !TextUtil.isEmpty(dvIdCard.text.toString())) {
-
-            createDriver(dvName.text.toString(), dvPhone.text.toString(), dvIdCard.text.toString())
+            progress.show()
+            presenter.editdriver(driverNo, dvName.text.toString(), dvIdCard.text.toString())
         } else {
             ShowToast.showCenter(this, "信息填写不完整")
         }
     }
 
-    private fun createDriver(name: String, phone: String, card: String) {
-        progress.show()
-        presenter.addDriver(userNo, name, phone, card)
-    }
-
     @Subscribe
     fun loadData(any: Any) {
-        if (any::class == AddDriverEntity::class) {
-            var data = any as AddDriverEntity
-            if (data.rspCode.equals("00") && !TextUtil.isEmpty(data.driver.toString())) {
+        if (any::class == EditDriverEntity::class) {
+            var data = any as EditDriverEntity
+            if (data.rspCode.equals("00") && data.driverIdentity != null) {
                 ShowToast.showCenter(this, data.rspDesc)
             } else {
                 ShowToast.showCenter(this, data.rspDesc)
@@ -98,7 +110,6 @@ class CreateDriverActivity : BaseActivity() {
 
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         if (progress != null) {
@@ -106,16 +117,4 @@ class CreateDriverActivity : BaseActivity() {
         }
         presenter.unregister(this)
     }
-
-//    override fun onNothingSelected(p0: AdapterView<*>?) {}
-//
-//    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//        when (parent!!.id) {
-//            R.id.spinner_type -> {
-//                val letter = resources.getStringArray(R.array.letter)
-//                sptype = letter[position].toString()
-//                Log.i("spinner1点击------", sptype)
-//            }
-//        }
-//    }
 }

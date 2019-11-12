@@ -54,10 +54,18 @@ class DriverAdapter() : BaseAdapter() {
             holder = v.tag as ViewHolder
         }
         var driver = datas[position]
-        holder.tvDriverName.text = driver.cname
-        holder.tvDriverPhone.text = driver.cphone
+        holder.tvDriverName.text = "姓名: " + driver.cname
+        holder.tvDriverPhone.text = "电话: " + driver.cphone
         holder.tvDriverStu.text = DriverStatus.getKey(driver.cstate)
+        holder.tvWrite.setOnClickListener {
+            mOnItemChangeListener!!.onWriteClick(position)
+        }
 
+        if (driver.cidentity == null || driver.cidentity.equals("")) {
+            holder.tvDriverIdCard.text = "证件: " + "---"
+        } else {
+            holder.tvDriverIdCard.text = "证件: " + driver.cidentity
+        }
         if (driver.cstate == 0) {
             holder.tvDriverStu.setTextColor(ContextCompat.getColor(context, R.color.text_color_red))
             holder.tvDriverStu.setOnClickListener {
@@ -78,13 +86,16 @@ class DriverAdapter() : BaseAdapter() {
         var tvDriverName: TextView
         var tvDriverPhone: TextView
         var tvDriverStu: TextView
+        var tvDriverIdCard: TextView
+        var tvWrite: TextView
 
 
         constructor(view: View) {
             tvDriverName = view.findViewById(R.id.tv_driver_name)
             tvDriverPhone = view.findViewById(R.id.tv_driver_phone)
             tvDriverStu = view.findViewById(R.id.tv_driver_stu)
-
+            tvDriverIdCard = view.findViewById(R.id.tv_driver_id_card)
+            tvWrite = view.findViewById(R.id.tv_write)
         }
 
     }
@@ -102,6 +113,7 @@ class DriverAdapter() : BaseAdapter() {
     interface onItemChangeListener {
         fun onEnableClick(i: Int)
         fun onDisableClick(i: Int)
+        fun onWriteClick(i: Int)
     }
 
     private var mOnItemChangeListener: onItemChangeListener? = null
@@ -109,5 +121,6 @@ class DriverAdapter() : BaseAdapter() {
     fun setOnItemChangeClickListener(mOnItemChangeListener: onItemChangeListener) {
         this.mOnItemChangeListener = mOnItemChangeListener
     }
+
 
 }

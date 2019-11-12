@@ -34,6 +34,12 @@ interface ApiService {
     @POST(ApiConstants.disabledriver)
     fun disableDriver(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<CommEntity>
 
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.editdriver)
+    fun editdriver(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<EditDriverEntity>
+
     @FormUrlEncoded
     @POST(ApiConstants.listcar)
     fun listCar(@FieldMap map: TreeMap<String, Any>, @HeaderMap headers: Map<String, String>): Call<ListCarEntity>

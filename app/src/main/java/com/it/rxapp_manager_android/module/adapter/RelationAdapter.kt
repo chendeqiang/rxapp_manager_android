@@ -51,15 +51,22 @@ class RelationAdapter() : BaseAdapter() {
             holder = v.tag as ViewHolder
         }
         var relation = datas[position]
-        holder.tvDriverName.text = relation.cname
-        holder.tvDriverPhone.text = relation.cphone
+        holder.tvDriverName.text = "姓名："+relation.cname
+        holder.tvDriverPhone.text ="电话："+ relation.cphone
+
+
+        if (!TextUtil.isEmpty(relation.cidentity)&&relation.cidentity.length>10){
+            holder.tvDriverCard.text="证件："+relation.cidentity.substring(0,3)+"-----"+relation.cidentity.substring(14)
+        }else{
+            holder.tvDriverCard.text="证件：---"
+        }
 
         if (!TextUtil.isEmpty(relation.model_name) && relation.model_name.length > 8) {
-            holder.tvCar1.text = relation.model_name.substring(0, 8) + "..."
+            holder.tvCar1.text = "车型："+relation.model_name.substring(0, 8) + "..."
         } else if (!TextUtil.isEmpty(relation.model_name)) {
-            holder.tvCar1.text = relation.model_name
+            holder.tvCar1.text = "车型："+relation.model_name
         } else {
-            holder.tvCar1.text = ""
+            holder.tvCar1.text = "车型：---"
         }
 
 //        if (relation.model_name.isNullOrEmpty()) {
@@ -68,14 +75,14 @@ class RelationAdapter() : BaseAdapter() {
 //            holder.tvCar1.text = relation.model_name + "--"
 //        }
         if (relation.carname.isNullOrEmpty()) {
-            holder.tvCar2.text = " "
+            holder.tvCar2.text = "级别：---"
         } else {
-            holder.tvCar2.text = relation.carname
+            holder.tvCar2.text = "级别："+relation.carname
         }
         if (relation.cplatenumber.isNullOrEmpty()) {
-            holder.tvCarNo.text = " "
+            holder.tvCarNo.text = "车牌：---"
         } else {
-            holder.tvCarNo.text = relation.cplatenumber
+            holder.tvCarNo.text = "车牌："+relation.cplatenumber
         }
 
         holder.btnChange.setOnClickListener {
@@ -91,12 +98,14 @@ class RelationAdapter() : BaseAdapter() {
         var tvCar1: TextView
         var tvCar2: TextView
         var tvCarNo: TextView
+        var tvDriverCard:TextView
         var btnChange: Button
 
 
         constructor(view: View) {
             tvDriverName = view.findViewById(R.id.tv_driverName)
             tvDriverPhone = view.findViewById(R.id.tv_driver_phone)
+            tvDriverCard =view.findViewById(R.id.tv_driver_cidentity)
             tvCar1 = view.findViewById(R.id.tv_car1)
             tvCar2 = view.findViewById(R.id.tv_car2)
             tvCarNo = view.findViewById(R.id.tv_carNo)

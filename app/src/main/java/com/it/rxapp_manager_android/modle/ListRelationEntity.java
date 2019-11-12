@@ -54,6 +54,7 @@ public class ListRelationEntity {
         public String orgCarId;
         public String orgId;
         public String orgName;
+        public String cidentity;
         public String relationid;
 
         @Override
@@ -70,6 +71,7 @@ public class ListRelationEntity {
                     ", orgCarId='" + orgCarId + '\'' +
                     ", orgId='" + orgId + '\'' +
                     ", orgName='" + orgName + '\'' +
+                    ", cidentity='" + cidentity + '\'' +
                     ", relationid='" + relationid + '\'' +
                     '}';
         }

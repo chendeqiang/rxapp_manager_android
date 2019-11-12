@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/iv_driver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_driver"/>
 
     <LinearLayout
         android:id="@+id/ll_driver_name"
@@ -17,32 +11,80 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/default_margin10"
-        android:layout_toRightOf="@+id/iv_driver"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_driver_name"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:lines="1"
-            android:text="西门吹雪"
-            android:textColor="@color/text_color_black"
-            android:textSize="@dimen/text_size_14"/>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/default_margin10"
-            android:background="@color/line_color"/>
-
-        <TextView
-            android:id="@+id/tv_driver_phone"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_margin10"
-            android:text="12345678912"
-            android:textColor="@color/text_color_black"
-            android:textSize="@dimen/text_size_14"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_driver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_driver_tx" />
+
+            <TextView
+                android:id="@+id/tv_driver_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:lines="1"
+                android:text="张三三"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_call" />
+
+            <TextView
+                android:id="@+id/tv_driver_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:text="12345678912"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_driver_card" />
+
+            <TextView
+                android:id="@+id/tv_driver_id_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:text="320321200911224712"
+                android:textColor="@color/text_color_black"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -58,24 +100,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="宝马"
-            android:textSize="@dimen/text_size_20"/>
+            android:textSize="@dimen/text_size_20" />
 
         <TextView
             android:id="@+id/tv_car_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="苏E66666"
-            android:textSize="@dimen/text_size_18"/>
+            android:textSize="@dimen/text_size_18" />
     </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_driver_stu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/default_margin"
+        android:layout_marginRight="5dp"
+        android:padding="@dimen/default_margin10"
         android:text="上线"
-        android:textSize="@dimen/text_size_14"/>
+        android:textSize="@dimen/text_size_14" />
+
+    <TextView
+        android:id="@+id/tv_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/default_margin10"
+        android:layout_toLeftOf="@id/tv_driver_stu"
+        android:padding="@dimen/default_margin10"
+        android:text="编辑"
+        android:textColor="@color/text_color_blue"
+        android:textSize="@dimen/text_size_14" />
 
 </RelativeLayout>

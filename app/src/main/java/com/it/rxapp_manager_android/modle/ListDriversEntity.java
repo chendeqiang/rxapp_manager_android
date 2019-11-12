@@ -43,6 +43,7 @@ public class ListDriversEntity implements Serializable {
         public String carNo;
         public String cphone;
         public String driverName;
+        public String cidentity;
         public String no;
 
         @Override
@@ -53,6 +54,7 @@ public class ListDriversEntity implements Serializable {
                     ", carNo='" + carNo + '\'' +
                     ", cphone='" + cphone + '\'' +
                     ", driverName='" + driverName + '\'' +
+                    ", cidentity='" + cidentity + '\'' +
                     ", no='" + no + '\'' +
                     '}';
         }

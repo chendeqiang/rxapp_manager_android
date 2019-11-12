@@ -16,6 +16,7 @@ import com.it.rxapp_manager_android.module.adapter.EnableDriverAdapter
 import com.it.rxapp_manager_android.module.base.ComponentHolder
 import com.it.rxapp_manager_android.module.base.MyPresenter
 import com.it.rxapp_manager_android.utils.Constants
+import com.it.rxapp_manager_android.utils.TextUtil
 import com.it.rxapp_manager_android.widget.MyProgress
 import com.it.rxapp_manager_android.widget.OrderFooterView
 import com.it.rxapp_manager_android.widget.ShowToast
@@ -65,7 +66,7 @@ class ListEnableDriverActivity : BaseActivity(), AbsListView.OnScrollListener, T
 
     private fun initView() {
         setToolbar(toolbar = findViewById(R.id.toolbar) as Toolbar)
-        (findViewById(R.id.tv_toolbar_title) as TextView).text = "司机列表"
+        (findViewById(R.id.tv_toolbar_title) as TextView).text = "可选司机"
 
         etDriver = findViewById(R.id.et_driver) as EditText
         ivCancle = findViewById(R.id.img_cancel) as ImageView
@@ -86,8 +87,15 @@ class ListEnableDriverActivity : BaseActivity(), AbsListView.OnScrollListener, T
         lvDrivers.setOnScrollListener(this)
 
         lvDrivers.setOnItemClickListener { _, _, i, _ ->
-            setResult(Activity.RESULT_OK, Intent().putExtra(Constants.ACTIVITY_BACK_DATA, adapter.getItem(i) as ListDriversEntity.DriversBean))
-            finish()
+            //点击司机派单，检查司机是否有身份证信息，
+            var driver =lvDrivers.getItemAtPosition(i) as ListDriversEntity.DriversBean
+            if (!TextUtil.isEmpty(driver.cidentity)){
+                setResult(Activity.RESULT_OK, Intent().putExtra(Constants.ACTIVITY_BACK_DATA, adapter.getItem(i) as ListDriversEntity.DriversBean))
+                finish()
+            }else{
+                EditDriverActivity.startEditDriverActivity(this,driver.driverName,driver.cphone,"",driver.no)
+            }
+
         }
 
         srlRefresh.setOnRefreshListener {

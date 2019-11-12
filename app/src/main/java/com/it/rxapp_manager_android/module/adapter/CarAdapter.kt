@@ -53,16 +53,16 @@ class CarAdapter() : BaseAdapter() {
         var car = datas[position]
 
         if (!TextUtil.isEmpty(car.carBrand) && car.carBrand.length > 8) {
-            holder.tvCarType.text = car.carBrand.substring(0, 8) + "..."
+            holder.tvCarType.text = "车型： "+car.carBrand.substring(0, 8) + "..."
         } else if (!TextUtil.isEmpty(car.carBrand)) {
-            holder.tvCarType.text = car.carBrand
+            holder.tvCarType.text = "车型： "+car.carBrand
         } else {
-            holder.tvCarType.text = ""
+            holder.tvCarType.text = "车型： ---"
         }
 
 //        holder.tvCarType.text = car.carBrand
-        holder.tvCarStyle.text = car.carLevelName+"("+ car.ccolor +")"
-        holder.tvCarNo.text = car.carNo
+        holder.tvCarStyle.text = "级别： "+car.carLevelName+"("+ car.ccolor +")"
+        holder.tvCarNo.text = "车牌： "+car.carNo
 
         holder.imgBj.setOnClickListener {
             mOnItemChangeListener!!.onItemClick(position)

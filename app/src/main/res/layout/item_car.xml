@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/iv_ic_car"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin10"
-        android:src="@drawable/ic_car3"/>
-
-
-    <TextView
-        android:id="@+id/tv_car_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin"
-        android:layout_toRightOf="@+id/tv_car_style"
-        android:text="一汽-大众-大众速腾"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
+        android:layout_marginLeft="@dimen/default_margin10"
+        android:src="@drawable/ic_car3" />
 
-    <TextView
-        android:id="@+id/tv_car_style"
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/default_margin10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/tv_car_no"
-        android:text="舒适型"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
+        android:layout_toRightOf="@id/iv_ic_car"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_car_no"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/default_margin10"
-        android:layout_toRightOf="@+id/iv_ic_car"
-        android:text="苏E66088"
-        android:textColor="@color/text_color_black"
-        android:textSize="@dimen/text_size_14"/>
+        <TextView
+            android:id="@+id/tv_car_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="苏E66088"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/tv_car_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="一汽-大众-大众速腾"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:id="@+id/tv_car_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="舒适型"
+            android:textColor="@color/text_color_black"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/img_bj"
-        android:layout_width="25dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/default_margin10"
-        android:src="@drawable/ic_bj"/>
+        android:src="@drawable/ic_bj" />
 
 </RelativeLayout>

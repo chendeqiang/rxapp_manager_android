@@ -110,12 +110,12 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
         })
     }
 
-    fun addDriver(orgId: String, driverName: String, mobile: String) {
+    fun addDriver(orgId: String, driverName: String, mobile: String,card:String) {
         if (TextUtil.isEmpty(orgId)) {
             mBs.post("工号不能为空,请重新登录")
             return
         }
-        manger.addDriver(orgId, driverName, mobile, object : Callback<AddDriverEntity> {
+        manger.addDriver(orgId, driverName, mobile,card, object : Callback<AddDriverEntity> {
             override fun onResponse(call: Call<AddDriverEntity>, response: Response<AddDriverEntity>) {
                 if (response.body() != null) {
                     LogUtils.d("addDriver", response.body().toString())
@@ -130,6 +130,26 @@ class MyPresenter(private val mBs: Bus, private val manger: MyManger) {
                 mBs.post(data)
                 t.printStackTrace()
             }
+        })
+    }
+
+    fun editdriver(cuuid:String,driverName:String,cidentity:String){
+        manger.editdriver(cuuid,driverName,cidentity,object :Callback<EditDriverEntity>{
+            override fun onFailure(call: Call<EditDriverEntity>, t: Throwable) {
+                val data = CommEntity()
+                data.rspCode = "1000"
+                data.rspDesc = "网络连接失败"
+                mBs.post(data)
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<EditDriverEntity>, response: Response<EditDriverEntity>) {
+                if (response.body() != null) {
+                    LogUtils.d("editdriver", response.body().toString())
+                    mBs.post(response.body())
+                }
+            }
+
         })
     }
 

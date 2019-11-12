@@ -10,6 +10,7 @@ import com.it.rxapp_manager_android.module.act.CompileCarActivity;
 import com.it.rxapp_manager_android.module.act.CreateDriverActivity;
 import com.it.rxapp_manager_android.module.act.CreateValuationActivity;
 import com.it.rxapp_manager_android.module.act.DriversActivity;
+import com.it.rxapp_manager_android.module.act.EditDriverActivity;
 import com.it.rxapp_manager_android.module.act.ListBasicAuthCityActivity;
 import com.it.rxapp_manager_android.module.act.ListEnableDriverActivity;
 import com.it.rxapp_manager_android.module.act.LoginActivity;
@@ -72,4 +73,6 @@ public interface AppComponent {
     void inject(ColorsActivity activity);
 
     void inject(CompileCarActivity activity);
+
+    void inject(EditDriverActivity activity);
 }

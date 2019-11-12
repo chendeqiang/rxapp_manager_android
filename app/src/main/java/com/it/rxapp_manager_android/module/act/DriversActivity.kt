@@ -93,12 +93,12 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
                     if (TextUtil.isStartWithNumber(etDriver.text.toString())) {
                         adapter.clear()
                         progress.show()
-                        pageIndex=0
-                        pageCount=20
+                        pageIndex = 0
+                        pageCount = 20
                         presenter.listDriver(userNo, pageIndex, pageCount, "", etDriver.text.toString())
                     } else {
-                        pageIndex=0
-                        pageCount=20
+                        pageIndex = 0
+                        pageCount = 20
                         adapter.clear()
                         progress.show()
                         presenter.listDriver(userNo, pageIndex, pageCount, etDriver.text.toString(), "")
@@ -207,5 +207,17 @@ class DriversActivity : BaseActivity(), AbsListView.OnScrollListener, DriverAdap
             presenter.disableDriver(driver.no)
         }
         dialog.show()
+    }
+
+    override fun onWriteClick(i: Int) {
+        var driver = lvDrivers.getItemAtPosition(i) as ListDriverEntity.DriversBean
+        //跳转至编辑司机界面
+        //1.如果司机有身份证信息，直接携带身份证信息跳转至编辑页面
+        if (driver.cidentity.isNullOrEmpty()) {
+            EditDriverActivity.startEditDriverActivity(this, driver.cname, driver.cphone, "", driver.no)
+        } else {
+            EditDriverActivity.startEditDriverActivity(this, driver.cname, driver.cphone, driver.cidentity, driver.no)
+        }
+
     }
 }

@@ -41,6 +41,7 @@ public class ListDriverEntity {
         public String cloginid;
         public String cname;
         public String cphone;
+        public String cidentity;
         public int cstate;
         public String no;
         public String orgId;
@@ -51,6 +52,7 @@ public class ListDriverEntity {
                     "cloginid='" + cloginid + '\'' +
                     ", cname='" + cname + '\'' +
                     ", cphone='" + cphone + '\'' +
+                    ", cidentity='" + cidentity + '\'' +
                     ", cstate=" + cstate +
                     ", no='" + no + '\'' +
                     ", orgId='" + orgId + '\'' +

@@ -98,6 +98,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+
+        <activity
+            android:name=".module.act.EditDriverActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".module.act.AddCarActivity"
             android:screenOrientation="portrait"

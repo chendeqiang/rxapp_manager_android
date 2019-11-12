@@ -25,7 +25,6 @@
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_margin"
-            android:maxLines="1"
             android:background="@drawable/btn_gray_box"
             android:padding="8dp"/>
 
@@ -170,6 +169,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/default_margin40"
         android:background="@drawable/btn_gold_round"
-        android:text="保存"/>
+        android:text="提交"/>
 
 </LinearLayout>

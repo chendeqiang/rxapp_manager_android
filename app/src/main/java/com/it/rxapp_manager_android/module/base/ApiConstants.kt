@@ -8,8 +8,8 @@ object ApiConstants {
     const val sign = "Rx-Sign"
     const val token = "Rx-Token"
     const val version = "Rx-Vern"
-    const val ip = "http://101.37.202.182:8018/"//测试库
-//    const val ip = "https://wycapi.mxingo.com:443/"//生产库
+//    const val ip = "http://101.37.202.182:8018/"//测试库
+    const val ip = "https://wycapi.mxingo.com:443/"//生产库
 
     const val login = "usr/fleet/login"//登录
     const val changepassword = "usr/fleet/changepassword"//密码修改
@@ -17,6 +17,8 @@ object ApiConstants {
     const val adddriver = "usr/fleet/adddriver"//新增司机
     const val enabledriver = "usr/fleet/enabledriver"//启用司机
     const val disabledriver = "usr/fleet/disabledriver"//禁用司机
+    const val editdriver = "usr/fleet/editdriver"//编辑司机
+
     const val listcar = "usr/fleet/listcar"//车辆列表
     const val addcar = "usr/fleet/addcar"//新增车辆
     const val editcar = "usr/fleet/editcar"//新增车辆

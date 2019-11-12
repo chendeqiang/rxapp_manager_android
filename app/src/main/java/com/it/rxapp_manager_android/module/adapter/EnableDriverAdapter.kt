@@ -11,6 +11,7 @@ import com.it.rxapp_manager_android.R
 import com.it.rxapp_manager_android.modle.ListDriverEntity
 import com.it.rxapp_manager_android.modle.ListDriversEntity
 import com.it.rxapp_manager_android.module.base.DriverStatus
+import com.it.rxapp_manager_android.utils.TextUtil
 
 /**
  * Created by deqiangchen on 2018/9/29 15:06
@@ -54,10 +55,17 @@ class EnableDriverAdapter() : BaseAdapter() {
             holder = v.tag as ViewHolder
         }
         var driver = datas[position]
-        holder.tvDriverName.text = driver.driverName
-        holder.tvCar.text = driver.carBrand
-        holder.tvCarNo.text = driver.carNo
-        holder.tvCarType.text = driver.carName
+        holder.tvDriverName.text = "姓名："+driver.driverName
+        holder.tvCar.text = "车型："+driver.carBrand
+        holder.tvCarNo.text ="车牌："+ driver.carNo+"("+driver.carName+")"
+//        holder.tvCarType.text = driver.carName
+
+        if (!TextUtil.isEmpty(driver.cidentity)){
+            holder.tvDriverCard.text ="证件："+driver.cidentity.subSequence(0,3)+"---"+driver.cidentity.substring(14)
+        }else{
+            holder.tvDriverCard.text ="证件：---"
+        }
+
 
         return v
     }
@@ -67,14 +75,16 @@ class EnableDriverAdapter() : BaseAdapter() {
         var tvDriverName: TextView
         var tvCar: TextView
         var tvCarNo: TextView
-        var tvCarType: TextView
+//        var tvCarType: TextView
+        var tvDriverCard:TextView
 
 
         constructor(view: View) {
             tvDriverName = view.findViewById(R.id.tv_driver_name)
             tvCar = view.findViewById(R.id.tv_car)
             tvCarNo = view.findViewById(R.id.tv_car_no)
-            tvCarType = view.findViewById(R.id.tv_car_typee)
+//            tvCarType = view.findViewById(R.id.tv_car_typee)
+            tvDriverCard =view.findViewById(R.id.tv_driver_card)
 
         }
 
